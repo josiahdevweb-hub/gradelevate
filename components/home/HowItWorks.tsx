@@ -3,7 +3,7 @@ import styles from "./HowItWorks.module.css";
 const steps = [
   {
     icon: (
-      <svg width="34" height="34" fill="none" viewBox="0 0 34 34">
+      <svg width="17" height="17" fill="none" viewBox="0 0 34 34">
         <rect x="4" y="6" width="26" height="22" rx="2" stroke="#C9A227" strokeWidth="1.5"/>
         <path d="M4 12h26" stroke="#C9A227" strokeWidth="1.5"/>
         <path d="M11 4v4M23 4v4" stroke="#C9A227" strokeWidth="1.5" strokeLinecap="round"/>
@@ -15,7 +15,7 @@ const steps = [
   },
   {
     icon: (
-      <svg width="34" height="34" fill="none" viewBox="0 0 34 34">
+      <svg width="17" height="17" fill="none" viewBox="0 0 34 34">
         <rect x="7" y="3" width="20" height="28" rx="2" stroke="#C9A227" strokeWidth="1.5"/>
         <path d="M12 11h10M12 16h10M12 21h6" stroke="#C9A227" strokeWidth="1.5" strokeLinecap="round"/>
       </svg>
@@ -25,7 +25,7 @@ const steps = [
   },
   {
     icon: (
-      <svg width="34" height="34" fill="none" viewBox="0 0 34 34">
+      <svg width="17" height="17" fill="none" viewBox="0 0 34 34">
         <path d="M4 27h26" stroke="#C9A227" strokeWidth="1.5" strokeLinecap="round"/>
         <path d="M8 27V18" stroke="#C9A227" strokeWidth="2" strokeLinecap="round"/>
         <path d="M14 27V14" stroke="#C9A227" strokeWidth="2" strokeLinecap="round"/>

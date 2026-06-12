@@ -1,5 +1,6 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Navbar from "@/components/home/Navbar";
 import Footer from "@/components/home/Footer";
 import PageHero from "@/components/ui/PageHero";
@@ -17,10 +18,26 @@ const services = [
 ];
 
 export default function Book() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "", email: "", phone: "", service: "", stage: "", message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [context, setContext] = useState<{ type: "service" | "event"; label: string } | null>(null);
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    const { service, event } = router.query;
+    if (event && typeof event === "string") {
+      setContext({ type: "event", label: event });
+    } else if (service && typeof service === "string") {
+      const matched = services.find((s) => s === service) ?? "";
+      if (matched) {
+        setContext({ type: "service", label: matched });
+        setFormData((f) => ({ ...f, service: matched }));
+      }
+    }
+  }, [router.isReady]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -101,7 +118,24 @@ export default function Book() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className={styles.form}>
-                  <h3 className={styles.formTitle}>Consultation Request</h3>
+                  {context && (
+                    <div className={styles.bookingBanner}>
+                      <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
+                        <rect x="2" y="3" width="16" height="14" rx="1.5" stroke="#C9A227" strokeWidth="1.4"/>
+                        <path d="M2 7h16" stroke="#C9A227" strokeWidth="1.4"/>
+                        <path d="M6 2v2M14 2v2" stroke="#C9A227" strokeWidth="1.4" strokeLinecap="round"/>
+                      </svg>
+                      <div>
+                        <p className={styles.bannerLabel}>
+                          {context.type === "event" ? "Registering for Event" : "Selected Service"}
+                        </p>
+                        <p className={styles.bannerValue}>{context.label}</p>
+                      </div>
+                    </div>
+                  )}
+                  <h3 className={styles.formTitle}>
+                    {context?.type === "event" ? "Event Registration Request" : "Consultation Request"}
+                  </h3>
 
                   <div className={styles.formRow}>
                     <div className={styles.field}>

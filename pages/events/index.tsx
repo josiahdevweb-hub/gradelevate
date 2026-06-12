@@ -194,7 +194,7 @@ export default function Events() {
                           <span className={styles.price}>{event.price}</span>
                           <span className={styles.spots}>{event.spots} spots left</span>
                         </div>
-                        <Link href={`/events/${event.id}`} className={styles.cardBtn}>
+                        <Link href={{ pathname: "/book", query: { event: event.title } }} className={styles.cardBtn}>
                           Book Now
                         </Link>
                       </div>

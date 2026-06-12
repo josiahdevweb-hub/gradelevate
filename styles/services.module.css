@@ -1,86 +1,140 @@
-.serviceSection {
-  padding: 96px 0;
-  background: #ffffff;
-}
-
-.serviceSection:nth-child(odd) {
+/* ── Services index — 2-column card grid ── */
+.cardsSection {
   background: var(--light-grey, #F7F7F7);
+  padding: 48px 0 64px;
 }
 
-.serviceGrid {
+.grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
-.reverse .serviceContent { order: 2; }
-.reverse .serviceImage   { order: 1; }
-
-.serviceContent {
+.card {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+  color: inherit;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  cursor: pointer;
 }
 
-.serviceTitle {
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.11);
+  border-color: rgba(201, 162, 39, 0.35);
+}
+
+/* image top */
+.cardImage {
+  position: relative;
+  height: 150px;
+  overflow: hidden;
+}
+
+.cardImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card:hover .cardImage img {
+  transform: scale(1.06);
+}
+
+.cardOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8,27,51,0.1) 0%, rgba(8,27,51,0.5) 100%);
+}
+
+.cardNum {
+  position: absolute;
+  top: 10px;
+  right: 14px;
   font-family: 'Playfair Display', serif;
-  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.22);
+  line-height: 1;
+  user-select: none;
+}
+
+/* body */
+.cardBody {
+  padding: 20px 22px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.cardIcon {
+  display: flex;
+  width: 44px;
+  height: 44px;
+  background: rgba(201, 162, 39, 0.08);
+  border: 1px solid rgba(201, 162, 39, 0.2);
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cardTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
   font-weight: 700;
   color: #0f2744;
   line-height: 1.2;
 }
 
-.serviceDesc {
+.cardDesc {
   font-family: 'Inter', sans-serif;
-  font-size: 0.9375rem;
+  font-size: 0.8375rem;
   color: #4a5568;
-  line-height: 1.75;
+  line-height: 1.65;
 }
 
-.featureList {
+.featurePills {
   list-style: none;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 4px;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
-.featureItem {
+.pill {
   font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
-  color: #2d3748;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #0f2744;
+  background: rgba(201, 162, 39, 0.08);
+  border: 1px solid rgba(201, 162, 39, 0.25);
+  padding: 3px 10px;
+}
+
+.cardCta {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #C9A227;
+  letter-spacing: 0.02em;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  transition: gap 0.2s ease;
 }
 
-.featureItem svg {
-  flex-shrink: 0;
-}
+.card:hover .cardCta { gap: 12px; }
 
-.serviceActions {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-top: 8px;
-}
-
-.serviceImage img {
-  width: 100%;
-  height: 420px;
-  object-fit: cover;
-  display: block;
-}
-
-@media (max-width: 900px) {
-  .serviceGrid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .reverse .serviceContent { order: unset; }
-  .reverse .serviceImage   { order: unset; }
-
-  .serviceImage img { height: 280px; }
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; }
+  .cardImage { height: 160px; }
 }

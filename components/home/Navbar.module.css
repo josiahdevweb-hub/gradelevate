@@ -59,8 +59,7 @@
   align-items: center;
   gap: 4px;
   list-style: none;
-  flex: 1;
-  justify-content: center;
+  margin: 0 auto;
 }
 
 .navLink {
@@ -127,23 +126,10 @@
   background: rgba(201, 162, 39, 0.06);
 }
 
-.actions {
+.ctaItem {
+  margin-left: 16px;
   display: flex;
   align-items: center;
-  gap: 16px;
-  flex-shrink: 0;
-}
-
-.contactLink {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.8);
-  transition: color 0.2s;
-}
-
-.contactLink:hover {
-  color: #fff;
 }
 
 .hamburger {

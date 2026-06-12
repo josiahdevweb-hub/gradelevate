@@ -54,11 +54,6 @@ const testimonials = [
     label: "Recent Graduate",
     stars: 5,
   },
-  {
-    text: "The academic writing support completely changed my approach to research.",
-    label: "PhD Student",
-    stars: 5,
-  },
 ];
 
 export default function Founder() {

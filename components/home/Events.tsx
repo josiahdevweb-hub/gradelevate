@@ -154,7 +154,7 @@ export default function Events() {
                   <span className={styles.time}>{e.time}</span>
                 </div>
                 <Link
-                  href="/events"
+                  href={{ pathname: "/book", query: { event: e.title } }}
                   className={e.ctaStyle === "primary" ? "btn-primary" : styles.cardCta}
                 >
                   {e.cta}

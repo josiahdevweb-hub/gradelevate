@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import styles from "./Navbar.module.css";
 
@@ -24,6 +24,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -50,15 +51,20 @@ export default function Navbar() {
               <li
                 key={link.label}
                 className={styles.dropdown}
-                onMouseEnter={() => setServicesOpen(true)}
-                onMouseLeave={() => setServicesOpen(false)}
+                onMouseEnter={() => {
+                  if (closeTimer.current) clearTimeout(closeTimer.current);
+                  setServicesOpen(true);
+                }}
+                onMouseLeave={() => {
+                  closeTimer.current = setTimeout(() => setServicesOpen(false), 250);
+                }}
               >
-                <span className={styles.navLink}>
+                <Link href={link.href} className={styles.navLink}>
                   {link.label}
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                     <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                </span>
+                </Link>
                 {servicesOpen && (
                   <div className={styles.dropdownMenu}>
                     {link.dropdown.map((item) => (
@@ -77,17 +83,17 @@ export default function Navbar() {
               </li>
             )
           )}
+          <li className={styles.ctaItem}>
+            <Link href="/book" className="btn-primary">
+              Book a Consultation
+            </Link>
+          </li>
+          <li>
+            <Link href="/contact" className={styles.navLink}>
+              Contact
+            </Link>
+          </li>
         </ul>
-
-        {/* CTA + Contact */}
-        <div className={styles.actions}>
-          <Link href="/book" className="btn-primary">
-            Book a Consultation
-          </Link>
-          <Link href="/contact" className={styles.contactLink}>
-            Contact
-          </Link>
-        </div>
 
         {/* Mobile hamburger */}
         <button className={styles.hamburger} onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">
