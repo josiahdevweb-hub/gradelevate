@@ -1,0 +1,139 @@
+.hero {
+  position: relative;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.bgWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(1, 14, 31, 0.95) 0%,
+    rgba(1, 21, 46, 0.85) 30%,
+    rgba(4, 24, 49, 0.45) 55%,
+    rgba(6, 27, 53, 0.08) 75%,
+    rgba(8, 27, 51, 0.00) 100%
+  );
+  z-index: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 4.2vw, 3.25rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.12;
+  margin-bottom: 18px;
+  letter-spacing: -0.01em;
+}
+
+.accentLine {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.65;
+  margin-bottom: 32px;
+  max-width: 480px;
+}
+
+.ctas {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gold);
+  color: var(--navy-secondary);
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 14px 26px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ctaPrimary:hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+}
+
+.ctaOutline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 13px 26px;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ctaOutline:hover {
+  border-color: var(--white);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.70);
+}
+
+.badge svg {
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    height: auto;
+    min-height: 100svh;
+    padding: 120px 0 80px;
+  }
+
+  .headline {
+    font-size: 2.1rem;
+  }
+}

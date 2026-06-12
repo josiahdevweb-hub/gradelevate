@@ -1,0 +1,124 @@
+.footer {
+  background: var(--navy-secondary);
+  border-top: 1px solid rgba(201, 162, 39, 0.15);
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-top: 72px;
+  padding-bottom: 56px;
+}
+
+.col { display: flex; flex-direction: column; gap: 20px; }
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5rem;
+}
+
+.logoName {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.logoTagline {
+  display: block;
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  margin-top: 2px;
+}
+
+.brandDesc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.7;
+}
+
+.socials {
+  display: flex;
+  gap: 12px;
+}
+
+.social {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(201,162,39,0.2);
+  color: rgba(255,255,255,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.social:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.colTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.link {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.55);
+  transition: color 0.2s;
+}
+
+.link:hover { color: rgba(255,255,255,0.9); }
+
+.contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contactItem {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.55);
+  transition: color 0.2s;
+}
+
+a.contactItem:hover { color: var(--gold); }
+
+.bottom {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 20px 0;
+}
+
+.copy {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  color: rgba(255,255,255,0.3);
+}
+
+@media (max-width: 1024px) {
+  .inner { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  .inner { grid-template-columns: 1fr; }
+}
