@@ -1,0 +1,252 @@
+/* ── Mission ── */
+.missionSection {
+  background: #ffffff;
+  padding: 96px 0;
+}
+
+.missionGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+}
+
+.missionContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sectionTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 700;
+  color: #0f2744;
+  line-height: 1.2;
+}
+
+.sectionTitleWhite {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.bodyText {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  color: #4a5568;
+  line-height: 1.75;
+}
+
+.missionStats {
+  display: flex;
+  gap: 32px;
+  margin-top: 8px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(0,0,0,0.07);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.statNum {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #C9A227;
+}
+
+.statLabel {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  color: #718096;
+  font-weight: 500;
+}
+
+.missionImage {
+  position: relative;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.missionImage img {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+}
+
+.imageBadge {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(8, 27, 51, 0.92);
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.badgeIcon { font-size: 1.25rem; }
+
+.badgeName {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.badgeSub {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.45rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #C9A227;
+  margin-top: 2px;
+}
+
+/* ── Founder ── */
+.founderSection {
+  background: var(--light-grey, #F7F7F7);
+  padding: 96px 0;
+}
+
+.founderGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 72px;
+  align-items: start;
+}
+
+.founderImage img {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  object-position: top;
+}
+
+.founderContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.credentialList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 8px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.credentialItem {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.credDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #C9A227;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+.credTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0f2744;
+}
+
+.credDetail {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  color: #718096;
+  margin-top: 2px;
+}
+
+/* ── Values ── */
+.valuesSection {
+  background: var(--navy-secondary, #081B33) !important;
+}
+
+.valuesHeader {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.valueCard {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(201, 162, 39, 0.15);
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.valueCard:hover {
+  border-color: rgba(201, 162, 39, 0.4);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.valueIcon {
+  display: flex;
+}
+
+.valueTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.valueDesc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.65;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .valuesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .missionGrid,
+  .founderGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .missionImage img,
+  .founderImage img {
+    height: 300px;
+  }
+
+  .missionStats {
+    gap: 20px;
+  }
+
+  .valuesGrid {
+    grid-template-columns: 1fr;
+  }
+}

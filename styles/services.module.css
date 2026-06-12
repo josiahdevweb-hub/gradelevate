@@ -1,0 +1,86 @@
+.serviceSection {
+  padding: 96px 0;
+  background: #ffffff;
+}
+
+.serviceSection:nth-child(odd) {
+  background: var(--light-grey, #F7F7F7);
+}
+
+.serviceGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.reverse .serviceContent { order: 2; }
+.reverse .serviceImage   { order: 1; }
+
+.serviceContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.serviceTitle {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 700;
+  color: #0f2744;
+  line-height: 1.2;
+}
+
+.serviceDesc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  color: #4a5568;
+  line-height: 1.75;
+}
+
+.featureList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.featureItem {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: #2d3748;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.featureItem svg {
+  flex-shrink: 0;
+}
+
+.serviceActions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.serviceImage img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .serviceGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .reverse .serviceContent { order: unset; }
+  .reverse .serviceImage   { order: unset; }
+
+  .serviceImage img { height: 280px; }
+}
