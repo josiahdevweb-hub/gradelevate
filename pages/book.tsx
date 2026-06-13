@@ -56,6 +56,7 @@ export default function Book() {
 
       <main>
         <PageHero
+          variant="dark"
           eyebrow="Get Started"
           title="Book Your Free Consultation"
           subtitle="Tell us about your goals and challenges. We'll match you with the right expert and design a personalised support plan."
