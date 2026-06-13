@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import styles from "./Events.module.css";
 
@@ -92,9 +93,43 @@ const priceIcon = (
 );
 
 export default function Events() {
+  const [index, setIndex] = useState(0);
+  const [perView, setPerView] = useState(3);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const total = events.length;
+  const maxIndex = Math.max(0, total - perView);
+
+  useEffect(() => {
+    const update = () => {
+      if (window.innerWidth < 640) setPerView(1);
+      else if (window.innerWidth < 1024) setPerView(2);
+      else setPerView(3);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  const goTo = useCallback((i: number) => {
+    const clamped = Math.max(0, Math.min(i, maxIndex));
+    setIndex(clamped);
+    if (trackRef.current) {
+      const card = trackRef.current.children[clamped] as HTMLElement;
+      if (card) {
+        trackRef.current.style.transform = `translateX(-${card.offsetLeft}px)`;
+      }
+    }
+  }, [maxIndex]);
+
+  // Clamp index when perView changes (e.g. on resize)
+  useEffect(() => {
+    if (index > maxIndex) goTo(maxIndex);
+  }, [maxIndex, index, goTo]);
+
   return (
     <section className={`section ${styles.events}`}>
       <div className="container">
+        {/* Header */}
         <div className={styles.header}>
           <div className={styles.headerLeft}>
             <p className="section-eyebrow">Upcoming Events</p>
@@ -104,63 +139,86 @@ export default function Events() {
               designed to help you succeed academically and professionally.
             </p>
           </div>
-          <Link href="/events" className="btn-gold-outline">
-            View All Events →
-          </Link>
+          <div className={styles.headerRight}>
+            <Link href="/events" className="btn-gold-outline">
+              View All Events →
+            </Link>
+            <div className={styles.arrows}>
+              <button
+                className={styles.arrowBtn}
+                onClick={() => goTo(index - 1)}
+                disabled={index === 0}
+                aria-label="Previous"
+              >
+                <svg width="18" height="18" fill="none" viewBox="0 0 18 18">
+                  <path d="M11 4L6 9l5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+              <button
+                className={styles.arrowBtn}
+                onClick={() => goTo(index + 1)}
+                disabled={index >= maxIndex}
+                aria-label="Next"
+              >
+                <svg width="18" height="18" fill="none" viewBox="0 0 18 18">
+                  <path d="M7 4l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
 
-        {/* Value props bar */}
-        <div className={styles.props}>
-          {[
-            { label: "Expert facilitators", sub: "Learn from academic leaders and professionals" },
-            { label: "Practical & actionable", sub: "Gain real skills you can apply immediately" },
-            { label: "Flexible options", sub: "Choose from online, in-person or hybrid events" },
-            { label: "Small class sizes", sub: "Interactive sessions with personal attention" },
-          ].map((p, i) => (
-            <div key={i} className={styles.prop}>
-              <span className={styles.propLabel}>{p.label}</span>
-              <span className={styles.propSub}>{p.sub}</span>
-            </div>
-          ))}
+        {/* Carousel */}
+        <div className={styles.carouselViewport}>
+          <div className={styles.carouselTrack} ref={trackRef}>
+            {events.map((e, i) => (
+              <div key={i} className={styles.card}>
+                <div className={styles.imgWrap}>
+                  <img src={e.img} alt={e.title} className={styles.img} loading="lazy" />
+                  <span className={styles.formatBadge}>{e.format}</span>
+                </div>
+                <div className={styles.cardBody}>
+                  <h3 className={styles.cardTitle}>{e.title}</h3>
+                  <div className={styles.meta}>
+                    <span className={styles.metaItem}>
+                      {formatIcon} {e.format}
+                    </span>
+                    <span className={styles.metaItem}>
+                      {calIcon} {e.duration}
+                    </span>
+                    <span className={`${styles.metaItem} ${styles.price}`}>
+                      {priceIcon} {e.price}
+                    </span>
+                  </div>
+                  <div className={styles.dateRow}>
+                    <svg width="13" height="13" fill="none" viewBox="0 0 13 13">
+                      <rect x="1.5" y="2.5" width="10" height="9" rx="1" stroke="#C9A227" strokeWidth="1.2"/>
+                      <path d="M1.5 6h10M4.5 1v3M8.5 1v3" stroke="#C9A227" strokeWidth="1.2" strokeLinecap="round"/>
+                    </svg>
+                    <span>{e.date}</span>
+                    <span className={styles.time}>{e.time}</span>
+                  </div>
+                  <Link
+                    href={{ pathname: "/book", query: { event: e.title } }}
+                    className={e.ctaStyle === "primary" ? "btn-primary" : styles.cardCta}
+                  >
+                    {e.cta}
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Event cards grid */}
-        <div className={styles.grid}>
-          {events.map((e, i) => (
-            <div key={i} className={styles.card}>
-              <div className={styles.imgWrap}>
-                <img src={e.img} alt={e.title} className={styles.img} loading="lazy" />
-                <span className={styles.formatBadge}>{e.format}</span>
-              </div>
-              <div className={styles.cardBody}>
-                <h3 className={styles.cardTitle}>{e.title}</h3>
-                <div className={styles.meta}>
-                  <span className={styles.metaItem}>
-                    {formatIcon} {e.format}
-                  </span>
-                  <span className={styles.metaItem}>
-                    {calIcon} {e.duration}
-                  </span>
-                  <span className={`${styles.metaItem} ${styles.price}`}>
-                    {priceIcon} {e.price}
-                  </span>
-                </div>
-                <div className={styles.dateRow}>
-                  <svg width="13" height="13" fill="none" viewBox="0 0 13 13">
-                    <rect x="1.5" y="2.5" width="10" height="9" rx="1" stroke="#C9A227" strokeWidth="1.2"/>
-                    <path d="M1.5 6h10M4.5 1v3M8.5 1v3" stroke="#C9A227" strokeWidth="1.2" strokeLinecap="round"/>
-                  </svg>
-                  <span>{e.date}</span>
-                  <span className={styles.time}>{e.time}</span>
-                </div>
-                <Link
-                  href={{ pathname: "/book", query: { event: e.title } }}
-                  className={e.ctaStyle === "primary" ? "btn-primary" : styles.cardCta}
-                >
-                  {e.cta}
-                </Link>
-              </div>
-            </div>
+        {/* Dots */}
+        <div className={styles.dots}>
+          {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+            <button
+              key={i}
+              className={`${styles.dot} ${i === index ? styles.dotActive : ""}`}
+              onClick={() => goTo(i)}
+              aria-label={`Go to slide ${i + 1}`}
+            />
           ))}
         </div>
       </div>
