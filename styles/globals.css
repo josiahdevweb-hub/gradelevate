@@ -73,7 +73,7 @@ img {
 
 /* Section spacing */
 .section {
-  padding: 96px 0;
+  padding: 48px 0;
 }
 
 .section-dark {
@@ -158,6 +158,6 @@ img {
 
 @media (max-width: 768px) {
   .section {
-    padding: 64px 0;
+    padding: 32px 0;
   }
 }
