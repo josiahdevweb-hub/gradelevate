@@ -23,7 +23,7 @@
   border-top: 3px solid #C9A227;
   box-shadow: 0 28px 64px rgba(4, 10, 24, 0.32);
   animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  padding: 36px 36px 28px;
+  overflow: hidden;
 }
 
 @keyframes slideUp {
@@ -31,6 +31,33 @@
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+/* ── Image ─────────────────────────────────────────── */
+.imgWrap {
+  position: relative;
+  width: 100%;
+  height: 210px;
+  overflow: hidden;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.imgOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(4,10,24,0.15) 0%, rgba(4,10,24,0.02) 100%);
+}
+
+/* ── Content area ──────────────────────────────────── */
+.content {
+  padding: 28px 36px 28px;
+}
+
+/* ── Close button ──────────────────────────────────── */
 .close {
   position: absolute;
   top: 12px;
@@ -46,11 +73,23 @@
   justify-content: center;
   border-radius: 50%;
   transition: background 0.15s, color 0.15s;
+  z-index: 2;
 }
 
 .close:hover {
   background: #f0f3f8;
   color: #0F2744;
+}
+
+.closeOnImage {
+  background: rgba(4, 10, 24, 0.55);
+  color: #fff;
+  backdrop-filter: blur(4px);
+}
+
+.closeOnImage:hover {
+  background: rgba(4, 10, 24, 0.80);
+  color: #fff;
 }
 
 .eyebrow {
@@ -121,7 +160,11 @@
 }
 
 @media (max-width: 520px) {
-  .popup {
-    padding: 32px 24px 24px;
+  .content {
+    padding: 24px 24px 24px;
+  }
+
+  .imgWrap {
+    height: 180px;
   }
 }

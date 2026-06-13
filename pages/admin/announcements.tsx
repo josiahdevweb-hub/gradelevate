@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
+import ImageUpload from "@/components/admin/ImageUpload";
 import styles from "@/styles/admin.module.css";
 
 interface Announcement {
@@ -8,6 +9,7 @@ interface Announcement {
   body: string;
   ctaText: string;
   ctaLink: string;
+  image: string;
   updatedAt: string;
 }
 
@@ -17,6 +19,7 @@ const EMPTY: Announcement = {
   body: "",
   ctaText: "",
   ctaLink: "",
+  image: "",
   updatedAt: "",
 };
 
@@ -127,6 +130,18 @@ export default function AnnouncementsAdmin() {
 
         <div className={styles.formDivider} />
 
+        <div className={styles.formGroup}>
+          <label className={styles.formLabel}>
+            Image <span className={styles.optionalLabel}>(optional)</span>
+          </label>
+          <ImageUpload
+            value={data.image}
+            onChange={(url) => setData((d) => ({ ...d, image: url }))}
+          />
+        </div>
+
+        <div className={styles.formDivider} />
+
         <div className={styles.formActions}>
           <button
             className={styles.btnPrimary}
@@ -147,7 +162,14 @@ export default function AnnouncementsAdmin() {
       <div className={styles.previewCard}>
         <p className={styles.previewLabel}>Preview</p>
         <div className={styles.previewPopup}>
-          <div className={styles.previewAccent} />
+          {data.image && (
+            <img
+              src={data.image}
+              alt=""
+              style={{ width: "100%", height: 120, objectFit: "cover", display: "block" }}
+            />
+          )}
+          <div style={{ padding: "16px 16px 12px" }}>
           <p className={styles.previewEyebrow}>Update</p>
           <p className={styles.previewTitle}>{data.title || "Your popup title will appear here"}</p>
           <p className={styles.previewBody}>
@@ -157,6 +179,7 @@ export default function AnnouncementsAdmin() {
             <div className={styles.previewCta}>{data.ctaText} →</div>
           )}
           <p className={styles.previewDismiss}>Dismiss</p>
+          </div>
         </div>
       </div>
     </AdminLayout>
