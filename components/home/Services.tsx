@@ -120,7 +120,7 @@ export default function Services() {
           ))}
         </div>
 
-        <div className={styles.quote}>
+        {/* <div className={styles.quote}>
           <svg className={styles.quoteIcon} width="32" height="24" viewBox="0 0 32 24" fill="none">
             <path d="M0 24v-8.8C0 6.4 5.067 1.6 15.2 0l1.6 3.2C12.267 4.533 9.333 7.733 8.533 12H14.4V24H0zm17.6 0v-8.8C17.6 6.4 22.667 1.6 32.8 0l1.6 3.2c-4.533 1.333-7.467 4.533-8.267 8.8H31.2V24H17.6z" fill="#C9A227" fillOpacity="0.2"/>
           </svg>
@@ -129,7 +129,7 @@ export default function Services() {
             They didn&apos;t panic — they planned. I submitted on time and I actually felt proud of what I handed in.&rdquo;
           </p>
           <p className={styles.quoteAuthor}>— Amara K., MSc Education, University of Birmingham</p>
-        </div>
+        </div> */}
       </div>
     </section>
   );
