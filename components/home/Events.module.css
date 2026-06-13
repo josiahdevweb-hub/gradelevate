@@ -179,6 +179,11 @@
   border-radius: 4px;
 }
 
+.card :global(.btn-primary):hover {
+  background: #081B33;
+  transform: none;
+}
+
 .cardTitle {
   font-family: 'Playfair Display', serif;
   font-size: 1rem;
@@ -225,17 +230,19 @@
   font-size: 0.8125rem;
   font-weight: 700;
   color: #0F2744;
+  background: #C9A227;
   padding: 11px 20px;
-  border: 1.5px solid #0F2744;
+  border: 1.5px solid #C9A227;
   border-radius: 4px;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-top: auto;
 }
 
 .cardCta:hover {
-  background: #0F2744;
+  background: #081B33;
+  border-color: #081B33;
   color: #ffffff;
 }
 
