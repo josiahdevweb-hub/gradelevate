@@ -31,7 +31,7 @@ export default function AnnouncementsAdmin() {
   useEffect(() => {
     fetch("/api/announcements")
       .then((r) => r.json())
-      .then(setData);
+      .then((d) => setData({ ...EMPTY, ...d }));
   }, []);
 
   const save = async () => {
@@ -135,7 +135,7 @@ export default function AnnouncementsAdmin() {
             Image <span className={styles.optionalLabel}>(optional)</span>
           </label>
           <ImageUpload
-            value={data.image}
+            value={data.image ?? ""}
             onChange={(url) => setData((d) => ({ ...d, image: url }))}
           />
         </div>
