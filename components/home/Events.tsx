@@ -92,10 +92,14 @@ const priceIcon = (
   </svg>
 );
 
+const AUTOPLAY_INTERVAL = 4000;
+
 export default function Events() {
   const [index, setIndex] = useState(0);
   const [perView, setPerView] = useState(3);
+  const [paused, setPaused] = useState(false);
   const trackRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const total = events.length;
   const maxIndex = Math.max(0, total - perView);
 
@@ -111,15 +115,28 @@ export default function Events() {
   }, []);
 
   const goTo = useCallback((i: number) => {
-    const clamped = Math.max(0, Math.min(i, maxIndex));
-    setIndex(clamped);
+    const next = maxIndex === 0 ? 0 : ((i % (maxIndex + 1)) + (maxIndex + 1)) % (maxIndex + 1);
+    setIndex(next);
     if (trackRef.current) {
-      const card = trackRef.current.children[clamped] as HTMLElement;
+      const card = trackRef.current.children[next] as HTMLElement;
       if (card) {
         trackRef.current.style.transform = `translateX(-${card.offsetLeft}px)`;
       }
     }
   }, [maxIndex]);
+
+  // Auto-play: advance every AUTOPLAY_INTERVAL ms, wraps around
+  useEffect(() => {
+    if (paused) return;
+    timerRef.current = setTimeout(() => goTo(index + 1), AUTOPLAY_INTERVAL);
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+  }, [index, paused, goTo]);
+
+  // Manual navigation: reset timer by briefly pausing then resuming
+  const manualGoTo = (i: number) => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    goTo(i);
+  };
 
   // Clamp index when perView changes (e.g. on resize)
   useEffect(() => {
@@ -127,7 +144,11 @@ export default function Events() {
   }, [maxIndex, index, goTo]);
 
   return (
-    <section className={`section ${styles.events}`}>
+    <section
+      className={`section ${styles.events}`}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
       <div className="container">
         {/* Header */}
         <div className={styles.header}>
@@ -146,8 +167,7 @@ export default function Events() {
             <div className={styles.arrows}>
               <button
                 className={styles.arrowBtn}
-                onClick={() => goTo(index - 1)}
-                disabled={index === 0}
+                onClick={() => manualGoTo(index - 1)}
                 aria-label="Previous"
               >
                 <svg width="18" height="18" fill="none" viewBox="0 0 18 18">
@@ -156,8 +176,7 @@ export default function Events() {
               </button>
               <button
                 className={styles.arrowBtn}
-                onClick={() => goTo(index + 1)}
-                disabled={index >= maxIndex}
+                onClick={() => manualGoTo(index + 1)}
                 aria-label="Next"
               >
                 <svg width="18" height="18" fill="none" viewBox="0 0 18 18">
@@ -216,7 +235,7 @@ export default function Events() {
             <button
               key={i}
               className={`${styles.dot} ${i === index ? styles.dotActive : ""}`}
-              onClick={() => goTo(i)}
+              onClick={() => manualGoTo(i)}
               aria-label={`Go to slide ${i + 1}`}
             />
           ))}
