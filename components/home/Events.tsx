@@ -188,7 +188,18 @@ export default function Events() {
         </div>
 
         {/* Carousel */}
-        <div className={styles.carouselViewport}>
+        <div className={styles.carouselOuter}>
+          <button
+            className={`${styles.arrowBtn} ${styles.arrowSideLeft}`}
+            onClick={() => manualGoTo(index - 1)}
+            aria-label="Previous"
+          >
+            <svg width="18" height="18" fill="none" viewBox="0 0 18 18">
+              <path d="M11 4L6 9l5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+
+          <div className={styles.carouselViewport}>
           <div className={styles.carouselTrack} ref={trackRef}>
             {events.map((e, i) => (
               <div key={i} className={styles.card}>
@@ -227,6 +238,17 @@ export default function Events() {
               </div>
             ))}
           </div>
+          </div>
+
+          <button
+            className={`${styles.arrowBtn} ${styles.arrowSideRight}`}
+            onClick={() => manualGoTo(index + 1)}
+            aria-label="Next"
+          >
+            <svg width="18" height="18" fill="none" viewBox="0 0 18 18">
+              <path d="M7 4l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
         </div>
 
         {/* Dots */}

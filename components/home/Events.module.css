@@ -66,8 +66,18 @@
 }
 
 /* ── Carousel ────────────────────────────────────────── */
+.carouselOuter {
+  position: relative;
+}
+
 .carouselViewport {
   overflow: hidden;
+}
+
+/* Side arrows — mobile only */
+.arrowSideLeft,
+.arrowSideRight {
+  display: none;
 }
 
 .carouselTrack {
@@ -234,4 +244,27 @@
   .headerRight {
     flex-direction: row-reverse;
   }
+
+  /* Hide arrows from header on mobile */
+  .arrows {
+    display: none;
+  }
+
+  /* Show side arrows on mobile */
+  .arrowSideLeft,
+  .arrowSideRight {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(8, 27, 51, 0.78);
+    backdrop-filter: blur(6px);
+    border-color: rgba(201, 162, 39, 0.5);
+    width: 36px;
+    height: 36px;
+  }
+
+  .arrowSideLeft  { left: 8px; }
+  .arrowSideRight { right: 8px; }
 }
