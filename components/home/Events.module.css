@@ -1,12 +1,14 @@
 .events {
   background: var(--navy-secondary);
+  max-height: 800px;
+  overflow: hidden;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 32px;
+  margin-bottom: 25px;
   gap: 24px;
 }
 
