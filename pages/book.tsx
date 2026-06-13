@@ -23,6 +23,8 @@ export default function Book() {
     name: "", email: "", phone: "", service: "", stage: "", message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const [context, setContext] = useState<{ type: "service" | "event"; label: string } | null>(null);
 
   useEffect(() => {
@@ -41,12 +43,24 @@ export default function Book() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await fetch("/api/bookings", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-    setSubmitted(true);
+    setSubmitting(true);
+    setSubmitError("");
+    try {
+      const res = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || `Server error (${res.status})`);
+      }
+      setSubmitted(true);
+    } catch (err: any) {
+      setSubmitError(err.message || "Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -191,8 +205,13 @@ export default function Book() {
                       value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} />
                   </div>
 
-                  <button type="submit" className={styles.submitBtn}>
-                    Submit Consultation Request
+                  {submitError && (
+                    <p style={{ color: "#dc2626", fontSize: "0.85rem", marginBottom: 12 }}>
+                      {submitError}
+                    </p>
+                  )}
+                  <button type="submit" className={styles.submitBtn} disabled={submitting}>
+                    {submitting ? "Submitting…" : "Submit Consultation Request"}
                   </button>
                   <p className={styles.formNote}>
                     We'll respond within 24 hours. Your information is kept confidential.

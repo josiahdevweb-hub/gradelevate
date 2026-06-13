@@ -74,13 +74,22 @@ export default function AdminBookings() {
             <h1 className={styles.pageHeading}>Bookings</h1>
             <p className={styles.pageSubheading}>{bookings.length} total submissions</p>
           </div>
-          <button className={styles.btnExport} onClick={() => exportCSV(filtered)}>
-            <svg width="14" height="14" fill="none" viewBox="0 0 14 14">
-              <path d="M7 2v7M4 7l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M2 11h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-            Export to Excel (CSV)
-          </button>
+          <div style={{ display: "flex", gap: 8 }}>
+            <button className={styles.btnOutline} onClick={load} title="Refresh bookings">
+              <svg width="14" height="14" fill="none" viewBox="0 0 14 14">
+                <path d="M12 7A5 5 0 112 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                <path d="M12 3v4H8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Refresh
+            </button>
+            <button className={styles.btnExport} onClick={() => exportCSV(filtered)}>
+              <svg width="14" height="14" fill="none" viewBox="0 0 14 14">
+                <path d="M7 2v7M4 7l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M2 11h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+              Export CSV
+            </button>
+          </div>
         </div>
 
         <div className={styles.filterRow}>
