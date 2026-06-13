@@ -58,6 +58,17 @@ const navItems = [
       </svg>
     ),
   },
+  {
+    href: "/admin/announcements",
+    label: "Announcements",
+    icon: (
+      <svg width="16" height="16" fill="none" viewBox="0 0 16 16">
+        <path d="M2 5.5h12M2 8.5h8M2 11.5h5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+        <circle cx="13" cy="11" r="2.5" stroke="currentColor" strokeWidth="1.3"/>
+        <path d="M12.2 11l.6.6 1.2-1.2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+  },
 ];
 
 export default function AdminLayout({ children, title }: { children: React.ReactNode; title?: string }) {

@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import Head from "next/head";
 import Navbar from "@/components/home/Navbar";
 import Hero from "@/components/home/Hero";
@@ -7,11 +9,21 @@ import Events from "@/components/home/Events";
 import Differentiator from "@/components/home/Differentiator";
 import HowItWorks from "@/components/home/HowItWorks";
 import Founder from "@/components/home/Founder";
-import Testimonials from "@/components/home/Testimonials";
 import CtaBanner from "@/components/home/CtaBanner";
 import Footer from "@/components/home/Footer";
+import AnnouncementPopup from "@/components/home/AnnouncementPopup";
 
-export default function Home() {
+export async function getServerSideProps() {
+  try {
+    const file = path.join(process.cwd(), "data", "announcements.json");
+    const announcement = JSON.parse(fs.readFileSync(file, "utf-8"));
+    return { props: { announcement } };
+  } catch {
+    return { props: { announcement: null } };
+  }
+}
+
+export default function Home({ announcement }: { announcement: any }) {
   return (
     <>
       <Head>
@@ -24,6 +36,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <AnnouncementPopup announcement={announcement} />
       <Navbar />
       <main>
         <Hero />

@@ -1,0 +1,127 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 10, 24, 0.60);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.popup {
+  position: relative;
+  background: #ffffff;
+  max-width: 460px;
+  width: 100%;
+  border-top: 3px solid #C9A227;
+  box-shadow: 0 28px 64px rgba(4, 10, 24, 0.32);
+  animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 36px 36px 28px;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 30px;
+  height: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9aaab8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.15s, color 0.15s;
+}
+
+.close:hover {
+  background: #f0f3f8;
+  color: #0F2744;
+}
+
+.eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #C9A227;
+  margin-bottom: 10px;
+}
+
+.title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #0F2744;
+  line-height: 1.28;
+  margin-bottom: 12px;
+}
+
+.body {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: rgba(15, 39, 68, 0.68);
+  line-height: 1.65;
+  margin-bottom: 24px;
+}
+
+.cta {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: #C9A227;
+  color: #081B33;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 13px 24px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-bottom: 14px;
+}
+
+.cta:hover {
+  background: #d4ab2d;
+}
+
+.dismiss {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: rgba(15, 39, 68, 0.38);
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 4px 0;
+  transition: color 0.15s;
+}
+
+.dismiss:hover {
+  color: rgba(15, 39, 68, 0.65);
+}
+
+@media (max-width: 520px) {
+  .popup {
+    padding: 32px 24px 24px;
+  }
+}
