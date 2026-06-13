@@ -1,85 +1,31 @@
 import Head from "next/head";
 import { useState } from "react";
 import Link from "next/link";
+import { GetServerSideProps } from "next";
+import fs from "fs";
+import path from "path";
 import Navbar from "@/components/home/Navbar";
 import Footer from "@/components/home/Footer";
 import CtaBanner from "@/components/home/CtaBanner";
 import PageHero from "@/components/ui/PageHero";
 import styles from "@/styles/events.module.css";
 
-const allEvents = [
-  {
-    id: "dissertation-masterclass",
-    title: "Dissertation Writing Masterclass",
-    category: "Academic Writing",
-    format: "Online Webinar",
-    duration: "3 hours",
-    price: "£49",
-    date: "14 Jul 2026",
-    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80",
-    spots: 12,
-  },
-  {
-    id: "phd-proposal-workshop",
-    title: "PhD Proposal Development Workshop",
-    category: "Research",
-    format: "Online Workshop",
-    duration: "4 hours",
-    price: "£79",
-    date: "21 Jul 2026",
-    image: "https://images.unsplash.com/photo-1456324504439-367cee3b3c32?w=600&q=80",
-    spots: 8,
-  },
-  {
-    id: "ai-research",
-    title: "Using AI Responsibly in Research",
-    category: "AI & Digital Skills",
-    format: "Online Webinar",
-    duration: "2 hours",
-    price: "Free",
-    date: "28 Jul 2026",
-    image: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80",
-    spots: 40,
-  },
-  {
-    id: "academic-writing",
-    title: "Academic Writing Intensive",
-    category: "Academic Writing",
-    format: "In-Person",
-    duration: "Full Day",
-    price: "£129",
-    date: "4 Aug 2026",
-    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80",
-    spots: 15,
-  },
-  {
-    id: "literature-review",
-    title: "Literature Review Masterclass",
-    category: "Research",
-    format: "Online Workshop",
-    duration: "3 hours",
-    price: "£49",
-    date: "11 Aug 2026",
-    image: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=600&q=80",
-    spots: 20,
-  },
-  {
-    id: "employability-bootcamp",
-    title: "Graduate Employability Bootcamp",
-    category: "Career Development",
-    format: "Hybrid",
-    duration: "Full Day",
-    price: "£99",
-    date: "18 Aug 2026",
-    image: "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=600&q=80",
-    spots: 25,
-  },
-];
+interface Event {
+  id: string;
+  title: string;
+  category: string;
+  format: string;
+  duration: string;
+  price: string;
+  date: string;
+  image: string;
+  spots: number;
+}
 
 const categories = ["All", "Academic Writing", "Research", "Career Development", "AI & Digital Skills"];
 const formats = ["All Formats", "Online Webinar", "Online Workshop", "In-Person", "Hybrid"];
 
-export default function Events() {
+export default function Events({ allEvents }: { allEvents: Event[] }) {
   const [activeCategory, setActiveCategory] = useState("All");
   const [activeFormat, setActiveFormat] = useState("All Formats");
   const [search, setSearch] = useState("");
@@ -109,7 +55,6 @@ export default function Events() {
           subtitle="Join our practical events designed to help students, graduates and researchers succeed academically and professionally."
         />
 
-        {/* Filters */}
         <div className={styles.filterBar}>
           <div className="container">
             <div className={styles.filterInner}>
@@ -150,7 +95,6 @@ export default function Events() {
           </div>
         </div>
 
-        {/* Events grid */}
         <section className={styles.eventsSection}>
           <div className="container">
             {filtered.length === 0 ? (
@@ -214,3 +158,9 @@ export default function Events() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const filePath = path.join(process.cwd(), "data", "events.json");
+  const allEvents: Event[] = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  return { props: { allEvents } };
+};
