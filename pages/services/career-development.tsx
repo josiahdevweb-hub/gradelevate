@@ -66,6 +66,7 @@ export default function CareerDevelopment() {
       <Navbar />
       <main>
         <PageHero
+          variant="dark"
           eyebrow="Service 02"
           title="Career Development"
           subtitle="CV coaching, interview preparation, and career planning support to help you land the role you deserve."

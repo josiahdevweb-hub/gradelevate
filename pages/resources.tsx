@@ -78,6 +78,7 @@ export default function Resources() {
 
       <main>
         <PageHero
+          variant="dark"
           eyebrow="Free & Premium Resources"
           title="Tools & Guides to Accelerate Your Success"
           subtitle="Download our expert-curated guides, templates and checklists — practical resources designed to give you an edge at every stage of your academic and professional journey."

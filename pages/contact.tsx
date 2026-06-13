@@ -26,6 +26,7 @@ export default function Contact() {
 
       <main>
         <PageHero
+          variant="dark"
           eyebrow="Get in Touch"
           title="We'd Love to Hear From You"
           subtitle="Whether you have a question about our services, want to discuss your goals, or are ready to book — we're here to help."

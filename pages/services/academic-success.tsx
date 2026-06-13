@@ -66,6 +66,7 @@ export default function AcademicSuccess() {
       <Navbar />
       <main>
         <PageHero
+          variant="dark"
           eyebrow="Service 01"
           title="Academic Success"
           subtitle="Expert tutoring, dissertation support, and academic writing coaching — personalised to help you perform at your very best."

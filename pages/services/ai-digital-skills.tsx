@@ -66,6 +66,7 @@ export default function AiDigitalSkills() {
       <Navbar />
       <main>
         <PageHero
+          variant="dark"
           eyebrow="Service 04"
           title="AI & Digital Skills"
           subtitle="Develop the AI literacy and digital skills essential for modern academic study and professional success — used responsibly and strategically."

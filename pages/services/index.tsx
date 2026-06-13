@@ -87,6 +87,7 @@ export default function Services() {
 
       <main>
         <PageHero
+          variant="dark"
           eyebrow="What We Offer"
           title="Premium Support Across Every Stage of Your Journey"
           subtitle="From undergraduate study to PhD research and professional career development — our services are built around your specific goals."

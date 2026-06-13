@@ -37,7 +37,7 @@ export default function Navbar() {
       <div className={styles.inner}>
         {/* Logo */}
         <Link href="/" className={styles.logo}>
-          <span className={styles.logoIcon}>🎓</span>
+          <span className={styles.logoIcon}></span>
           <div>
             <span className={styles.logoName}>GradElevate</span>
             <span className={styles.logoTagline}>ELEVATE. ACHIEVE. SUCCEED.</span>

@@ -1,6 +1,7 @@
+/* ── Base (light — white-to-gold gradient) ── */
 .hero {
   position: relative;
-  background: var(--navy-secondary);
+  background: linear-gradient(135deg, #ffffff 0%, #fffcf0 30%, #fdeea8 62%, #C9A227 100%);
   padding: 72px 0 52px;
   overflow: hidden;
 }
@@ -9,7 +10,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(ellipse at 70% 50%, rgba(201,162,39,0.07) 0%, transparent 60%);
+  background: radial-gradient(ellipse at 28% 55%, rgba(255,255,255,0.55) 0%, transparent 55%);
   pointer-events: none;
 }
 
@@ -29,35 +30,66 @@
   gap: 18px;
 }
 
-/* pill eyebrow badge */
+/* pill eyebrow badge — light variant */
 .content :global(.section-eyebrow) {
   display: inline-flex;
   align-items: center;
-  background: transparent;
-  border: 1.5px solid rgba(201, 162, 39, 0.6);
+  background: rgba(255, 255, 255, 0.55);
+  border: 1.5px solid rgba(201, 162, 39, 0.75);
   border-radius: 999px;
   padding: 6px 20px;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.14em;
-  color: #C9A227;
+  color: #7a5c10;
   margin-bottom: 0;
+  backdrop-filter: blur(4px);
 }
 
 .title {
   font-family: 'Playfair Display', serif;
   font-size: clamp(1.9rem, 4vw, 3rem);
   font-weight: 700;
-  color: #fff;
+  color: #0F2744;
   line-height: 1.15;
 }
 
 .sub {
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(15, 39, 68, 0.75);
   line-height: 1.7;
   max-width: 560px;
+}
+
+/* ── Dark variant — navy background, gradient title text ── */
+.heroDark {
+  background: var(--navy-secondary);
+}
+
+.heroDark::before {
+  background: radial-gradient(ellipse at 68% 50%, rgba(201, 162, 39, 0.1) 0%, transparent 62%);
+}
+
+/* eyebrow pill on dark */
+.heroDark .content :global(.section-eyebrow) {
+  background: transparent;
+  border-color: rgba(201, 162, 39, 0.6);
+  color: #C9A227;
+  backdrop-filter: none;
+}
+
+/* gradient text: white → gold */
+.heroDark .title {
+  background: linear-gradient(105deg, #ffffff 25%, #e8c94a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.heroDark .sub {
+  color: rgba(255, 255, 255, 0.82);
 }
 
 @media (max-width: 768px) {

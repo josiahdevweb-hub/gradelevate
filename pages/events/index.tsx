@@ -103,6 +103,7 @@ export default function Events() {
 
       <main>
         <PageHero
+          variant="dark"
           eyebrow="Learn, Grow & Connect"
           title="Workshops, Masterclasses & Webinars"
           subtitle="Join our practical events designed to help students, graduates and researchers succeed academically and professionally."

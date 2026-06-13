@@ -71,6 +71,7 @@ export default function About() {
 
       <main>
         <PageHero
+          variant="dark"
           eyebrow="Our Story"
           title="Built on Academic Excellence, Driven by Your Success"
           subtitle="GradElevate was founded to give every student, researcher, and graduate access to the kind of high-quality academic and career support that was once reserved for the privileged few."

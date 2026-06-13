@@ -66,6 +66,7 @@ export default function Research() {
       <Navbar />
       <main>
         <PageHero
+          variant="dark"
           eyebrow="Service 03"
           title="Research & Postgraduate Support"
           subtitle="Specialist coaching for Masters and PhD researchers — from research design and literature reviews to thesis writing and academic publication."

@@ -93,6 +93,7 @@ export default function Blog() {
 
       <main>
         <PageHero
+          variant="dark"
           eyebrow="Insights & Advice"
           title="Expert Guidance for Students, Researchers & Graduates"
           subtitle="In-depth articles on academic success, research skills, graduate employability, and the future of higher education."
