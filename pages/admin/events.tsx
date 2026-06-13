@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
+import ImageUpload from "@/components/admin/ImageUpload";
 import styles from "@/styles/admin.module.css";
 
 interface Event {
@@ -205,15 +206,9 @@ export default function AdminEvents() {
                       onChange={(e) => set("spots", e.target.value)} />
                   </div>
                   <div className={`${styles.formGroup} ${styles.formGroupFull}`}>
-                    <label className={styles.formLabel}>Image URL</label>
-                    <input className={styles.formInput} placeholder="https://images.unsplash.com/..." value={form.image}
-                      onChange={(e) => set("image", e.target.value)} />
+                    <label className={styles.formLabel}>Image</label>
+                    <ImageUpload value={form.image as string} onChange={(url) => set("image", url)} />
                   </div>
-                  {form.image && (
-                    <div className={styles.formGroupFull}>
-                      <img src={form.image} alt="preview" className={styles.imgPreview} />
-                    </div>
-                  )}
                 </div>
               </div>
               <div className={styles.modalFooter}>

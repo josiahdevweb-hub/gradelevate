@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
+import ImageUpload from "@/components/admin/ImageUpload";
 import styles from "@/styles/admin.module.css";
 
 interface BlogPost {
@@ -204,12 +205,10 @@ export default function AdminBlogs() {
                   {field("author", "Author", { placeholder: "GradElevate Team" })}
                   {field("date", "Date", { placeholder: "2 Jun 2026" })}
                   {field("readTime", "Read Time", { placeholder: "5 min read" })}
-                  {field("image", "Image URL", { full: true, placeholder: "https://images.unsplash.com/..." })}
-                  {form.image && (
-                    <div className={styles.formGroupFull}>
-                      <img src={form.image} alt="preview" className={styles.imgPreview} />
-                    </div>
-                  )}
+                  <div className={`${styles.formGroup} ${styles.formGroupFull}`}>
+                    <label className={styles.formLabel}>Image</label>
+                    <ImageUpload value={form.image as string} onChange={(url) => setForm((f) => ({ ...f, image: url }))} />
+                  </div>
                   {field("excerpt", "Excerpt", { full: true, rows: 3, placeholder: "Short description of the post…" })}
                   <div className={`${styles.formGroup} ${styles.formGroupFull}`}>
                     <div className={styles.toggleRow}>

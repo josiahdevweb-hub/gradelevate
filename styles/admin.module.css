@@ -854,3 +854,126 @@
   color: #d0d8e4;
   font-size: 1rem;
 }
+
+/* ── Image upload ───────────────────────────────────── */
+.imageUploadWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dropZone {
+  border: 2px dashed #d0d8e4;
+  border-radius: 10px;
+  padding: 28px 20px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  background: #fafbfc;
+}
+
+.dropZone:hover {
+  border-color: #C9A227;
+  background: rgba(201,162,39,0.03);
+}
+
+.dropZoneDragging {
+  border-color: #C9A227;
+  background: rgba(201,162,39,0.06);
+}
+
+.dropZoneLoading {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.dropZoneContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.dropZoneIcon {
+  opacity: 0.55;
+}
+
+.dropZoneLabel {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #5a6a80;
+}
+
+.dropZoneHint {
+  font-size: 0.72rem;
+  color: #9aaab8;
+}
+
+.uploadSpinner {
+  width: 24px;
+  height: 24px;
+  border: 2.5px solid #e8ecf3;
+  border-top-color: #C9A227;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.uploadError {
+  font-size: 0.75rem;
+  color: #dc2626;
+  margin: 0;
+}
+
+.uploadOrDivider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #9aaab8;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.uploadOrDivider::before,
+.uploadOrDivider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e8ecf3;
+}
+
+.uploadPreviewWrap {
+  position: relative;
+  display: inline-block;
+}
+
+.uploadPreview {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #e8ecf3;
+  display: block;
+}
+
+.uploadRemoveBtn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(10,20,40,0.65);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background 0.15s;
+}
+
+.uploadRemoveBtn:hover {
+  background: rgba(220,38,38,0.85);
+}
