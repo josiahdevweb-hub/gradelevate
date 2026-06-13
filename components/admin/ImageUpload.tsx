@@ -12,31 +12,36 @@ export default function ImageUpload({ value, onChange }: Props) {
   const [error, setError] = useState("");
   const [dragging, setDragging] = useState(false);
 
-  const processFile = (file: File) => {
+  const processFile = async (file: File) => {
     if (!file.type.startsWith("image/")) {
-      setError("Please select an image file.");
+      setError("Please select an image file (PNG, JPG, WEBP).");
       return;
     }
     setError("");
     setUploading(true);
-    const reader = new FileReader();
-    reader.onload = async () => {
-      const base64 = (reader.result as string).split(",")[1];
-      try {
-        const res = await fetch("/api/upload", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name: file.name, data: base64, type: file.type }),
-        });
-        const json = await res.json();
-        if (json.url) onChange(json.url);
-        else setError("Upload failed.");
-      } catch {
-        setError("Upload failed. Please try again.");
+
+    try {
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        headers: {
+          "Content-Type": file.type,
+          "X-Filename": encodeURIComponent(file.name),
+        },
+        body: file,
+      });
+
+      const json = await res.json();
+
+      if (json.url) {
+        onChange(json.url);
+      } else {
+        setError(json.error || "Upload failed. Please try again.");
       }
-      setUploading(false);
-    };
-    reader.readAsDataURL(file);
+    } catch {
+      setError("Network error — make sure the dev server is running.");
+    }
+
+    setUploading(false);
   };
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +59,6 @@ export default function ImageUpload({ value, onChange }: Props) {
 
   return (
     <div className={styles.imageUploadWrap}>
-      {/* Drop zone */}
       <div
         className={`${styles.dropZone} ${dragging ? styles.dropZoneDragging : ""} ${uploading ? styles.dropZoneLoading : ""}`}
         onClick={() => !uploading && inputRef.current?.click()}
@@ -69,6 +73,7 @@ export default function ImageUpload({ value, onChange }: Props) {
           onChange={handleFile}
           style={{ display: "none" }}
         />
+
         {uploading ? (
           <div className={styles.dropZoneContent}>
             <div className={styles.uploadSpinner} />
@@ -81,18 +86,18 @@ export default function ImageUpload({ value, onChange }: Props) {
               <circle cx="10" cy="10" r="2.5" stroke="#9aaab8" strokeWidth="1.3"/>
               <path d="M2 19l7-7 5 5 4-4 8 8" stroke="#9aaab8" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            <span className={styles.dropZoneLabel}>Click to upload or drag & drop</span>
-            <span className={styles.dropZoneHint}>PNG, JPG, WEBP — max 12 MB</span>
+            <span className={styles.dropZoneLabel}>Click to upload or drag &amp; drop</span>
+            <span className={styles.dropZoneHint}>PNG, JPG, WEBP · no size limit</span>
           </div>
         )}
       </div>
 
       {error && <p className={styles.uploadError}>{error}</p>}
 
-      {/* URL fallback */}
       <div className={styles.uploadOrDivider}>
         <span>or paste an image URL</span>
       </div>
+
       <input
         className={styles.formInput}
         type="url"
@@ -101,7 +106,6 @@ export default function ImageUpload({ value, onChange }: Props) {
         onChange={(e) => onChange(e.target.value)}
       />
 
-      {/* Preview */}
       {value && (
         <div className={styles.uploadPreviewWrap}>
           <img src={value} alt="preview" className={styles.uploadPreview} />
