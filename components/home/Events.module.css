@@ -117,6 +117,8 @@
   min-width: 0;
   background: #ffffff;
   border: 1px solid #e8ecf3;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
@@ -164,6 +166,17 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
+  flex: 1;
+}
+
+/* Make btn-primary full-width when inside a card */
+.card :global(.btn-primary) {
+  display: block;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  margin-top: auto;
+  border-radius: 4px;
 }
 
 .cardTitle {
@@ -205,19 +218,26 @@
 }
 
 .cardCta {
-  display: inline-block;
+  display: block;
+  width: 100%;
+  text-align: center;
   font-family: 'Inter', sans-serif;
   font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--gold);
-  padding: 10px 0;
-  border-top: 1px solid rgba(201, 162, 39, 0.15);
-  transition: color 0.2s;
+  font-weight: 700;
+  color: #0F2744;
+  padding: 11px 20px;
+  border: 1.5px solid #0F2744;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
   text-transform: uppercase;
   letter-spacing: 0.06em;
+  margin-top: auto;
 }
 
-.cardCta:hover { color: var(--gold-light); }
+.cardCta:hover {
+  background: #0F2744;
+  color: #ffffff;
+}
 
 /* ── Responsive ──────────────────────────────────────── */
 @media (max-width: 1024px) {
