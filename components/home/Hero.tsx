@@ -7,12 +7,12 @@ export default function Hero() {
     <section className={styles.hero}>
       <div className={styles.bgWrap}>
         <Image
-          src="https://images.unsplash.com/photo-1627556704302-624286467c65?w=1600&q=80"
+          src="/hero-graduates.jpg"
           alt="Diverse graduates in academic gowns"
           fill
           priority
           quality={90}
-          style={{ objectFit: "cover", objectPosition: "60% center" }}
+          style={{ objectFit: "cover", objectPosition: "center center" }}
         />
       </div>
 

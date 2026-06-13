@@ -5,12 +5,23 @@
 .header {
   text-align: center;
   margin-bottom: 56px;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .title {
   font-size: clamp(1.75rem, 3vw, 2.5rem);
   color: #fff;
   margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.intro {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.7;
 }
 
 .grid {
@@ -21,12 +32,12 @@
 
 .card {
   background: var(--navy-secondary);
-  padding: 36px 28px;
+  padding: 32px 24px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 28px;
-  border: 1px solid rgba(201, 162, 39, 0.15);
+  gap: 24px;
+  border: 1px solid rgba(201, 162, 39, 0.12);
   border-top: 2px solid transparent;
   transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
   cursor: default;
@@ -44,17 +55,27 @@
 .cardTop {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .iconWrap {
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 48px;
   background: rgba(201, 162, 39, 0.08);
-  border: 1px solid rgba(201, 162, 39, 0.2);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
+}
+
+.tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-style: italic;
+  color: rgba(201, 162, 39, 0.7);
+  margin-bottom: 2px;
+  line-height: 1.4;
 }
 
 .cardTitle {
@@ -69,7 +90,7 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 9px;
 }
 
 .listItem {
@@ -77,18 +98,71 @@
   align-items: flex-start;
   gap: 10px;
   font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.65);
-  line-height: 1.5;
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.55;
 }
 
 .dot {
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
   background: var(--gold);
   flex-shrink: 0;
-  margin-top: 6px;
+  margin-top: 7px;
+}
+
+.cta {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--gold);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.3);
+  width: fit-content;
+}
+
+.cta:hover {
+  gap: 10px;
+  color: var(--gold-light);
+  border-bottom-color: var(--gold-light);
+}
+
+/* ── Testimonial quote ───────────────────────────────── */
+.quote {
+  margin-top: 56px;
+  padding: 36px 48px;
+  background: rgba(201, 162, 39, 0.04);
+  border: 1px solid rgba(201, 162, 39, 0.14);
+  border-left: 3px solid var(--gold);
+  position: relative;
+}
+
+.quoteIcon {
+  margin-bottom: 16px;
+  display: block;
+}
+
+.quoteText {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+  font-style: italic;
+  max-width: 780px;
+  margin-bottom: 16px;
+}
+
+.quoteAuthor {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.02em;
 }
 
 @media (max-width: 1024px) {
@@ -100,5 +174,9 @@
 @media (max-width: 640px) {
   .grid {
     grid-template-columns: 1fr;
+  }
+
+  .quote {
+    padding: 28px 24px;
   }
 }

@@ -1,7 +1,8 @@
 .trustBar {
   background: #ffffff;
   border: 1.5px solid #C9A227;
-  margin: 0 5%;
+  /* margin: 0 5%; */
+  width: 100%;
 }
 
 .inner {
