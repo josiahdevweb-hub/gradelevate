@@ -54,7 +54,8 @@ function fuStatusInfo(fu: FollowUp) {
 
 export default function BookingProfile() {
   const router = useRouter();
-  const { id } = router.query;
+  const rawId = router.query.id;
+  const id = typeof rawId === "string" ? rawId : null;
   const [booking, setBooking] = useState<Booking | null>(null);
   const [loading, setLoading] = useState(true);
   const [showFUModal, setShowFUModal] = useState(false);
@@ -64,9 +65,14 @@ export default function BookingProfile() {
 
   const loadBooking = useCallback(async () => {
     if (!id) return;
-    const data: Booking[] = await fetch("/api/bookings").then((r) => r.json());
-    setBooking(data.find((b) => b.id === id) ?? null);
-    setLoading(false);
+    try {
+      const data: Booking[] = await fetch("/api/bookings").then((r) => r.json());
+      setBooking(Array.isArray(data) ? (data.find((b) => b.id === id) ?? null) : null);
+    } catch {
+      setBooking(null);
+    } finally {
+      setLoading(false);
+    }
   }, [id]);
 
   useEffect(() => { loadBooking(); }, [loadBooking]);
@@ -299,8 +305,12 @@ export default function BookingProfile() {
                               <span title={em.subject}>{em.subject.length > 38 ? em.subject.slice(0, 38) + "…" : em.subject}</span>
                             </td>
                             <td className={styles.tdMuted}>
-                              <div style={{ fontSize: "0.78rem" }}>{booking.email}</div>
-                              <div style={{ fontSize: "0.7rem", color: "#b0bece" }}>{booking.name}</div>
+                              <div style={{ fontSize: "0.78rem" }}>
+                                {em.type === "admin_notification" ? "hello@gradelevate.com" : booking.email}
+                              </div>
+                              <div style={{ fontSize: "0.7rem", color: "#b0bece" }}>
+                                {em.type === "admin_notification" ? "GradElevate Admin" : booking.name}
+                              </div>
                             </td>
                             <td>
                               <span className={em.status === "sent" ? styles.emailLogStatusSent : styles.emailLogStatusFailed}>
