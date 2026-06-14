@@ -98,14 +98,35 @@
 @media (max-width: 768px) {
   .steps {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 0;
   }
 
   .step {
-    padding: 0 16px;
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    padding: 20px 0;
+    gap: 16px;
+    border-bottom: 1px solid rgba(201, 162, 39, 0.12);
+  }
+
+  .step:last-child {
+    border-bottom: none;
+  }
+
+  .circleRow {
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+    flex-shrink: 0;
+    margin-bottom: 0;
   }
 
   .connector {
+    display: none;
+  }
+
+  .iconWrap {
     display: none;
   }
 }

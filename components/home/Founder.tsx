@@ -67,7 +67,7 @@ export default function Founder() {
           className={styles.img}
         />
         <div className={styles.logoCard}>
-          <span className={styles.logoMark}>🎓</span>
+          <span className={styles.logoMark}></span>
           <div>
             <p className={styles.logoName}>GradElevate</p>
             <p className={styles.logoSub}>ELEVATE. ACHIEVE. SUCCEED.</p>

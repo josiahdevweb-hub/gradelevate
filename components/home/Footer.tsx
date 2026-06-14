@@ -43,29 +43,30 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Col 2: Quick Links */}
-        <div className={styles.col}>
-          <h4 className={styles.colTitle}>Quick Links</h4>
-          <nav className={styles.links}>
-            {["Home", "About", "Services", "Events", "Resources", "Blog", "Book a Consultation"].map((l) => (
-              <Link key={l} href={`/${l.toLowerCase().replace(/ /g, "-")}`} className={styles.link}>{l}</Link>
-            ))}
-          </nav>
-        </div>
+        {/* Col 2+3: Quick Links & Our Services — always side-by-side */}
+        <div className={styles.linksGroup}>
+          <div className={styles.col}>
+            <h4 className={styles.colTitle}>Quick Links</h4>
+            <nav className={styles.links}>
+              {["Home", "About", "Services", "Events", "Resources", "Blog", "Book a Consultation"].map((l) => (
+                <Link key={l} href={`/${l.toLowerCase().replace(/ /g, "-")}`} className={styles.link}>{l}</Link>
+              ))}
+            </nav>
+          </div>
 
-        {/* Col 3: Services */}
-        <div className={styles.col}>
-          <h4 className={styles.colTitle}>Our Services</h4>
-          <nav className={styles.links}>
-            {[
-              "Academic Tutoring",
-              "Career Development",
-              "Research & Postgraduate Support",
-              "AI & Digital Skills",
-            ].map((s) => (
-              <Link key={s} href="/services" className={styles.link}>{s}</Link>
-            ))}
-          </nav>
+          <div className={styles.col}>
+            <h4 className={styles.colTitle}>Our Services</h4>
+            <nav className={styles.links}>
+              {[
+                "Academic Tutoring",
+                "Career Development",
+                "Research & Postgraduate Support",
+                "AI & Digital Skills",
+              ].map((s) => (
+                <Link key={s} href="/services" className={styles.link}>{s}</Link>
+              ))}
+            </nav>
+          </div>
         </div>
 
         {/* Col 4: Contact */}

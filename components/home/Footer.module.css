@@ -5,10 +5,16 @@
 
 .inner {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  grid-template-columns: 1.5fr 2fr 1fr;
   gap: 48px;
   padding-top: 72px;
   padding-bottom: 56px;
+}
+
+.linksGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
 }
 
 .col { display: flex; flex-direction: column; gap: 20px; }
@@ -120,5 +126,8 @@ a.contactItem:hover { color: var(--gold); }
 }
 
 @media (max-width: 640px) {
-  .inner { grid-template-columns: 1fr; }
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
 }

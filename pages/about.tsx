@@ -114,7 +114,7 @@ export default function About() {
                 alt="Academic professional"
               />
               <div className={styles.imageBadge}>
-                <span className={styles.badgeIcon}>🎓</span>
+                <span className={styles.badgeIcon}></span>
                 <div>
                   <p className={styles.badgeName}>GradElevate</p>
                   <p className={styles.badgeSub}>ELEVATE. ACHIEVE. SUCCEED.</p>
