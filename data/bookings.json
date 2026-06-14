@@ -7,23 +7,14 @@
     "service": "Dissertation / Thesis Support",
     "stage": "Postgraduate (Masters) Student",
     "message": "I'm struggling with my methodology chapter and need urgent help before my June deadline. My topic is on climate change policy in sub-Saharan Africa.",
-    "status": "New",
+    "status": "Contacted",
     "submittedAt": "2026-06-14T08:30:00.000Z",
     "emails": [
-      {
-        "id": "em-1749900000001-c",
-        "subject": "Your Consultation Request — GradElevate",
-        "type": "booking_confirmation",
-        "sentAt": "2026-06-14T08:30:05.000Z",
-        "status": "sent"
-      },
-      {
-        "id": "em-1749900000001-a",
-        "subject": "New Booking: Amara Osei — Dissertation / Thesis Support",
-        "type": "admin_notification",
-        "sentAt": "2026-06-14T08:30:06.000Z",
-        "status": "sent"
-      }
+      { "id": "em-1749900000001-c", "subject": "Your Consultation Request — GradElevate", "type": "booking_confirmation", "sentAt": "2026-06-14T08:30:05.000Z", "status": "sent" },
+      { "id": "em-1749900000001-a", "subject": "New Booking: Amara Osei — Dissertation / Thesis Support", "type": "admin_notification", "sentAt": "2026-06-14T08:30:06.000Z", "status": "sent" }
+    ],
+    "followUps": [
+      { "id": "fu-1749900000001-1", "scheduledDate": "2026-06-18T10:00:00.000Z", "notes": "Check in on methodology chapter — share our research design template", "status": "pending", "addedAt": "2026-06-14T09:00:00.000Z" }
     ]
   },
   {
@@ -37,20 +28,12 @@
     "status": "Contacted",
     "submittedAt": "2026-06-13T14:22:00.000Z",
     "emails": [
-      {
-        "id": "em-1749900000002-c",
-        "subject": "Your Consultation Request — GradElevate",
-        "type": "booking_confirmation",
-        "sentAt": "2026-06-13T14:22:05.000Z",
-        "status": "sent"
-      },
-      {
-        "id": "em-1749900000002-a",
-        "subject": "New Booking: Joshua Williams — Career Development & CV Coaching",
-        "type": "admin_notification",
-        "sentAt": "2026-06-13T14:22:06.000Z",
-        "status": "sent"
-      }
+      { "id": "em-1749900000002-c", "subject": "Your Consultation Request — GradElevate", "type": "booking_confirmation", "sentAt": "2026-06-13T14:22:05.000Z", "status": "sent" },
+      { "id": "em-1749900000002-a", "subject": "New Booking: Joshua Williams — Career Development & CV Coaching", "type": "admin_notification", "sentAt": "2026-06-13T14:22:06.000Z", "status": "sent" }
+    ],
+    "followUps": [
+      { "id": "fu-1749900000002-1", "scheduledDate": "2026-06-15T14:00:00.000Z", "notes": "Initial consultation call booked", "status": "done", "addedAt": "2026-06-13T15:00:00.000Z", "completedAt": "2026-06-15T14:45:00.000Z" },
+      { "id": "fu-1749900000002-2", "scheduledDate": "2026-06-22T10:00:00.000Z", "notes": "Review revised CV draft and cover letter template", "status": "pending", "addedAt": "2026-06-15T15:00:00.000Z" }
     ]
   },
   {
@@ -64,20 +47,12 @@
     "status": "Completed",
     "submittedAt": "2026-06-12T09:15:00.000Z",
     "emails": [
-      {
-        "id": "em-1749900000003-c",
-        "subject": "Your Consultation Request — GradElevate",
-        "type": "booking_confirmation",
-        "sentAt": "2026-06-12T09:15:05.000Z",
-        "status": "sent"
-      },
-      {
-        "id": "em-1749900000003-a",
-        "subject": "New Booking: Priya Sharma — PhD Application Support",
-        "type": "admin_notification",
-        "sentAt": "2026-06-12T09:15:06.000Z",
-        "status": "sent"
-      }
+      { "id": "em-1749900000003-c", "subject": "Your Consultation Request — GradElevate", "type": "booking_confirmation", "sentAt": "2026-06-12T09:15:05.000Z", "status": "sent" },
+      { "id": "em-1749900000003-a", "subject": "New Booking: Priya Sharma — PhD Application Support", "type": "admin_notification", "sentAt": "2026-06-12T09:15:06.000Z", "status": "sent" }
+    ],
+    "followUps": [
+      { "id": "fu-1749900000003-1", "scheduledDate": "2026-06-13T11:00:00.000Z", "notes": "Review research proposal outline", "status": "done", "addedAt": "2026-06-12T10:00:00.000Z", "completedAt": "2026-06-13T11:30:00.000Z" },
+      { "id": "fu-1749900000003-2", "scheduledDate": "2026-06-14T11:00:00.000Z", "notes": "Final personal statement review before submission", "status": "done", "addedAt": "2026-06-13T12:00:00.000Z", "completedAt": "2026-06-14T11:45:00.000Z" }
     ]
   },
   {
@@ -91,21 +66,10 @@
     "status": "New",
     "submittedAt": "2026-06-13T16:40:00.000Z",
     "emails": [
-      {
-        "id": "em-1749900000004-c",
-        "subject": "Your Consultation Request — GradElevate",
-        "type": "booking_confirmation",
-        "sentAt": "2026-06-13T16:40:05.000Z",
-        "status": "sent"
-      },
-      {
-        "id": "em-1749900000004-a",
-        "subject": "New Booking: Michael Chen — Research Design & Methodology",
-        "type": "admin_notification",
-        "sentAt": "2026-06-13T16:40:06.000Z",
-        "status": "sent"
-      }
-    ]
+      { "id": "em-1749900000004-c", "subject": "Your Consultation Request — GradElevate", "type": "booking_confirmation", "sentAt": "2026-06-13T16:40:05.000Z", "status": "sent" },
+      { "id": "em-1749900000004-a", "subject": "New Booking: Michael Chen — Research Design & Methodology", "type": "admin_notification", "sentAt": "2026-06-13T16:40:06.000Z", "status": "sent" }
+    ],
+    "followUps": []
   },
   {
     "id": "1749900000005",
@@ -118,20 +82,11 @@
     "status": "Contacted",
     "submittedAt": "2026-06-11T11:05:00.000Z",
     "emails": [
-      {
-        "id": "em-1749900000005-c",
-        "subject": "Your Consultation Request — GradElevate",
-        "type": "booking_confirmation",
-        "sentAt": "2026-06-11T11:05:05.000Z",
-        "status": "sent"
-      },
-      {
-        "id": "em-1749900000005-a",
-        "subject": "New Booking: Sophie Taylor — Academic Tutoring & Writing Support",
-        "type": "admin_notification",
-        "sentAt": "2026-06-11T11:05:06.000Z",
-        "status": "sent"
-      }
+      { "id": "em-1749900000005-c", "subject": "Your Consultation Request — GradElevate", "type": "booking_confirmation", "sentAt": "2026-06-11T11:05:05.000Z", "status": "sent" },
+      { "id": "em-1749900000005-a", "subject": "New Booking: Sophie Taylor — Academic Tutoring & Writing Support", "type": "admin_notification", "sentAt": "2026-06-11T11:05:06.000Z", "status": "sent" }
+    ],
+    "followUps": [
+      { "id": "fu-1749900000005-1", "scheduledDate": "2026-06-20T09:00:00.000Z", "notes": "Essay structure review session — share essay outline beforehand", "status": "pending", "addedAt": "2026-06-11T12:00:00.000Z" }
     ]
   },
   {
@@ -145,20 +100,12 @@
     "status": "Completed",
     "submittedAt": "2026-06-10T13:30:00.000Z",
     "emails": [
-      {
-        "id": "em-1749900000006-c",
-        "subject": "Your Consultation Request — GradElevate",
-        "type": "booking_confirmation",
-        "sentAt": "2026-06-10T13:30:05.000Z",
-        "status": "sent"
-      },
-      {
-        "id": "em-1749900000006-a",
-        "subject": "New Booking: David Okafor — Interview Preparation",
-        "type": "admin_notification",
-        "sentAt": "2026-06-10T13:30:06.000Z",
-        "status": "sent"
-      }
+      { "id": "em-1749900000006-c", "subject": "Your Consultation Request — GradElevate", "type": "booking_confirmation", "sentAt": "2026-06-10T13:30:05.000Z", "status": "sent" },
+      { "id": "em-1749900000006-a", "subject": "New Booking: David Okafor — Interview Preparation", "type": "admin_notification", "sentAt": "2026-06-10T13:30:06.000Z", "status": "sent" }
+    ],
+    "followUps": [
+      { "id": "fu-1749900000006-1", "scheduledDate": "2026-06-11T10:00:00.000Z", "notes": "Mock interview session 1 — case study practice", "status": "done", "addedAt": "2026-06-10T14:00:00.000Z", "completedAt": "2026-06-11T11:00:00.000Z" },
+      { "id": "fu-1749900000006-2", "scheduledDate": "2026-06-13T10:00:00.000Z", "notes": "Mock interview session 2 — competency questions", "status": "done", "addedAt": "2026-06-11T11:30:00.000Z", "completedAt": "2026-06-13T11:00:00.000Z" }
     ]
   },
   {
@@ -172,21 +119,10 @@
     "status": "New",
     "submittedAt": "2026-06-14T07:10:00.000Z",
     "emails": [
-      {
-        "id": "em-1749900000007-c",
-        "subject": "Your Consultation Request — GradElevate",
-        "type": "booking_confirmation",
-        "sentAt": "2026-06-14T07:10:05.000Z",
-        "status": "sent"
-      },
-      {
-        "id": "em-1749900000007-a",
-        "subject": "New Booking: Emma Rodriguez — AI & Digital Skills Coaching",
-        "type": "admin_notification",
-        "sentAt": "2026-06-14T07:10:06.000Z",
-        "status": "sent"
-      }
-    ]
+      { "id": "em-1749900000007-c", "subject": "Your Consultation Request — GradElevate", "type": "booking_confirmation", "sentAt": "2026-06-14T07:10:05.000Z", "status": "sent" },
+      { "id": "em-1749900000007-a", "subject": "New Booking: Emma Rodriguez — AI & Digital Skills Coaching", "type": "admin_notification", "sentAt": "2026-06-14T07:10:06.000Z", "status": "sent" }
+    ],
+    "followUps": []
   },
   {
     "id": "1749900000008",
@@ -199,20 +135,12 @@
     "status": "Completed",
     "submittedAt": "2026-06-09T10:00:00.000Z",
     "emails": [
-      {
-        "id": "em-1749900000008-c",
-        "subject": "Your Consultation Request — GradElevate",
-        "type": "booking_confirmation",
-        "sentAt": "2026-06-09T10:00:05.000Z",
-        "status": "sent"
-      },
-      {
-        "id": "em-1749900000008-a",
-        "subject": "New Booking: James Adeyemi — Dissertation / Thesis Support",
-        "type": "admin_notification",
-        "sentAt": "2026-06-09T10:00:06.000Z",
-        "status": "sent"
-      }
+      { "id": "em-1749900000008-c", "subject": "Your Consultation Request — GradElevate", "type": "booking_confirmation", "sentAt": "2026-06-09T10:00:05.000Z", "status": "sent" },
+      { "id": "em-1749900000008-a", "subject": "New Booking: James Adeyemi — Dissertation / Thesis Support", "type": "admin_notification", "sentAt": "2026-06-09T10:00:06.000Z", "status": "sent" }
+    ],
+    "followUps": [
+      { "id": "fu-1749900000008-1", "scheduledDate": "2026-06-10T09:00:00.000Z", "notes": "Discussion chapter review — send draft 48hrs before", "status": "done", "addedAt": "2026-06-09T11:00:00.000Z", "completedAt": "2026-06-10T10:30:00.000Z" },
+      { "id": "fu-1749900000008-2", "scheduledDate": "2026-06-12T09:00:00.000Z", "notes": "Viva mock defence session", "status": "done", "addedAt": "2026-06-10T11:00:00.000Z", "completedAt": "2026-06-12T10:15:00.000Z" }
     ]
   },
   {
@@ -226,21 +154,10 @@
     "status": "New",
     "submittedAt": "2026-06-14T06:00:00.000Z",
     "emails": [
-      {
-        "id": "em-1749900000009-c",
-        "subject": "Your Consultation Request — GradElevate",
-        "type": "booking_confirmation",
-        "sentAt": "2026-06-14T06:00:05.000Z",
-        "status": "sent"
-      },
-      {
-        "id": "em-1749900000009-a",
-        "subject": "New Booking: Aisha Khan — Career Development & CV Coaching",
-        "type": "admin_notification",
-        "sentAt": "2026-06-14T06:00:06.000Z",
-        "status": "sent"
-      }
-    ]
+      { "id": "em-1749900000009-c", "subject": "Your Consultation Request — GradElevate", "type": "booking_confirmation", "sentAt": "2026-06-14T06:00:05.000Z", "status": "sent" },
+      { "id": "em-1749900000009-a", "subject": "New Booking: Aisha Khan — Career Development & CV Coaching", "type": "admin_notification", "sentAt": "2026-06-14T06:00:06.000Z", "status": "sent" }
+    ],
+    "followUps": []
   },
   {
     "id": "1749900000010",
@@ -253,20 +170,11 @@
     "status": "Contacted",
     "submittedAt": "2026-06-12T15:45:00.000Z",
     "emails": [
-      {
-        "id": "em-1749900000010-c",
-        "subject": "Your Consultation Request — GradElevate",
-        "type": "booking_confirmation",
-        "sentAt": "2026-06-12T15:45:05.000Z",
-        "status": "sent"
-      },
-      {
-        "id": "em-1749900000010-a",
-        "subject": "New Booking: Thomas Müller — Research Design & Methodology",
-        "type": "admin_notification",
-        "sentAt": "2026-06-12T15:45:06.000Z",
-        "status": "sent"
-      }
+      { "id": "em-1749900000010-c", "subject": "Your Consultation Request — GradElevate", "type": "booking_confirmation", "sentAt": "2026-06-12T15:45:05.000Z", "status": "sent" },
+      { "id": "em-1749900000010-a", "subject": "New Booking: Thomas Müller — Research Design & Methodology", "type": "admin_notification", "sentAt": "2026-06-12T15:45:06.000Z", "status": "sent" }
+    ],
+    "followUps": [
+      { "id": "fu-1749900000010-1", "scheduledDate": "2026-06-16T15:00:00.000Z", "notes": "Econometrics session — review panel data model options with examples", "status": "pending", "addedAt": "2026-06-12T16:30:00.000Z" }
     ]
   }
 ]

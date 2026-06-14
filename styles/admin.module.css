@@ -1376,3 +1376,342 @@
   gap: 10px;
   flex-shrink: 0;
 }
+
+/* ── Profile page ─────────────────────────────────── */
+.profileBackLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #5a6a80;
+  text-decoration: none;
+  margin-bottom: 16px;
+  transition: color 0.15s;
+}
+.profileBackLink:hover { color: #0F2744; }
+
+.profileHeader {
+  background: #fff;
+  border: 1px solid #e8ecf3;
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.profileHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profileHeaderRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profileAvatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #C9A227, #e0b83a);
+  color: #0F2744;
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.profileName {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0F2744;
+  margin: 0 0 4px;
+}
+
+.profileMeta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: #7a8ea0;
+}
+
+.profileMetaLink {
+  color: #C9A227;
+  text-decoration: none;
+}
+.profileMetaLink:hover { text-decoration: underline; }
+
+.profileMetaDot { color: #d0d8e4; }
+
+.profileGrid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
+  align-items: start;
+}
+
+.profileMain {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profileSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.profileCard {
+  background: #fff;
+  border: 1px solid #e8ecf3;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.profileCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid #e8ecf3;
+  background: #f9fafb;
+}
+
+.profileCardTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #0F2744;
+}
+
+/* ── Communication type cards ─────────────────────── */
+.commCards {
+  display: flex;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0f2f6;
+  flex-wrap: wrap;
+}
+
+.commCard {
+  flex: 1;
+  min-width: 140px;
+  border: 1.5px solid;
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.commCardIcon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2px;
+}
+
+.commCardLabel {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #7a8ea0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.3;
+}
+
+.commCardCount {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0F2744;
+}
+
+.commCardDate {
+  font-size: 0.72rem;
+  color: #9aaab8;
+}
+
+/* ── Quick resend ─────────────────────────────────── */
+.quickResend {
+  padding: 12px 20px;
+  border-bottom: 1px solid #f0f2f6;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.quickResendLabel {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #7a8ea0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+}
+
+.quickResendBtns {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.resendBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border: 1.5px solid;
+  border-radius: 20px;
+  background: transparent;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.resendBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Type badge ───────────────────────────────────── */
+.typeBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ── Icon button ──────────────────────────────────── */
+.iconBtn {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #e8ecf3;
+  border-radius: 6px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #7a8ea0;
+  transition: border-color 0.15s, background 0.15s;
+}
+.iconBtn:hover { border-color: #C9A227; background: rgba(201,162,39,0.05); color: #C9A227; }
+.iconBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── Table wrapper ────────────────────────────────── */
+.tableWrap { overflow-x: auto; }
+
+/* ── Sidebar fields ───────────────────────────────── */
+.sidebarField {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px 20px;
+  border-bottom: 1px solid #f0f2f6;
+}
+.sidebarField:last-child { border-bottom: none; }
+
+.sidebarFieldLabel {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #9aaab8;
+  flex-shrink: 0;
+}
+
+.sidebarFieldValue {
+  font-size: 0.8rem;
+  color: #0F2744;
+  text-align: right;
+  max-width: 55%;
+  line-height: 1.4;
+}
+
+/* ── Progress tracker ─────────────────────────────── */
+.progressTrack {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 16px 20px;
+}
+
+.progressStep {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  position: relative;
+}
+
+.progressStep:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 32px;
+  width: 2px;
+  height: calc(100% - 16px);
+  background: #e8ecf3;
+}
+
+.progressDot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #d0d8e4;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  z-index: 1;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.progressDotDone {
+  background: #10b981;
+  border-color: #10b981;
+}
+
+.progressLabel {
+  font-size: 0.8rem;
+  color: #9aaab8;
+  font-weight: 500;
+}
+
+.progressLabelDone {
+  color: #0F2744;
+  font-weight: 600;
+}
+
+/* ── Empty state mini ─────────────────────────────── */
+.emptyStateMini {
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.emptyStateMini p {
+  font-size: 0.8rem;
+  color: #9aaab8;
+  text-align: center;
+  margin: 0;
+}
