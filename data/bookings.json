@@ -1,1 +1,272 @@
-[]
+[
+  {
+    "id": "1749900000001",
+    "name": "Amara Osei",
+    "email": "amara.osei@example.com",
+    "phone": "+44 7911 000001",
+    "service": "Dissertation / Thesis Support",
+    "stage": "Postgraduate (Masters) Student",
+    "message": "I'm struggling with my methodology chapter and need urgent help before my June deadline. My topic is on climate change policy in sub-Saharan Africa.",
+    "status": "New",
+    "submittedAt": "2026-06-14T08:30:00.000Z",
+    "emails": [
+      {
+        "id": "em-1749900000001-c",
+        "subject": "Your Consultation Request — GradElevate",
+        "type": "booking_confirmation",
+        "sentAt": "2026-06-14T08:30:05.000Z",
+        "status": "sent"
+      },
+      {
+        "id": "em-1749900000001-a",
+        "subject": "New Booking: Amara Osei — Dissertation / Thesis Support",
+        "type": "admin_notification",
+        "sentAt": "2026-06-14T08:30:06.000Z",
+        "status": "sent"
+      }
+    ]
+  },
+  {
+    "id": "1749900000002",
+    "name": "Joshua Williams",
+    "email": "j.williams@example.com",
+    "phone": "+44 7922 000002",
+    "service": "Career Development & CV Coaching",
+    "stage": "Recent Graduate",
+    "message": "I graduated in July and have been struggling to land interviews despite applying to over 30 jobs. I think my CV needs a complete overhaul.",
+    "status": "Contacted",
+    "submittedAt": "2026-06-13T14:22:00.000Z",
+    "emails": [
+      {
+        "id": "em-1749900000002-c",
+        "subject": "Your Consultation Request — GradElevate",
+        "type": "booking_confirmation",
+        "sentAt": "2026-06-13T14:22:05.000Z",
+        "status": "sent"
+      },
+      {
+        "id": "em-1749900000002-a",
+        "subject": "New Booking: Joshua Williams — Career Development & CV Coaching",
+        "type": "admin_notification",
+        "sentAt": "2026-06-13T14:22:06.000Z",
+        "status": "sent"
+      }
+    ]
+  },
+  {
+    "id": "1749900000003",
+    "name": "Priya Sharma",
+    "email": "priya.sharma@example.com",
+    "phone": "+44 7933 000003",
+    "service": "PhD Application Support",
+    "stage": "Undergraduate Student",
+    "message": "I want to apply for a PhD in cognitive neuroscience next cycle and need help putting together a strong research proposal and personal statement.",
+    "status": "Completed",
+    "submittedAt": "2026-06-12T09:15:00.000Z",
+    "emails": [
+      {
+        "id": "em-1749900000003-c",
+        "subject": "Your Consultation Request — GradElevate",
+        "type": "booking_confirmation",
+        "sentAt": "2026-06-12T09:15:05.000Z",
+        "status": "sent"
+      },
+      {
+        "id": "em-1749900000003-a",
+        "subject": "New Booking: Priya Sharma — PhD Application Support",
+        "type": "admin_notification",
+        "sentAt": "2026-06-12T09:15:06.000Z",
+        "status": "sent"
+      }
+    ]
+  },
+  {
+    "id": "1749900000004",
+    "name": "Michael Chen",
+    "email": "m.chen@example.com",
+    "phone": "+44 7944 000004",
+    "service": "Research Design & Methodology",
+    "stage": "PhD Researcher",
+    "message": "I'm a first-year PhD student and my supervisor has asked me to revise my research design. I need support understanding qualitative vs quantitative approaches.",
+    "status": "New",
+    "submittedAt": "2026-06-13T16:40:00.000Z",
+    "emails": [
+      {
+        "id": "em-1749900000004-c",
+        "subject": "Your Consultation Request — GradElevate",
+        "type": "booking_confirmation",
+        "sentAt": "2026-06-13T16:40:05.000Z",
+        "status": "sent"
+      },
+      {
+        "id": "em-1749900000004-a",
+        "subject": "New Booking: Michael Chen — Research Design & Methodology",
+        "type": "admin_notification",
+        "sentAt": "2026-06-13T16:40:06.000Z",
+        "status": "sent"
+      }
+    ]
+  },
+  {
+    "id": "1749900000005",
+    "name": "Sophie Taylor",
+    "email": "sophie.t@example.com",
+    "phone": "+44 7955 000005",
+    "service": "Academic Tutoring & Writing Support",
+    "stage": "Undergraduate Student",
+    "message": "I have a 3,000-word essay due in two weeks on the impacts of colonialism on African economies. I need help structuring my argument and improving my academic writing.",
+    "status": "Contacted",
+    "submittedAt": "2026-06-11T11:05:00.000Z",
+    "emails": [
+      {
+        "id": "em-1749900000005-c",
+        "subject": "Your Consultation Request — GradElevate",
+        "type": "booking_confirmation",
+        "sentAt": "2026-06-11T11:05:05.000Z",
+        "status": "sent"
+      },
+      {
+        "id": "em-1749900000005-a",
+        "subject": "New Booking: Sophie Taylor — Academic Tutoring & Writing Support",
+        "type": "admin_notification",
+        "sentAt": "2026-06-11T11:05:06.000Z",
+        "status": "sent"
+      }
+    ]
+  },
+  {
+    "id": "1749900000006",
+    "name": "David Okafor",
+    "email": "d.okafor@example.com",
+    "phone": "+44 7966 000006",
+    "service": "Interview Preparation",
+    "stage": "Early-Career Professional",
+    "message": "I have a final-round interview at a top consulting firm next Friday. I need mock interviews and feedback on my case study and competency answers.",
+    "status": "Completed",
+    "submittedAt": "2026-06-10T13:30:00.000Z",
+    "emails": [
+      {
+        "id": "em-1749900000006-c",
+        "subject": "Your Consultation Request — GradElevate",
+        "type": "booking_confirmation",
+        "sentAt": "2026-06-10T13:30:05.000Z",
+        "status": "sent"
+      },
+      {
+        "id": "em-1749900000006-a",
+        "subject": "New Booking: David Okafor — Interview Preparation",
+        "type": "admin_notification",
+        "sentAt": "2026-06-10T13:30:06.000Z",
+        "status": "sent"
+      }
+    ]
+  },
+  {
+    "id": "1749900000007",
+    "name": "Emma Rodriguez",
+    "email": "emma.r@example.com",
+    "phone": "+44 7977 000007",
+    "service": "AI & Digital Skills Coaching",
+    "stage": "Postgraduate (Masters) Student",
+    "message": "I want to learn how to use AI tools effectively for literature reviews and data analysis for my MSc dissertation in public health.",
+    "status": "New",
+    "submittedAt": "2026-06-14T07:10:00.000Z",
+    "emails": [
+      {
+        "id": "em-1749900000007-c",
+        "subject": "Your Consultation Request — GradElevate",
+        "type": "booking_confirmation",
+        "sentAt": "2026-06-14T07:10:05.000Z",
+        "status": "sent"
+      },
+      {
+        "id": "em-1749900000007-a",
+        "subject": "New Booking: Emma Rodriguez — AI & Digital Skills Coaching",
+        "type": "admin_notification",
+        "sentAt": "2026-06-14T07:10:06.000Z",
+        "status": "sent"
+      }
+    ]
+  },
+  {
+    "id": "1749900000008",
+    "name": "James Adeyemi",
+    "email": "james.a@example.com",
+    "phone": "+44 7988 000008",
+    "service": "Dissertation / Thesis Support",
+    "stage": "PhD Researcher",
+    "message": "I'm in my final year of my PhD in international relations. I need help with the discussion chapter and preparing my viva defence.",
+    "status": "Completed",
+    "submittedAt": "2026-06-09T10:00:00.000Z",
+    "emails": [
+      {
+        "id": "em-1749900000008-c",
+        "subject": "Your Consultation Request — GradElevate",
+        "type": "booking_confirmation",
+        "sentAt": "2026-06-09T10:00:05.000Z",
+        "status": "sent"
+      },
+      {
+        "id": "em-1749900000008-a",
+        "subject": "New Booking: James Adeyemi — Dissertation / Thesis Support",
+        "type": "admin_notification",
+        "sentAt": "2026-06-09T10:00:06.000Z",
+        "status": "sent"
+      }
+    ]
+  },
+  {
+    "id": "1749900000009",
+    "name": "Aisha Khan",
+    "email": "aisha.k@example.com",
+    "phone": "+44 7999 000009",
+    "service": "Career Development & CV Coaching",
+    "stage": "Recent Graduate",
+    "message": "I graduated with a 2:1 in Business Management six months ago but have not been able to secure a role. I need help with my LinkedIn profile and job search strategy.",
+    "status": "New",
+    "submittedAt": "2026-06-14T06:00:00.000Z",
+    "emails": [
+      {
+        "id": "em-1749900000009-c",
+        "subject": "Your Consultation Request — GradElevate",
+        "type": "booking_confirmation",
+        "sentAt": "2026-06-14T06:00:05.000Z",
+        "status": "sent"
+      },
+      {
+        "id": "em-1749900000009-a",
+        "subject": "New Booking: Aisha Khan — Career Development & CV Coaching",
+        "type": "admin_notification",
+        "sentAt": "2026-06-14T06:00:06.000Z",
+        "status": "sent"
+      }
+    ]
+  },
+  {
+    "id": "1749900000010",
+    "name": "Thomas Müller",
+    "email": "t.muller@example.com",
+    "phone": "+44 7900 000010",
+    "service": "Research Design & Methodology",
+    "stage": "Postgraduate (Masters) Student",
+    "message": "I'm writing my MSc thesis in economics and need guidance on selecting the right econometric model for my panel data. My supervisor has suggested fixed-effects but I'm unsure.",
+    "status": "Contacted",
+    "submittedAt": "2026-06-12T15:45:00.000Z",
+    "emails": [
+      {
+        "id": "em-1749900000010-c",
+        "subject": "Your Consultation Request — GradElevate",
+        "type": "booking_confirmation",
+        "sentAt": "2026-06-12T15:45:05.000Z",
+        "status": "sent"
+      },
+      {
+        "id": "em-1749900000010-a",
+        "subject": "New Booking: Thomas Müller — Research Design & Methodology",
+        "type": "admin_notification",
+        "sentAt": "2026-06-12T15:45:06.000Z",
+        "status": "sent"
+      }
+    ]
+  }
+]

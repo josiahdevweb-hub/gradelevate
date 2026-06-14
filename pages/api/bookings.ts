@@ -1,13 +1,14 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import fs from "fs";
 import path from "path";
+import { sendBookingEmails } from "@/lib/email";
 
 const dataPath = path.join(process.cwd(), "data", "bookings.json");
 
 function read() { return JSON.parse(fs.readFileSync(dataPath, "utf8")); }
 function write(d: unknown) { fs.writeFileSync(dataPath, JSON.stringify(d, null, 2)); }
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     if (req.method === "GET") {
       return res.json(read());
@@ -19,7 +20,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         id: Date.now().toString(),
         submittedAt: new Date().toISOString(),
         status: "New",
+        emails: [] as unknown[],
       };
+
+      // Send confirmation to client + notification to admin, log results
+      const emailLogs = await sendBookingEmails(newBooking);
+      newBooking.emails = emailLogs;
+
       bookings.unshift(newBooking);
       write(bookings);
       return res.status(201).json(newBooking);
