@@ -22,7 +22,7 @@ export default function Hero() {
         <h1 className={styles.headline}>
           Elevate Your<br />
           Academic Journey.<br /> </h1>
-          <h2><span className={styles.accentLine}>Accelerate Your Career.</span>
+          <h2><span className={styles.jj}>Accelerate Your Career.</span>
         </h2>
 
         <p className={styles.sub}>

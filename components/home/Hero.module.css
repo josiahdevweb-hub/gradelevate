@@ -52,6 +52,10 @@
   color: var(--gold);
   font-style: italic;
 }
+.jj{
+ color: var(--gold); 
+ font-size: 1.8rem;
+}
 
 .sub {
   font-family: 'Poppins', sans-serif;
