@@ -8,7 +8,7 @@ export default function Footer() {
         {/* Col 1: Brand */}
         <div className={styles.col}>
           <Link href="/" className={styles.logo}>
-            <span>🎓</span>
+            <span></span>
             <div>
               <span className={styles.logoName}>GradElevate</span>
               <span className={styles.logoTagline}>ELEVATE. ACHIEVE. SUCCEED.</span>
