@@ -49,7 +49,7 @@ export default function Footer() {
             <h4 className={styles.colTitle}>Quick Links</h4>
             <nav className={styles.links}>
               {["Home", "About", "Services", "Events", "Resources", "Blog", "Book a Consultation"].map((l) => (
-                <Link key={l} href={`/${l.toLowerCase().replace(/ /g, "-")}`} className={styles.link}>{l}</Link>
+                <Link key={l} href={l === "Home" ? "/" : `/${l.toLowerCase().replace(/ /g, "-")}`} className={styles.link}>{l}</Link>
               ))}
             </nav>
           </div>
