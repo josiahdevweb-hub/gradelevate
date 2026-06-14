@@ -15,6 +15,20 @@ function readRawBody(req: NextApiRequest): Promise<Buffer> {
   });
 }
 
+// On Vercel the cwd is read-only; /tmp is the only writable location.
+// Locally we prefer public/uploads so the file is served as a static asset.
+function getUploadsDir(): { dir: string; urlPrefix: string } {
+  const publicUploads = path.join(process.cwd(), "public", "uploads");
+  try {
+    fs.mkdirSync(publicUploads, { recursive: true });
+    return { dir: publicUploads, urlPrefix: "/uploads" };
+  } catch {
+    const tmpUploads = path.join("/tmp", "uploads");
+    fs.mkdirSync(tmpUploads, { recursive: true });
+    return { dir: tmpUploads, urlPrefix: "/api/uploads" };
+  }
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") return res.status(405).end();
 
@@ -32,14 +46,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .slice(0, 40);
 
     const filename = `${Date.now()}-${base}.${ext}`;
-
-    const uploadsDir = path.join(process.cwd(), "public", "uploads");
-    if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
+    const { dir, urlPrefix } = getUploadsDir();
 
     const buffer = await readRawBody(req);
-    fs.writeFileSync(path.join(uploadsDir, filename), buffer);
+    fs.writeFileSync(path.join(dir, filename), buffer);
 
-    res.json({ url: `/uploads/${filename}` });
+    res.json({ url: `${urlPrefix}/${filename}` });
   } catch (e) {
     console.error("Upload error:", e);
     res.status(500).json({ error: String(e) });
