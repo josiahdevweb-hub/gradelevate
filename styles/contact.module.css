@@ -1,4 +1,4 @@
-.section {
+﻿.section {
   background: var(--light-grey, #F7F7F7);
   padding: 80px 0 96px;
 }
@@ -24,14 +24,14 @@
 }
 
 .detailTitle {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.75rem;
   font-weight: 700;
   color: #0f2744;
 }
 
 .detailDesc {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   color: #4a5568;
   line-height: 1.7;
@@ -61,7 +61,7 @@
 }
 
 .contactLabel {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -71,7 +71,7 @@
 }
 
 .contactValue {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   color: #2d3748;
   line-height: 1.4;
@@ -88,7 +88,7 @@ a.contactValue:hover { color: #C9A227; }
 }
 
 .socialsTitle {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   font-weight: 600;
   color: #0f2744;
@@ -101,7 +101,7 @@ a.contactValue:hover { color: #C9A227; }
 }
 
 .socialLink {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   font-weight: 500;
   color: #4a5568;
@@ -125,7 +125,7 @@ a.contactValue:hover { color: #C9A227; }
 }
 
 .quickBookText {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   color: rgba(255,255,255,0.75);
   line-height: 1.55;
@@ -145,7 +145,7 @@ a.contactValue:hover { color: #C9A227; }
 }
 
 .formTitle {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   color: #0f2744;
@@ -166,7 +166,7 @@ a.contactValue:hover { color: #C9A227; }
 }
 
 .label {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   font-weight: 600;
   color: #2d3748;
@@ -174,7 +174,7 @@ a.contactValue:hover { color: #C9A227; }
 
 .input,
 .textarea {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
   color: #2d3748;
   padding: 11px 14px;
@@ -198,7 +198,7 @@ a.contactValue:hover { color: #C9A227; }
 .submitBtn {
   background: #C9A227;
   color: #081B33;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -212,7 +212,7 @@ a.contactValue:hover { color: #C9A227; }
 .submitBtn:hover { background: #e0b83a; }
 
 .formNote {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.75rem;
   color: #a0aec0;
   text-align: center;
@@ -229,14 +229,14 @@ a.contactValue:hover { color: #C9A227; }
 }
 
 .successTitle {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.75rem;
   font-weight: 700;
   color: #0f2744;
 }
 
 .successDesc {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9375rem;
   color: #4a5568;
 }

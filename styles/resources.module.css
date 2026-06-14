@@ -1,4 +1,4 @@
-.groupSection {
+﻿.groupSection {
   padding: 72px 0;
   background: #ffffff;
 }
@@ -28,7 +28,7 @@
 }
 
 .groupTitle {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.8rem;
   font-weight: 700;
   color: #0f2744;
@@ -73,7 +73,7 @@
 }
 
 .resourceTag {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.05em;
@@ -82,7 +82,7 @@
 }
 
 .freeBadge {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -94,7 +94,7 @@
 }
 
 .resourceTitle {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1rem;
   font-weight: 700;
   color: #0f2744;
@@ -102,7 +102,7 @@
 }
 
 .resourceDesc {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8125rem;
   color: #718096;
   line-height: 1.55;
@@ -115,7 +115,7 @@
   gap: 7px;
   background: #C9A227;
   color: #081B33;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -133,7 +133,7 @@
   justify-content: center;
   background: transparent;
   color: #0f2744;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -168,7 +168,7 @@
 }
 
 .captureTitle {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: clamp(1.8rem, 3vw, 2.4rem);
   font-weight: 700;
   color: #fff;
@@ -176,7 +176,7 @@
 }
 
 .captureDesc {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9375rem;
   color: rgba(255,255,255,0.65);
   line-height: 1.7;
@@ -191,7 +191,7 @@
 }
 
 .capturePerk {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
   color: rgba(255,255,255,0.8);
   display: flex;
@@ -214,7 +214,7 @@
 }
 
 .formTitle {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.4rem;
   font-weight: 700;
   color: #0f2744;
@@ -228,7 +228,7 @@
 }
 
 .label {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   font-weight: 600;
   color: #2d3748;
@@ -236,7 +236,7 @@
 }
 
 .input {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   color: #2d3748;
   padding: 11px 14px;
@@ -252,7 +252,7 @@
 .submitBtn {
   background: #C9A227;
   color: #081B33;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -265,7 +265,7 @@
 .submitBtn:hover { background: #e0b83a; }
 
 .formNote {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.75rem;
   color: #a0aec0;
   text-align: center;
@@ -281,13 +281,13 @@
 }
 
 .successMsg h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.4rem;
   color: #0f2744;
 }
 
 .successMsg p {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   color: #718096;
 }

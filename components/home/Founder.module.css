@@ -1,4 +1,4 @@
-/* Full-bleed flex row — no container, no global section class */
+﻿/* Full-bleed flex row — no container, no global section class */
 .section {
   display: flex;
   background: #ffffff;
@@ -38,14 +38,14 @@
 .logoMark { font-size: 1.25rem; }
 
 .logoName {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
   color: #fff;
 }
 
 .logoSub {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.45rem;
   font-weight: 600;
   letter-spacing: 0.1em;
@@ -71,7 +71,7 @@
 }
 
 .title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: clamp(1.35rem, 2.2vw, 1.85rem);
   font-weight: 700;
   color: #0f2744;
@@ -79,7 +79,7 @@
 }
 
 .body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
   color: #4a5568;
   line-height: 1.65;
@@ -108,7 +108,7 @@
 }
 
 .credLabel {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.68rem;
   font-weight: 500;
   color: #2d3748;
@@ -127,7 +127,7 @@
 }
 
 .testimonialsHeader {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -149,7 +149,7 @@
 }
 
 .testimonialText {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.75rem;
   color: #2d3748;
   line-height: 1.5;
@@ -164,7 +164,7 @@
 }
 
 .testimonialLabel {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.68rem;
   color: #718096;
   font-style: italic;

@@ -1,4 +1,4 @@
-/* ── Services index — 2-column card grid ── */
+﻿/* ── Services index — 2-column card grid ── */
 .cardsSection {
   background: var(--light-grey, #F7F7F7);
   padding: 48px 0 64px;
@@ -55,7 +55,7 @@
   position: absolute;
   top: 10px;
   right: 14px;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.22);
@@ -84,7 +84,7 @@
 }
 
 .cardTitle {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.2rem;
   font-weight: 700;
   color: #0f2744;
@@ -92,7 +92,7 @@
 }
 
 .cardDesc {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8375rem;
   color: #4a5568;
   line-height: 1.65;
@@ -106,7 +106,7 @@
 }
 
 .pill {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -120,7 +120,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.82rem;
   font-weight: 600;
   color: #C9A227;

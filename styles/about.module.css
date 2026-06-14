@@ -1,4 +1,4 @@
-/* ── Mission ── */
+﻿/* ── Mission ── */
 .missionSection {
   background: #ffffff;
   padding: 96px 0;
@@ -18,7 +18,7 @@
 }
 
 .sectionTitle {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: clamp(1.8rem, 3vw, 2.6rem);
   font-weight: 700;
   color: #0f2744;
@@ -26,7 +26,7 @@
 }
 
 .sectionTitleWhite {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: clamp(1.8rem, 3vw, 2.6rem);
   font-weight: 700;
   color: #fff;
@@ -34,7 +34,7 @@
 }
 
 .bodyText {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9375rem;
   color: #4a5568;
   line-height: 1.75;
@@ -55,14 +55,14 @@
 }
 
 .statNum {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 2rem;
   font-weight: 700;
   color: #C9A227;
 }
 
 .statLabel {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.75rem;
   color: #718096;
   font-weight: 500;
@@ -95,14 +95,14 @@
 .badgeIcon { font-size: 1.25rem; }
 
 .badgeName {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
   color: #fff;
 }
 
 .badgeSub {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.45rem;
   font-weight: 600;
   letter-spacing: 0.1em;
@@ -161,14 +161,14 @@
 }
 
 .credTitle {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
   color: #0f2744;
 }
 
 .credDetail {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8125rem;
   color: #718096;
   margin-top: 2px;
@@ -210,14 +210,14 @@
 }
 
 .valueTitle {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.05rem;
   font-weight: 700;
   color: #fff;
 }
 
 .valueDesc {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.6);
   line-height: 1.65;

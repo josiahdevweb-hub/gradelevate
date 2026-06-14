@@ -1,4 +1,4 @@
-.blogSection {
+﻿.blogSection {
   background: var(--light-grey, #F7F7F7);
   padding: 64px 0 96px;
 }
@@ -11,7 +11,7 @@
 }
 
 .cat {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   font-weight: 500;
   padding: 7px 16px;
@@ -70,7 +70,7 @@
 
 .featuredTag {
   display: inline-block;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -82,7 +82,7 @@
 }
 
 .featuredTitle {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: clamp(1.5rem, 2.5vw, 2rem);
   font-weight: 700;
   color: #0f2744;
@@ -90,14 +90,14 @@
 }
 
 .featuredExcerpt {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9375rem;
   color: #4a5568;
   line-height: 1.7;
 }
 
 .postMeta {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8125rem;
   color: #a0aec0;
   display: flex;
@@ -109,7 +109,7 @@
 .dot { color: #cbd5e0; }
 
 .readMore {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
   color: #C9A227;
@@ -157,7 +157,7 @@
   position: absolute;
   top: 12px;
   left: 12px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -176,7 +176,7 @@
 }
 
 .cardTitle {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.05rem;
   font-weight: 700;
   color: #0f2744;
@@ -184,7 +184,7 @@
 }
 
 .cardExcerpt {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8125rem;
   color: #718096;
   line-height: 1.6;
@@ -192,7 +192,7 @@
 }
 
 .cardMeta {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.78rem;
   color: #a0aec0;
   display: flex;

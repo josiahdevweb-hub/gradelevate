@@ -1,4 +1,4 @@
-.section {
+﻿.section {
   background: var(--navy-secondary);
   padding: 96px 0;
   border-top: 1px solid rgba(201, 162, 39, 0.15);
@@ -51,7 +51,7 @@
 }
 
 .statValue {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 2.5rem;
   font-weight: 700;
   color: var(--gold);
@@ -59,7 +59,7 @@
 }
 
 .statLabel {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.6);
 }

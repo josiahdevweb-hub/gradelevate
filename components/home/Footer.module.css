@@ -1,4 +1,4 @@
-.footer {
+﻿.footer {
   background: var(--navy-secondary);
   border-top: 1px solid rgba(201, 162, 39, 0.15);
 }
@@ -28,7 +28,7 @@
 
 .logoName {
   display: block;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.0625rem;
   font-weight: 700;
   color: #fff;
@@ -44,7 +44,7 @@
 }
 
 .brandDesc {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
   color: rgba(255,255,255,0.5);
   line-height: 1.7;
@@ -72,7 +72,7 @@
 }
 
 .colTitle {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -87,7 +87,7 @@
 }
 
 .link {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
   color: rgba(255,255,255,0.55);
   transition: color 0.2s;
@@ -102,7 +102,7 @@
 }
 
 .contactItem {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
   color: rgba(255,255,255,0.55);
   transition: color 0.2s;
@@ -116,7 +116,7 @@ a.contactItem:hover { color: var(--gold); }
 }
 
 .copy {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8125rem;
   color: rgba(255,255,255,0.3);
 }

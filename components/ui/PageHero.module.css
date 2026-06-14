@@ -1,4 +1,4 @@
-/* ── Base (light — white-to-gold gradient) ── */
+﻿/* ── Base (light — white-to-gold gradient) ── */
 .hero {
   position: relative;
   background: linear-gradient(135deg, #ffffff 0%, #fffcf0 30%, #fdeea8 62%, #C9A227 100%);
@@ -47,7 +47,7 @@
 }
 
 .title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: clamp(1.9rem, 4vw, 3rem);
   font-weight: 700;
   color: #0F2744;
@@ -55,7 +55,7 @@
 }
 
 .sub {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1rem;
   color: rgba(15, 39, 68, 0.75);
   line-height: 1.7;

@@ -1,4 +1,4 @@
-.navbar {
+﻿.navbar {
   position: fixed;
   top: 0;
   left: 0;
@@ -37,7 +37,7 @@
 
 .logoName {
   display: block;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.125rem;
   font-weight: 700;
   color: #fff;
@@ -46,7 +46,7 @@
 
 .logoTagline {
   display: block;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.5rem;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -66,7 +66,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.85);
@@ -115,7 +115,7 @@
 .dropdownItem {
   display: block;
   padding: 10px 20px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.8);
   transition: color 0.15s ease, background 0.15s ease;
@@ -164,7 +164,7 @@
 }
 
 .mobileLink {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.85);
   padding: 14px 0;

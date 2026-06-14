@@ -1,4 +1,4 @@
-.services {
+﻿.services {
   background: var(--navy-primary);
   position: relative;
   overflow: hidden;
@@ -49,7 +49,7 @@
 }
 
 .intro {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.6);
   line-height: 1.7;
@@ -117,7 +117,7 @@
 }
 
 .tagline {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.75rem;
   font-style: italic;
   color: rgba(201, 162, 39, 0.7);
@@ -126,7 +126,7 @@
 }
 
 .cardTitle {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.125rem;
   font-weight: 700;
   color: #fff;
@@ -144,7 +144,7 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8125rem;
   color: rgba(255, 255, 255, 0.6);
   line-height: 1.55;
@@ -160,7 +160,7 @@
 }
 
 .cta {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--gold);
@@ -200,7 +200,7 @@
 }
 
 .quoteText {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: clamp(1rem, 2vw, 1.125rem);
   color: rgba(255, 255, 255, 0.85);
   line-height: 1.7;
@@ -210,7 +210,7 @@
 }
 
 .quoteAuthor {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--gold);

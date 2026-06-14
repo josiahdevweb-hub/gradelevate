@@ -1,4 +1,4 @@
-.section {
+﻿.section {
   background: var(--light-grey, #F7F7F7);
   padding: 80px 0 96px;
 }
@@ -18,14 +18,14 @@
 }
 
 .infoTitle {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.75rem;
   font-weight: 700;
   color: #0f2744;
 }
 
 .infoDesc {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9375rem;
   color: #4a5568;
   line-height: 1.75;
@@ -48,7 +48,7 @@
   height: 40px;
   background: #C9A227;
   color: #081B33;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
   font-weight: 700;
   display: flex;
@@ -58,7 +58,7 @@
 }
 
 .stepTitle {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
   color: #0f2744;
@@ -66,7 +66,7 @@
 }
 
 .stepDesc {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8125rem;
   color: #718096;
   line-height: 1.55;
@@ -83,7 +83,7 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   font-weight: 500;
   color: #2d3748;
@@ -116,7 +116,7 @@
 }
 
 .bannerLabel {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -126,7 +126,7 @@
 }
 
 .bannerValue {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
   color: #0f2744;
@@ -134,7 +134,7 @@
 }
 
 .formTitle {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   color: #0f2744;
@@ -155,7 +155,7 @@
 }
 
 .label {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   font-weight: 600;
   color: #2d3748;
@@ -163,7 +163,7 @@
 
 .input,
 .textarea {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.875rem;
   color: #2d3748;
   padding: 11px 14px;
@@ -187,7 +187,7 @@
 .submitBtn {
   background: #C9A227;
   color: #081B33;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -201,7 +201,7 @@
 .submitBtn:hover { background: #e0b83a; }
 
 .formNote {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.75rem;
   color: #a0aec0;
   text-align: center;
@@ -218,14 +218,14 @@
 }
 
 .successTitle {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.75rem;
   font-weight: 700;
   color: #0f2744;
 }
 
 .successDesc {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9375rem;
   color: #4a5568;
   line-height: 1.7;

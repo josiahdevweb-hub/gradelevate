@@ -1,9 +1,9 @@
-/* ── Shell ─────────────────────────────────────────── */
+﻿/* ── Shell ─────────────────────────────────────────── */
 .adminShell {
   display: flex;
   min-height: 100vh;
   background: #f4f6fa;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* ── Sidebar ───────────────────────────────────────── */
@@ -34,7 +34,7 @@
 }
 
 .sidebarName {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.1rem;
   font-weight: 700;
   color: #fff;
@@ -211,7 +211,7 @@
 }
 
 .pageHeading {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.4rem;
   font-weight: 700;
   color: #0F2744;
@@ -390,7 +390,7 @@
   gap: 6px;
   background: #C9A227;
   color: #0F2744;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 700;
   font-size: 0.78rem;
   padding: 9px 16px;
@@ -409,7 +409,7 @@
   gap: 6px;
   background: transparent;
   color: #0F2744;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 600;
   font-size: 0.78rem;
   padding: 8px 14px;
@@ -428,7 +428,7 @@
   gap: 5px;
   background: transparent;
   color: #dc2626;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 600;
   font-size: 0.75rem;
   padding: 6px 10px;
@@ -446,7 +446,7 @@
   gap: 5px;
   background: transparent;
   color: #0F2744;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 600;
   font-size: 0.75rem;
   padding: 6px 10px;
@@ -563,7 +563,7 @@
   padding: 9px 12px;
   border: 1.5px solid #d0d8e4;
   border-radius: 8px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.85rem;
   color: #0F2744;
   background: #fff;
@@ -665,7 +665,7 @@
   flex: 1;
   border: none;
   outline: none;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.83rem;
   color: #0F2744;
   background: transparent;
@@ -677,7 +677,7 @@
   padding: 9px 12px;
   border: 1.5px solid #d0d8e4;
   border-radius: 8px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.83rem;
   color: #0F2744;
   background: #fff;
@@ -717,7 +717,7 @@
 }
 
 .loginBrand {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.4rem;
   font-weight: 700;
   color: #0F2744;
@@ -758,7 +758,7 @@
   padding: 11px 14px;
   border: 1.5px solid #d0d8e4;
   border-radius: 8px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.9rem;
   color: #0F2744;
   transition: border-color 0.15s;
@@ -774,7 +774,7 @@
   padding: 12px;
   background: #C9A227;
   color: #0F2744;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 700;
   font-size: 0.85rem;
   border: none;
@@ -800,7 +800,7 @@
   gap: 6px;
   background: #16a34a;
   color: #fff;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 700;
   font-size: 0.78rem;
   padding: 9px 16px;
@@ -836,7 +836,7 @@
   padding: 4px 8px;
   border: 1.5px solid #d0d8e4;
   border-radius: 6px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
   color: #0F2744;
@@ -1076,7 +1076,7 @@
 }
 
 .previewTitle {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1rem;
   font-weight: 700;
   color: #0F2744;
