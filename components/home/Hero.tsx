@@ -21,9 +21,9 @@ export default function Hero() {
       <div className={styles.content}>
         <h1 className={styles.headline}>
           Elevate Your<br />
-          Academic Journey.<br />
-          <span className={styles.accentLine}>Accelerate Your Career.</span>
-        </h1>
+          Academic Journey.<br /> </h1>
+          <h2><span className={styles.accentLine}>Accelerate Your Career.</span>
+        </h2>
 
         <p className={styles.sub}>
           Expert academic, research, and career support for students, graduates,
