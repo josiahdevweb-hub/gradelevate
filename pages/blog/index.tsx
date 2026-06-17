@@ -110,7 +110,7 @@ export default function Blog({ posts }: { posts: Post[] }) {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const API = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
+    const API = "https://gradeelevate-backend-production.up.railway.app";
     const res = await fetch(`${API}/api/blogs`);
     const posts: Post[] = res.ok ? await res.json() : [];
     return { props: { posts } };

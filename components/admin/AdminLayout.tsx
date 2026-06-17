@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "@/styles/admin.module.css";
 
-const API = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
+const API = "https://gradeelevate-backend-production.up.railway.app";
 
 const navItems = [
   {

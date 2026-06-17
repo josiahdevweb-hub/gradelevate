@@ -16,7 +16,7 @@ export default function Contact() {
     setSubmitError("");
     setSubmitting(true);
     try {
-      const API = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
+      const API = "https://gradeelevate-backend-production.up.railway.app";
       const res = await fetch(`${API}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

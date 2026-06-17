@@ -159,7 +159,7 @@ export default function Events({ allEvents }: { allEvents: Event[] }) {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const API = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
+    const API = "https://gradeelevate-backend-production.up.railway.app";
     const res = await fetch(`${API}/api/events`);
     const allEvents: Event[] = res.ok ? await res.json() : [];
     return { props: { allEvents } };

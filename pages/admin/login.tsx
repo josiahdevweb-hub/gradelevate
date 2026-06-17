@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import styles from "@/styles/admin.module.css";
 
-const API = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
+const API = "https://gradeelevate-backend-production.up.railway.app";
 
 export default function AdminLogin() {
   const router = useRouter();

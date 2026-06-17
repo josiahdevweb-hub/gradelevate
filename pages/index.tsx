@@ -13,7 +13,7 @@ import AnnouncementPopup from "@/components/home/AnnouncementPopup";
 
 export async function getServerSideProps() {
   try {
-    const API = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
+    const API = "https://gradeelevate-backend-production.up.railway.app";
     const res = await fetch(`${API}/api/announcements`);
     const announcement = res.ok ? await res.json() : null;
     return { props: { announcement } };

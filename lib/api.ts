@@ -1,4 +1,4 @@
-const API = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
+const API = "https://gradeelevate-backend-production.up.railway.app";
 
 function getToken(): string | null {
   if (typeof window === "undefined") return null;
