@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
 import ImageUpload from "@/components/admin/ImageUpload";
+import { api } from "@/lib/api";
 import styles from "@/styles/admin.module.css";
 
 interface Event {
@@ -12,7 +13,7 @@ interface Event {
   duration: string;
   price: string;
   date: string;
-  image: string;
+  imageUrl: string;
   spots: number;
 }
 
@@ -26,7 +27,7 @@ const EMPTY: Omit<Event, "id"> = {
   duration: "",
   price: "",
   date: "",
-  image: "",
+  imageUrl: "",
   spots: 20,
 };
 
@@ -40,7 +41,7 @@ export default function AdminEvents() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
   const load = () =>
-    fetch("/api/events").then((r) => r.json()).then((data) => { setEvents(data); setLoading(false); });
+    api.get<Event[]>("/api/events").then((data) => { setEvents(data); setLoading(false); });
 
   useEffect(() => { load(); }, []);
 
@@ -51,19 +52,19 @@ export default function AdminEvents() {
   const save = async () => {
     if (!form.title.trim()) return;
     setSaving(true);
-    const method = modal === "edit" ? "PUT" : "POST";
-    await fetch("/api/events", {
-      method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...form, spots: Number(form.spots) }),
-    });
+    if (modal === "edit" && form.id) {
+      const { id, ...body } = form;
+      await api.put<Event>(`/api/events/${id}`, { ...body, spots: Number(body.spots) });
+    } else {
+      await api.post<Event>("/api/events", { ...form, spots: Number(form.spots) });
+    }
     await load();
     closeModal();
   };
 
   const confirmDelete = async () => {
     if (!deleteId) return;
-    await fetch(`/api/events?id=${deleteId}`, { method: "DELETE" });
+    await api.delete(`/api/events/${deleteId}`);
     await load();
     setDeleteId(null);
   };
@@ -130,8 +131,8 @@ export default function AdminEvents() {
                 {filtered.map((ev) => (
                   <tr key={ev.id}>
                     <td>
-                      {ev.image ? (
-                        <img src={ev.image} alt={ev.title} className={styles.thumb} />
+                      {ev.imageUrl ? (
+                        <img src={ev.imageUrl} alt={ev.title} className={styles.thumb} />
                       ) : (
                         <div className={styles.thumb} style={{ background: "#f0f2f6" }} />
                       )}
@@ -156,7 +157,6 @@ export default function AdminEvents() {
           )}
         </div>
 
-        {/* Add / Edit modal */}
         {modal && (
           <div className={styles.modalOverlay} onClick={(e) => e.target === e.currentTarget && closeModal()}>
             <div className={styles.modal}>
@@ -207,7 +207,11 @@ export default function AdminEvents() {
                   </div>
                   <div className={`${styles.formGroup} ${styles.formGroupFull}`}>
                     <label className={styles.formLabel}>Image</label>
-                    <ImageUpload value={form.image as string} onChange={(url) => set("image", url)} />
+                    <ImageUpload
+                      value={form.imageUrl as string}
+                      onChange={(url) => set("imageUrl", url)}
+                      folder="events"
+                    />
                   </div>
                 </div>
               </div>
@@ -221,7 +225,6 @@ export default function AdminEvents() {
           </div>
         )}
 
-        {/* Delete confirm */}
         {deleteId && (
           <div className={styles.modalOverlay}>
             <div className={styles.modal} style={{ maxWidth: 400 }}>

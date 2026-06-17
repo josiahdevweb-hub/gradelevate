@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import AdminLayout from "@/components/admin/AdminLayout";
+import { api } from "@/lib/api";
 import styles from "@/styles/admin.module.css";
 
 interface Booking {
@@ -56,8 +57,7 @@ export default function AdminBookings() {
   const [statusFilter, setStatusFilter] = useState("All");
 
   const load = () =>
-    fetch("/api/bookings")
-      .then((r) => r.json())
+    api.get<Booking[]>("/api/admin/bookings")
       .then((data) => { setBookings(data); setLoading(false); });
 
   useEffect(() => { load(); }, []);

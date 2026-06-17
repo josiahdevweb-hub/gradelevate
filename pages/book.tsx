@@ -46,7 +46,8 @@ export default function Book() {
     setSubmitting(true);
     setSubmitError("");
     try {
-      const res = await fetch("/api/bookings", {
+      const API = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
+      const res = await fetch(`${API}/api/bookings`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

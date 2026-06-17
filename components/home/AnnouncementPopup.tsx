@@ -8,7 +8,7 @@ interface Announcement {
   body: string;
   ctaText?: string;
   ctaLink?: string;
-  image?: string;
+  imageUrl?: string;
   updatedAt: string;
 }
 
@@ -31,7 +31,7 @@ export default function AnnouncementPopup({ announcement }: { announcement: Anno
 
   if (!visible || !announcement?.active) return null;
 
-  const hasImage = !!announcement.image;
+  const hasImage = !!announcement.imageUrl;
 
   return (
     <div className={styles.backdrop} onClick={dismiss}>
@@ -39,7 +39,7 @@ export default function AnnouncementPopup({ announcement }: { announcement: Anno
 
         {hasImage && (
           <div className={styles.imgWrap}>
-            <img src={announcement.image} alt="" className={styles.img} />
+            <img src={announcement.imageUrl} alt="" className={styles.img} />
             <div className={styles.imgOverlay} />
           </div>
         )}

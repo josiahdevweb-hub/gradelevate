@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
 import ImageUpload from "@/components/admin/ImageUpload";
+import { api } from "@/lib/api";
 import styles from "@/styles/admin.module.css";
 
 interface BlogPost {
@@ -12,7 +13,7 @@ interface BlogPost {
   author: string;
   date: string;
   readTime: string;
-  image: string;
+  imageUrl: string;
   featured: boolean;
 }
 
@@ -25,7 +26,7 @@ const EMPTY: Omit<BlogPost, "id"> = {
   author: "GradElevate Team",
   date: new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }),
   readTime: "5 min read",
-  image: "",
+  imageUrl: "",
   featured: false,
 };
 
@@ -39,7 +40,7 @@ export default function AdminBlogs() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
   const load = () =>
-    fetch("/api/blogs").then((r) => r.json()).then((data) => { setPosts(data); setLoading(false); });
+    api.get<BlogPost[]>("/api/blogs").then((data) => { setPosts(data); setLoading(false); });
 
   useEffect(() => { load(); }, []);
 
@@ -50,19 +51,19 @@ export default function AdminBlogs() {
   const save = async () => {
     if (!form.title.trim()) return;
     setSaving(true);
-    const method = modal === "edit" ? "PUT" : "POST";
-    await fetch("/api/blogs", {
-      method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
+    if (modal === "edit" && form.id) {
+      const { id, ...body } = form;
+      await api.put<BlogPost>(`/api/blogs/${id}`, body);
+    } else {
+      await api.post<BlogPost>("/api/blogs", form);
+    }
     await load();
     closeModal();
   };
 
   const confirmDelete = async () => {
     if (!deleteId) return;
-    await fetch(`/api/blogs?id=${deleteId}`, { method: "DELETE" });
+    await api.delete(`/api/blogs/${deleteId}`);
     await load();
     setDeleteId(null);
   };
@@ -157,8 +158,8 @@ export default function AdminBlogs() {
                 {filtered.map((p) => (
                   <tr key={p.id}>
                     <td>
-                      {p.image ? (
-                        <img src={p.image} alt={p.title} className={styles.thumb} />
+                      {p.imageUrl ? (
+                        <img src={p.imageUrl} alt={p.title} className={styles.thumb} />
                       ) : (
                         <div className={styles.thumb} style={{ background: "#f0f2f6" }} />
                       )}
@@ -184,7 +185,6 @@ export default function AdminBlogs() {
           )}
         </div>
 
-        {/* Add / Edit modal */}
         {modal && (
           <div className={styles.modalOverlay} onClick={(e) => e.target === e.currentTarget && closeModal()}>
             <div className={styles.modal}>
@@ -207,7 +207,11 @@ export default function AdminBlogs() {
                   {field("readTime", "Read Time", { placeholder: "5 min read" })}
                   <div className={`${styles.formGroup} ${styles.formGroupFull}`}>
                     <label className={styles.formLabel}>Image</label>
-                    <ImageUpload value={form.image as string} onChange={(url) => setForm((f) => ({ ...f, image: url }))} />
+                    <ImageUpload
+                      value={form.imageUrl as string}
+                      onChange={(url) => setForm((f) => ({ ...f, imageUrl: url }))}
+                      folder="blogs"
+                    />
                   </div>
                   {field("excerpt", "Excerpt", { full: true, rows: 3, placeholder: "Short description of the post…" })}
                   <div className={`${styles.formGroup} ${styles.formGroupFull}`}>
@@ -235,7 +239,6 @@ export default function AdminBlogs() {
           </div>
         )}
 
-        {/* Delete confirm */}
         {deleteId && (
           <div className={styles.modalOverlay}>
             <div className={styles.modal} style={{ maxWidth: 400 }}>

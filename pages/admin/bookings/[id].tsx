@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState, useCallback } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
+import { api } from "@/lib/api";
 import styles from "@/styles/admin.module.css";
 
 interface FollowUp {
@@ -66,8 +67,8 @@ export default function BookingProfile() {
   const loadBooking = useCallback(async () => {
     if (!id) return;
     try {
-      const data: Booking[] = await fetch("/api/bookings").then((r) => r.json());
-      setBooking(Array.isArray(data) ? (data.find((b) => b.id === id) ?? null) : null);
+      const data = await api.get<Booking>(`/api/admin/bookings/${id}`);
+      setBooking(data);
     } catch {
       setBooking(null);
     } finally {
@@ -79,23 +80,14 @@ export default function BookingProfile() {
 
   const updateStatus = async (status: string) => {
     if (!booking) return;
-    await fetch("/api/bookings", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: booking.id, status }),
-    });
-    setBooking((b) => b ? { ...b, status } : b);
+    const updated = await api.patch<Booking>(`/api/admin/bookings/${booking.id}/status`, { status });
+    setBooking(updated);
   };
 
   const addFollowUp = async () => {
     if (!booking || !fuForm.scheduledDate || saving) return;
     setSaving(true);
-    const res = await fetch("/api/bookings", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: booking.id, addFollowUp: { ...fuForm, status: "pending" } }),
-    });
-    const updated = await res.json();
+    const updated = await api.post<Booking>(`/api/admin/bookings/${booking.id}/follow-ups`, fuForm);
     setBooking(updated);
     setShowFUModal(false);
     setFuForm({ scheduledDate: "", notes: "" });
@@ -104,23 +96,17 @@ export default function BookingProfile() {
 
   const markFUDone = async (fuId: string) => {
     if (!booking) return;
-    const res = await fetch("/api/bookings", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: booking.id, updateFollowUp: { id: fuId, status: "done", completedAt: new Date().toISOString() } }),
-    });
-    const updated = await res.json();
+    const updated = await api.patch<Booking>(
+      `/api/admin/bookings/${booking.id}/follow-ups/${fuId}`,
+      { status: "done" }
+    );
     setBooking(updated);
   };
 
   const resendEmail = async (type: string) => {
     if (!booking || resending) return;
     setResending(type);
-    await fetch("/api/resend-email", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ bookingId: booking.id, type }),
-    });
+    await api.post(`/api/admin/bookings/${booking.id}/resend-email`, { type });
     await loadBooking();
     setResending(null);
   };
@@ -160,7 +146,6 @@ export default function BookingProfile() {
       <Head><title>{booking.name} — GradElevate Admin</title></Head>
       <AdminLayout title="Client Profile">
 
-        {/* Back nav */}
         <Link href="/admin/bookings" className={styles.profileBackLink}>
           <svg width="13" height="13" fill="none" viewBox="0 0 14 14">
             <path d="M9 1L3 7l6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
@@ -168,7 +153,6 @@ export default function BookingProfile() {
           Back to Bookings
         </Link>
 
-        {/* Client header */}
         <div className={styles.profileHeader}>
           <div className={styles.profileHeaderLeft}>
             <div className={styles.profileAvatar}>{initials(booking.name)}</div>
@@ -194,13 +178,10 @@ export default function BookingProfile() {
           </div>
         </div>
 
-        {/* Two-column layout */}
         <div className={styles.profileGrid}>
 
-          {/* LEFT: comms + follow-ups */}
           <div className={styles.profileMain}>
 
-            {/* Communications History */}
             <div className={styles.profileCard}>
               <div className={styles.profileCardHeader}>
                 <div className={styles.profileCardTitle}>
@@ -215,7 +196,6 @@ export default function BookingProfile() {
                 )}
               </div>
 
-              {/* Type summary cards */}
               {Object.keys(emailGroups).length > 0 && (
                 <div className={styles.commCards}>
                   {Object.entries(emailGroups).map(([type, emails]) => {
@@ -240,7 +220,6 @@ export default function BookingProfile() {
                 </div>
               )}
 
-              {/* Quick Resend */}
               <div className={styles.quickResend}>
                 <div className={styles.quickResendLabel}>
                   <svg width="12" height="12" fill="none" viewBox="0 0 14 14">
@@ -267,7 +246,6 @@ export default function BookingProfile() {
                 </div>
               </div>
 
-              {/* Email table */}
               {(booking.emails || []).length === 0 ? (
                 <div className={styles.emptyStateMini}>
                   <svg width="28" height="28" fill="none" viewBox="0 0 28 28">
@@ -345,7 +323,6 @@ export default function BookingProfile() {
               )}
             </div>
 
-            {/* Follow-up History */}
             <div className={styles.profileCard}>
               <div className={styles.profileCardHeader}>
                 <div className={styles.profileCardTitle}>
@@ -435,7 +412,6 @@ export default function BookingProfile() {
             </div>
           </div>
 
-          {/* RIGHT: booking details sidebar */}
           <div className={styles.profileSidebar}>
             <div className={styles.profileCard}>
               <div className={styles.profileCardHeader}>
@@ -501,7 +477,6 @@ export default function BookingProfile() {
           </div>
         </div>
 
-        {/* Add Follow-up Modal */}
         {showFUModal && (
           <div className={styles.modalOverlay} onClick={() => setShowFUModal(false)}>
             <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
@@ -526,7 +501,7 @@ export default function BookingProfile() {
                   <label className={styles.formLabel}>Notes</label>
                   <textarea
                     className={styles.formTextarea}
-                    placeholder="What is the purpose of this follow-up? e.g. Check in on dissertation progress, send resources…"
+                    placeholder="What is the purpose of this follow-up?"
                     value={fuForm.notes}
                     onChange={(e) => setFuForm((f) => ({ ...f, notes: e.target.value }))}
                     rows={4}

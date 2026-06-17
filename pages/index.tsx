@@ -1,5 +1,3 @@
-import fs from "fs";
-import path from "path";
 import Head from "next/head";
 import Navbar from "@/components/home/Navbar";
 import Hero from "@/components/home/Hero";
@@ -15,15 +13,16 @@ import AnnouncementPopup from "@/components/home/AnnouncementPopup";
 
 export async function getServerSideProps() {
   try {
-    const file = path.join(process.cwd(), "data", "announcements.json");
-    const announcement = JSON.parse(fs.readFileSync(file, "utf-8"));
+    const API = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
+    const res = await fetch(`${API}/api/announcements`);
+    const announcement = res.ok ? await res.json() : null;
     return { props: { announcement } };
   } catch {
     return { props: { announcement: null } };
   }
 }
 
-export default function Home({ announcement }: { announcement: any }) {
+export default function Home({ announcement }: { announcement: unknown }) {
   return (
     <>
       <Head>
@@ -36,7 +35,7 @@ export default function Home({ announcement }: { announcement: any }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <AnnouncementPopup announcement={announcement} />
+      <AnnouncementPopup announcement={announcement as never} />
       <Navbar />
       <main>
         <Hero />
@@ -46,7 +45,6 @@ export default function Home({ announcement }: { announcement: any }) {
         <Differentiator />
         <HowItWorks />
         <Founder />
-        {/* Testimonials now embedded in Founder section */}
         <CtaBanner />
       </main>
       <Footer />

@@ -3,6 +3,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "@/styles/admin.module.css";
 
+const API = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
+
 const navItems = [
   {
     href: "/admin",
@@ -76,13 +78,22 @@ export default function AdminLayout({ children, title }: { children: React.React
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const auth = localStorage.getItem("admin_auth");
-      if (!auth) router.replace("/admin/login");
+      const token = localStorage.getItem("admin_token");
+      if (!token) router.replace("/admin/login");
     }
   }, [router]);
 
-  const logout = () => {
-    localStorage.removeItem("admin_auth");
+  const logout = async () => {
+    const token = localStorage.getItem("admin_token");
+    if (token) {
+      try {
+        await fetch(`${API}/api/auth/logout`, {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+      } catch {}
+    }
+    localStorage.removeItem("admin_token");
     router.push("/admin/login");
   };
 

@@ -1,12 +1,14 @@
 import { useRef, useState } from "react";
+import { api } from "@/lib/api";
 import styles from "@/styles/admin.module.css";
 
 interface Props {
   value: string;
   onChange: (url: string) => void;
+  folder?: string;
 }
 
-export default function ImageUpload({ value, onChange }: Props) {
+export default function ImageUpload({ value, onChange, folder = "images" }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
@@ -19,28 +21,12 @@ export default function ImageUpload({ value, onChange }: Props) {
     }
     setError("");
     setUploading(true);
-
     try {
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        headers: {
-          "Content-Type": file.type,
-          "X-Filename": encodeURIComponent(file.name),
-        },
-        body: file,
-      });
-
-      const json = await res.json();
-
-      if (json.url) {
-        onChange(json.url);
-      } else {
-        setError(json.error || "Upload failed. Please try again.");
-      }
-    } catch {
-      setError("Network error — make sure the dev server is running.");
+      const url = await api.uploadFile(file, folder);
+      onChange(url);
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : "Upload failed. Please try again.");
     }
-
     setUploading(false);
   };
 
@@ -87,7 +73,7 @@ export default function ImageUpload({ value, onChange }: Props) {
               <path d="M2 19l7-7 5 5 4-4 8 8" stroke="#9aaab8" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
             <span className={styles.dropZoneLabel}>Click to upload or drag &amp; drop</span>
-            <span className={styles.dropZoneHint}>PNG, JPG, WEBP · no size limit</span>
+            <span className={styles.dropZoneHint}>PNG, JPG, WEBP · max 10 MB</span>
           </div>
         )}
       </div>
@@ -102,7 +88,7 @@ export default function ImageUpload({ value, onChange }: Props) {
         className={styles.formInput}
         type="url"
         placeholder="https://images.unsplash.com/..."
-        value={value.startsWith("/uploads/") ? "" : value}
+        value={value.startsWith("http") ? value : ""}
         onChange={(e) => onChange(e.target.value)}
       />
 

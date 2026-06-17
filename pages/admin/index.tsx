@@ -1,7 +1,15 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
+import { api } from "@/lib/api";
 import styles from "@/styles/admin.module.css";
+
+interface Stats {
+  totalBookings: number;
+  newEnquiries: number;
+  blogCount: number;
+  eventCount: number;
+}
 
 interface Booking {
   id: string;
@@ -14,26 +22,25 @@ interface Booking {
 }
 
 export default function AdminDashboard() {
-  const [bookings, setBookings] = useState<Booking[]>([]);
-  const [blogCount, setBlogCount] = useState(0);
-  const [eventCount, setEventCount] = useState(0);
+  const [stats, setStats] = useState<Stats | null>(null);
+  const [recent, setRecent] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    Promise.all([
-      fetch("/api/bookings").then((r) => r.json()),
-      fetch("/api/blogs").then((r) => r.json()),
-      fetch("/api/events").then((r) => r.json()),
-    ]).then(([b, bl, ev]) => {
-      setBookings(b);
-      setBlogCount(bl.length);
-      setEventCount(ev.length);
+  const load = async () => {
+    setLoading(true);
+    try {
+      const [s, bookings] = await Promise.all([
+        api.get<Stats>("/api/admin/stats"),
+        api.get<Booking[]>("/api/admin/bookings"),
+      ]);
+      setStats(s);
+      setRecent(bookings.slice(0, 8));
+    } finally {
       setLoading(false);
-    });
-  }, []);
+    }
+  };
 
-  const newCount = bookings.filter((b) => b.status === "New").length;
-  const recent = bookings.slice(0, 8);
+  useEffect(() => { load(); }, []);
 
   return (
     <>
@@ -52,8 +59,8 @@ export default function AdminDashboard() {
           <div className={styles.statCard}>
             <div className={styles.statInfo}>
               <p className={styles.statLabel}>Total Bookings</p>
-              <p className={styles.statValue}>{loading ? "—" : bookings.length}</p>
-              <p className={styles.statSub}><span className={styles.statAccent}>{newCount}</span> new / unread</p>
+              <p className={styles.statValue}>{loading ? "—" : stats?.totalBookings ?? 0}</p>
+              <p className={styles.statSub}><span className={styles.statAccent}>{stats?.newEnquiries ?? 0}</span> new / unread</p>
             </div>
             <div className={styles.statIcon}>
               <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
@@ -67,7 +74,7 @@ export default function AdminDashboard() {
           <div className={styles.statCard}>
             <div className={styles.statInfo}>
               <p className={styles.statLabel}>New Enquiries</p>
-              <p className={styles.statValue}>{loading ? "—" : newCount}</p>
+              <p className={styles.statValue}>{loading ? "—" : stats?.newEnquiries ?? 0}</p>
               <p className={styles.statSub}>Awaiting response</p>
             </div>
             <div className={`${styles.statIcon} ${styles.statIconNavy}`}>
@@ -81,7 +88,7 @@ export default function AdminDashboard() {
           <div className={styles.statCard}>
             <div className={styles.statInfo}>
               <p className={styles.statLabel}>Blog Posts</p>
-              <p className={styles.statValue}>{loading ? "—" : blogCount}</p>
+              <p className={styles.statValue}>{loading ? "—" : stats?.blogCount ?? 0}</p>
               <p className={styles.statSub}>Published articles</p>
             </div>
             <div className={styles.statIcon}>
@@ -95,7 +102,7 @@ export default function AdminDashboard() {
           <div className={styles.statCard}>
             <div className={styles.statInfo}>
               <p className={styles.statLabel}>Upcoming Events</p>
-              <p className={styles.statValue}>{loading ? "—" : eventCount}</p>
+              <p className={styles.statValue}>{loading ? "—" : stats?.eventCount ?? 0}</p>
               <p className={styles.statSub}>Scheduled events</p>
             </div>
             <div className={`${styles.statIcon} ${styles.statIconNavy}`}>

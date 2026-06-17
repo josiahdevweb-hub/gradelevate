@@ -2,15 +2,16 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
 import ImageUpload from "@/components/admin/ImageUpload";
+import { api } from "@/lib/api";
 import styles from "@/styles/admin.module.css";
 
 interface Service {
   id: string;
   num: string;
   title: string;
-  desc: string;
+  description: string;
   features: string[];
-  image: string;
+  imageUrl: string;
   href: string;
   iconType: string;
 }
@@ -19,9 +20,9 @@ const ICON_TYPES = ["academic", "career", "research", "ai", "coaching", "writing
 
 const EMPTY: Omit<Service, "id" | "num"> = {
   title: "",
-  desc: "",
+  description: "",
   features: [],
-  image: "",
+  imageUrl: "",
   href: "",
   iconType: "default",
 };
@@ -35,7 +36,7 @@ export default function AdminServices() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
   const load = () =>
-    fetch("/api/services").then((r) => r.json()).then((data) => { setServices(data); setLoading(false); });
+    api.get<Service[]>("/api/services").then((data) => { setServices(data); setLoading(false); });
 
   useEffect(() => { load(); }, []);
 
@@ -54,20 +55,27 @@ export default function AdminServices() {
   const save = async () => {
     if (!form.title.trim()) return;
     setSaving(true);
-    const method = modal === "edit" ? "PUT" : "POST";
-    const { featuresStr, ...rest } = form;
-    await fetch("/api/services", {
-      method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...rest, features: featuresStr }),
-    });
+    const features = (form.featuresStr ?? "").split(",").map((s) => s.trim()).filter(Boolean);
+    const body = {
+      title: form.title,
+      description: form.description,
+      features,
+      imageUrl: form.imageUrl,
+      href: form.href,
+      iconType: form.iconType,
+    };
+    if (modal === "edit" && form.id) {
+      await api.put<Service>(`/api/services/${form.id}`, body);
+    } else {
+      await api.post<Service>("/api/services", body);
+    }
     await load();
     closeModal();
   };
 
   const confirmDelete = async () => {
     if (!deleteId) return;
-    await fetch(`/api/services?id=${deleteId}`, { method: "DELETE" });
+    await api.delete(`/api/services/${deleteId}`);
     await load();
     setDeleteId(null);
   };
@@ -118,15 +126,15 @@ export default function AdminServices() {
                   <tr key={s.id}>
                     <td className={styles.tdMuted}>{s.num}</td>
                     <td>
-                      {s.image ? (
-                        <img src={s.image} alt={s.title} className={styles.thumb} />
+                      {s.imageUrl ? (
+                        <img src={s.imageUrl} alt={s.title} className={styles.thumb} />
                       ) : (
                         <div className={styles.thumb} style={{ background: "#f0f2f6" }} />
                       )}
                     </td>
                     <td className={styles.tdBold}>{s.title}</td>
                     <td className={styles.tdMuted} style={{ maxWidth: 240 }}>
-                      {s.desc.length > 80 ? s.desc.slice(0, 80) + "…" : s.desc}
+                      {s.description.length > 80 ? s.description.slice(0, 80) + "…" : s.description}
                     </td>
                     <td className={styles.tdMuted} style={{ maxWidth: 180 }}>
                       {Array.isArray(s.features) ? s.features.join(", ") : "—"}
@@ -164,8 +172,8 @@ export default function AdminServices() {
                     <label className={styles.formLabel}>Description</label>
                     <textarea className={styles.formTextarea} rows={3}
                       placeholder="Brief description of this service…"
-                      value={form.desc}
-                      onChange={(e) => set("desc", e.target.value)} />
+                      value={form.description ?? ""}
+                      onChange={(e) => set("description", e.target.value)} />
                   </div>
                   <div className={`${styles.formGroup} ${styles.formGroupFull}`}>
                     <label className={styles.formLabel}>Features</label>
@@ -176,7 +184,11 @@ export default function AdminServices() {
                   </div>
                   <div className={`${styles.formGroup} ${styles.formGroupFull}`}>
                     <label className={styles.formLabel}>Image</label>
-                    <ImageUpload value={form.image as string} onChange={(url) => set("image", url)} />
+                    <ImageUpload
+                      value={form.imageUrl as string ?? ""}
+                      onChange={(url) => set("imageUrl", url)}
+                      folder="services"
+                    />
                   </div>
                   <div className={styles.formGroup}>
                     <label className={styles.formLabel}>Icon Type</label>
@@ -188,7 +200,7 @@ export default function AdminServices() {
                   <div className={styles.formGroup}>
                     <label className={styles.formLabel}>Detail Page Link</label>
                     <input className={styles.formInput} placeholder="/services/my-service"
-                      value={form.href}
+                      value={form.href ?? ""}
                       onChange={(e) => set("href", e.target.value)} />
                     <span className={styles.formHint}>Leave blank to link to booking page</span>
                   </div>

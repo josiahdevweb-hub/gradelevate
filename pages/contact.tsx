@@ -8,10 +8,30 @@ import styles from "@/styles/contact.module.css";
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitError("");
+    setSubmitting(true);
+    try {
+      const API = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
+      const res = await fetch(`${API}/api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({})) as Record<string, string>;
+        throw new Error(err.error || `Error (${res.status})`);
+      }
+      setSubmitted(true);
+    } catch (err: unknown) {
+      setSubmitError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -165,7 +185,10 @@ export default function Contact() {
                       value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} />
                   </div>
 
-                  <button type="submit" className={styles.submitBtn}>Send Message</button>
+                  {submitError && <p style={{ color: "#ef4444", fontSize: "0.84rem", marginBottom: 8 }}>{submitError}</p>}
+                  <button type="submit" className={styles.submitBtn} disabled={submitting}>
+                    {submitting ? "Sending…" : "Send Message"}
+                  </button>
                   <p className={styles.formNote}>We respond to all enquiries within 24 hours.</p>
                 </form>
               )}

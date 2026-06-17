@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
 import ImageUpload from "@/components/admin/ImageUpload";
+import { api } from "@/lib/api";
 import styles from "@/styles/admin.module.css";
 
 interface Announcement {
@@ -9,7 +10,7 @@ interface Announcement {
   body: string;
   ctaText: string;
   ctaLink: string;
-  image: string;
+  imageUrl: string;
   updatedAt: string;
 }
 
@@ -19,7 +20,7 @@ const EMPTY: Announcement = {
   body: "",
   ctaText: "",
   ctaLink: "",
-  image: "",
+  imageUrl: "",
   updatedAt: "",
 };
 
@@ -29,19 +30,14 @@ export default function AnnouncementsAdmin() {
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    fetch("/api/announcements")
-      .then((r) => r.json())
-      .then((d) => setData({ ...EMPTY, ...d }));
+    api.get<Announcement>("/api/announcements")
+      .then((d) => setData({ ...EMPTY, ...d }))
+      .catch(() => {});
   }, []);
 
   const save = async () => {
     setSaving(true);
-    const res = await fetch("/api/announcements", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    const updated = await res.json();
+    const updated = await api.put<Announcement>("/api/announcements", data);
     setData(updated);
     setSaving(false);
     setSaved(true);
@@ -61,7 +57,6 @@ export default function AnnouncementsAdmin() {
       </div>
 
       <div className={styles.formCard}>
-        {/* Active toggle */}
         <div className={styles.settingsRow}>
           <div className={styles.settingsRowInfo}>
             <p className={styles.settingsRowLabel}>Show popup</p>
@@ -135,8 +130,9 @@ export default function AnnouncementsAdmin() {
             Image <span className={styles.optionalLabel}>(optional)</span>
           </label>
           <ImageUpload
-            value={data.image ?? ""}
-            onChange={(url) => setData((d) => ({ ...d, image: url }))}
+            value={data.imageUrl ?? ""}
+            onChange={(url) => setData((d) => ({ ...d, imageUrl: url }))}
+            folder="announcements"
           />
         </div>
 
@@ -158,27 +154,26 @@ export default function AnnouncementsAdmin() {
         </div>
       </div>
 
-      {/* Preview */}
       <div className={styles.previewCard}>
         <p className={styles.previewLabel}>Preview</p>
         <div className={styles.previewPopup}>
-          {data.image && (
+          {data.imageUrl && (
             <img
-              src={data.image}
+              src={data.imageUrl}
               alt=""
               style={{ width: "100%", height: 120, objectFit: "cover", display: "block" }}
             />
           )}
           <div style={{ padding: "16px 16px 12px" }}>
-          <p className={styles.previewEyebrow}>Update</p>
-          <p className={styles.previewTitle}>{data.title || "Your popup title will appear here"}</p>
-          <p className={styles.previewBody}>
-            {data.body || "Your message will appear here. Keep it short and clear."}
-          </p>
-          {data.ctaText && (
-            <div className={styles.previewCta}>{data.ctaText} →</div>
-          )}
-          <p className={styles.previewDismiss}>Dismiss</p>
+            <p className={styles.previewEyebrow}>Update</p>
+            <p className={styles.previewTitle}>{data.title || "Your popup title will appear here"}</p>
+            <p className={styles.previewBody}>
+              {data.body || "Your message will appear here. Keep it short and clear."}
+            </p>
+            {data.ctaText && (
+              <div className={styles.previewCta}>{data.ctaText} →</div>
+            )}
+            <p className={styles.previewDismiss}>Dismiss</p>
           </div>
         </div>
       </div>
