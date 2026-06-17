@@ -28,7 +28,7 @@ const credentials = [
         <path d="M7 23V16M12 23V12M17 23V8M22 23V5" stroke="#C9A227" strokeWidth="1.8" strokeLinecap="round"/>
       </svg>
     ),
-    label: "Research & Int'l\nLeadership Background",
+    label: "Strong Research Background",
   },
   {
     icon: (
@@ -67,10 +67,14 @@ export default function Founder() {
           className={styles.img}
         />
         <div className={styles.logoCard}>
-          <span className={styles.logoMark}></span>
+          <svg width="30" height="24" viewBox="0 0 38 30" fill="none" style={{ display: "block", flexShrink: 0 }}>
+            <path d="M19 30L1 20L19 12L37 20L19 30Z" fill="#C9A227" fillOpacity="0.55"/>
+            <path d="M19 21L1 11L19 3L37 11L19 21Z" fill="#C9A227" fillOpacity="0.8"/>
+            <path d="M19 12L1 2L19 0L37 2L19 12Z" fill="#C9A227"/>
+          </svg>
           <div>
             <p className={styles.logoName}>GradElevate</p>
-            <p className={styles.logoSub}>ELEVATE. ACHIEVE. SUCCEED.</p>
+            <p className={styles.logoSub}>LEARN. ACHIEVE. SUCCEED.</p>
           </div>
         </div>
       </div>

@@ -8,29 +8,19 @@ import s from "@/styles/service-detail.module.css";
 
 const features = [
   {
-    title: "AI Tools for Academic Research",
+    title: "AI Research Tools",
     desc: "Hands-on training in AI-powered research tools — from literature discovery to data synthesis — used effectively and responsibly.",
     icon: <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" rx="2" stroke="#C9A227" strokeWidth="1.4"/><circle cx="11" cy="11" r="3.5" stroke="#C9A227" strokeWidth="1.3"/><path d="M11 3v2.5M11 16.5V19M3 11h2.5M16.5 11H19" stroke="#C9A227" strokeWidth="1.3" strokeLinecap="round"/></svg>,
   },
   {
-    title: "Ethical & Responsible AI Use",
+    title: "Ethical AI Use in Academia",
     desc: "Understand how to use AI tools within academic integrity policies — including when AI use is appropriate and how to disclose it correctly.",
     icon: <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><path d="M11 2L3 7v5c0 4.4 3.4 8.5 8 9.5 4.6-1 8-5.1 8-9.5V7l-8-5z" stroke="#C9A227" strokeWidth="1.4" strokeLinejoin="round"/><path d="M8 11l2 2 4-4" stroke="#C9A227" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>,
   },
   {
-    title: "AI-Assisted Literature Reviews",
-    desc: "Use AI tools to accelerate the literature discovery, screening, and synthesis process — while maintaining academic rigour and critical thinking.",
+    title: "AI Literacy for Academic Work",
+    desc: "Develop critical understanding of how AI systems work, their limitations, and how to integrate them meaningfully into academic study and research.",
     icon: <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><circle cx="10" cy="10" r="7" stroke="#C9A227" strokeWidth="1.4"/><path d="M15 15l4 4" stroke="#C9A227" strokeWidth="1.8" strokeLinecap="round"/></svg>,
-  },
-  {
-    title: "Digital Productivity & Workflow",
-    desc: "Build efficient academic workflows using digital tools — including note-taking systems, reference managers, and writing software.",
-    icon: <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><path d="M4 17L8 13l3 3 7-7" stroke="#C9A227" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/><rect x="2" y="2" width="18" height="18" rx="2" stroke="#C9A227" strokeWidth="1.4"/></svg>,
-  },
-  {
-    title: "Data Literacy & Visualisation",
-    desc: "Understand how to read, interpret, and present data — including basic statistical literacy and accessible data visualisation techniques.",
-    icon: <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><path d="M3 18h16" stroke="#C9A227" strokeWidth="1.4" strokeLinecap="round"/><path d="M5 18v-4M9 18v-7M13 18v-10M17 18v-13" stroke="#C9A227" strokeWidth="1.8" strokeLinecap="round"/></svg>,
   },
   {
     title: "Digital Skills for Career Readiness",

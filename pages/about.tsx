@@ -117,7 +117,7 @@ export default function About() {
                 <span className={styles.badgeIcon}></span>
                 <div>
                   <p className={styles.badgeName}>GradElevate</p>
-                  <p className={styles.badgeSub}>ELEVATE. ACHIEVE. SUCCEED.</p>
+                  <p className={styles.badgeSub}>LEARN. ACHIEVE. SUCCEED.</p>
                 </div>
               </div>
             </div>
@@ -134,17 +134,11 @@ export default function About() {
               />
             </div>
             <div className={styles.founderContent}>
-              <p className="section-eyebrow">Meet the Founder</p>
-              <h2 className={styles.sectionTitle}>Learn From Experienced<br />Academic Leadership</h2>
+              <h2 className={styles.sectionTitle}>Learn From Experienced<br />Academic Leaders</h2>
               <p className={styles.bodyText}>
-                GradElevate is led by an experienced academic with senior leadership roles in UK higher education,
-                extensive postgraduate teaching and supervision experience, and a strong background in research,
-                curriculum development, and international collaboration.
-              </p>
-              <p className={styles.bodyText}>
-                Having worked within leading universities and supported hundreds of students and researchers
-                at every stage of their academic journey, our founder brings real institutional knowledge and
-                genuine passion for student success to every engagement.
+                GradElevate brings together experienced academics with senior leadership roles in higher
+                education, extensive postgraduate teaching and supervision experience, and a strong
+                background in research, curriculum development, and international academic collaboration.
               </p>
               <div className={styles.credentialList}>
                 {credentials.map((c, i) => (

@@ -37,10 +37,14 @@ export default function Navbar() {
       <div className={styles.inner}>
         {/* Logo */}
         <Link href="/" className={styles.logo}>
-          <span className={styles.logoIcon}></span>
+          <svg width="38" height="30" viewBox="0 0 38 30" fill="none" className={styles.logoIcon}>
+            <path d="M19 30L1 20L19 12L37 20L19 30Z" fill="#C9A227" fillOpacity="0.55"/>
+            <path d="M19 21L1 11L19 3L37 11L19 21Z" fill="#C9A227" fillOpacity="0.8"/>
+            <path d="M19 12L1 2L19 0L37 2L19 12Z" fill="#C9A227"/>
+          </svg>
           <div>
             <span className={styles.logoName}>GradElevate</span>
-            <span className={styles.logoTagline}>ELEVATE. ACHIEVE. SUCCEED.</span>
+            <span className={styles.logoTagline}>LEARN. ACHIEVE. SUCCEED.</span>
           </div>
         </Link>
 

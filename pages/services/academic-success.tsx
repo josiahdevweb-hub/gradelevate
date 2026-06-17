@@ -42,6 +42,7 @@ const features = [
 const audience = [
   "Undergraduate students at any stage of their degree",
   "Postgraduate students (Masters level)",
+  "PhD applicants and students",
   "Students struggling with academic writing or essay structure",
   "Students aiming for a first-class or distinction grade",
   "International students adapting to UK academic expectations",

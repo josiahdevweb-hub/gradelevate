@@ -3,7 +3,7 @@
     "id": "academic-success",
     "num": "01",
     "title": "Academic Success",
-    "desc": "Expert tutoring, essay support, and academic writing coaching for undergraduate and postgraduate students who want to perform at their very best.",
+    "desc": "Expert tutoring, essay/dissertation/thesis support and academic writing coaching – personalised to help you perform at your very best.",
     "features": [
       "1-to-1 tutoring",
       "Dissertation support",
@@ -33,12 +33,12 @@
     "id": "research",
     "num": "03",
     "title": "Research & Postgraduate Support",
-    "desc": "Specialist coaching for Masters and PhD researchers — from proposal development and literature reviews to thesis writing and academic publication.",
+    "desc": "Specialist coaching for Masters and PhD researchers — from proposal development to thesis writing and journal article or book chapter publication.",
     "features": [
-      "Research design",
       "PhD proposal writing",
-      "Literature review",
-      "Thesis development"
+      "Thesis writing",
+      "PhD viva preparation",
+      "Writing your first journal article"
     ],
     "image": "https://images.unsplash.com/photo-1456324504439-367cee3b3c32?w=700&q=80",
     "href": "/services/research",
@@ -51,9 +51,9 @@
     "desc": "Develop the AI literacy and digital skills essential for modern academic study and professional success — used responsibly and strategically.",
     "features": [
       "AI research tools",
-      "Ethical AI use",
-      "Digital productivity",
-      "Data literacy"
+      "Ethical AI use in academia",
+      "AI literacy for academic work",
+      "Digital skills for career readiness"
     ],
     "image": "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=700&q=80",
     "href": "/services/ai-digital-skills",
