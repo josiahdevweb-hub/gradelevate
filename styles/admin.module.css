@@ -1768,3 +1768,134 @@
   text-align: center;
   margin: 0;
 }
+
+/* ── Mobile hamburger button (topbar) ────────────────── */
+.mobileMenuBtn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  color: #0F2744;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+.mobileMenuBtn:hover { background: #f0f3f7; }
+
+/* ── Sidebar overlay (mobile) ────────────────────────── */
+.sidebarOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 99;
+}
+
+/* ── Responsive admin ────────────────────────────────── */
+@media (max-width: 900px) {
+  /* Sidebar becomes a slide-in drawer */
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.26s ease;
+    z-index: 200;
+  }
+
+  .sidebarOpen {
+    transform: translateX(0);
+    box-shadow: 8px 0 40px rgba(0,0,0,0.3);
+  }
+
+  .sidebarOverlay {
+    display: block;
+  }
+
+  /* Main area takes full width */
+  .mainArea {
+    margin-left: 0;
+    max-width: 100vw;
+  }
+
+  /* Show hamburger button */
+  .mobileMenuBtn {
+    display: flex;
+  }
+
+  /* Hide "View Site" link from topbar to save space */
+  .viewSiteLink {
+    display: none;
+  }
+
+  /* Stats: 2 columns */
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Content padding */
+  .contentArea {
+    padding: 20px 16px;
+  }
+
+  .topbar {
+    padding: 0 16px;
+  }
+
+  /* Profile layout: single column */
+  .profileGrid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Drawer full width on mobile */
+  .drawer {
+    width: min(460px, 100vw);
+  }
+
+  /* Admin modal form: single column */
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+  .formGroupFull {
+    grid-column: 1;
+  }
+
+  /* Page header stacks on small screens */
+  .pageHeader {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .statsGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .contentArea {
+    padding: 16px 12px;
+  }
+
+  .topbar {
+    padding: 0 12px;
+    height: 54px;
+  }
+
+  .statCard {
+    padding: 16px 14px;
+  }
+
+  .statValue {
+    font-size: 1.6rem;
+  }
+
+  .tableCard {
+    border-radius: 8px;
+  }
+
+  /* Tables scroll horizontally on very small screens */
+  .tableCard {
+    overflow-x: auto;
+  }
+}
