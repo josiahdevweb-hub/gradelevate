@@ -3,6 +3,14 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import styles from "@/styles/admin.module.css";
 
+function CloseIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M2 2l12 12M14 2L2 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
 const API = "https://gradeelevate-backend-production.up.railway.app";
 
 export default function AdminLogin() {
@@ -41,14 +49,19 @@ export default function AdminLogin() {
     }
   };
 
+  const dismiss = () => router.push("/");
+
   return (
     <>
       <Head>
         <title>Admin Login — GradElevate</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <div className={styles.loginPage}>
-        <div className={styles.loginCard}>
+      <div className={styles.loginPage} onClick={dismiss}>
+        <div className={styles.loginCard} onClick={(e) => e.stopPropagation()}>
+          <button className={styles.loginClose} onClick={dismiss} aria-label="Close">
+            <CloseIcon />
+          </button>
           <div className={styles.loginLogo}>
             <div className={styles.loginBrand}>GradElevate</div>
             <div className={styles.loginSub}>Admin Panel</div>

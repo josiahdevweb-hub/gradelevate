@@ -700,6 +700,11 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
+  cursor: pointer;
+}
+
+.loginCard {
+  cursor: default;
 }
 
 .loginCard {
@@ -709,6 +714,27 @@
   width: 100%;
   max-width: 380px;
   box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  position: relative;
+}
+
+.loginClose {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9aafbf;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+.loginClose:hover {
+  color: #0F2744;
+  background: #f0f3f7;
 }
 
 .loginLogo {
