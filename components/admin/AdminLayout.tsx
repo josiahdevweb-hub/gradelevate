@@ -152,6 +152,9 @@ export default function AdminLayout({ children, title }: { children: React.React
             <span className={styles.topbarTitle}>{title || "Admin Panel"}</span>
           </div>
           <div className={styles.topbarRight}>
+            <a href="/" target="_blank" rel="noopener noreferrer" className={styles.viewSiteLink}>
+              View Site
+            </a>
             <div className={styles.adminBadge}>
               <div className={styles.adminAvatar}>A</div>
               <span>Admin</span>

@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { api } from "@/lib/api";
 import styles from "@/styles/admin.module.css";
@@ -22,11 +23,12 @@ interface Booking {
 }
 
 export default function AdminDashboard() {
+  const router = useRouter();
   const [stats, setStats] = useState<Stats | null>(null);
   const [recent, setRecent] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const [pwForm, setPwForm] = useState({ current: "", next: "", confirm: "" });
+  const [pwForm, setPwForm] = useState<{ current: string; next: string; confirm: string }>({ current: "", next: "", confirm: "" });
   const [pwMsg, setPwMsg]   = useState<{ text: string; ok: boolean } | null>(null);
   const [pwBusy, setPwBusy] = useState(false);
 
@@ -78,7 +80,9 @@ export default function AdminDashboard() {
         <div className={styles.pageHeader}>
           <div>
             <h1 className={styles.pageHeading}>Overview</h1>
-            <p className={styles.pageSubheading}>Welcome back — here's what's happening today.</p>
+            <p className={styles.pageSubheading}>
+              {new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
+            </p>
           </div>
         </div>
 
@@ -166,8 +170,15 @@ export default function AdminDashboard() {
               </thead>
               <tbody>
                 {recent.map((b) => (
-                  <tr key={b.id}>
-                    <td className={styles.tdBold}>{b.name}</td>
+                  <tr key={b.id} style={{ cursor: "pointer" }} onClick={() => router.push(`/admin/bookings/${b.id}`)}>
+                    <td>
+                      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        <div className={styles.rowAvatar}>
+                          {b.name.split(" ").slice(0, 2).map((w) => w[0]).join("").toUpperCase()}
+                        </div>
+                        <span className={styles.tdBold}>{b.name}</span>
+                      </div>
+                    </td>
                     <td className={styles.tdMuted}>{b.email}</td>
                     <td>{b.service || "—"}</td>
                     <td className={styles.tdMuted}>{b.stage || "—"}</td>
@@ -187,20 +198,21 @@ export default function AdminDashboard() {
             </table>
           )}
         </div>
-        <div className={styles.tableCard} style={{ marginTop: 24 }}>
-          <div className={styles.tableHeader}>
-            <span className={styles.tableTitle}>Change Password</span>
+        <div className={styles.formCard} style={{ marginTop: 24 }}>
+          <div style={{ marginBottom: 20 }}>
+            <p style={{ fontSize: "0.88rem", fontWeight: 700, color: "#0F2744", margin: "0 0 4px" }}>Change Password</p>
+            <p style={{ fontSize: "0.78rem", color: "#7a8ea0", margin: 0 }}>Update your admin account password.</p>
           </div>
-          <form onSubmit={handlePasswordChange} style={{ padding: "20px 24px", display: "flex", flexDirection: "column", gap: 14, maxWidth: 400 }}>
-            {["current", "next", "confirm"].map((key) => (
-              <div key={key} className={styles.loginField}>
-                <label className={styles.loginLabel}>
+          <form onSubmit={handlePasswordChange} style={{ display: "flex", flexDirection: "column", gap: 14, maxWidth: 420 }}>
+            {(["current", "next", "confirm"] as const).map((key) => (
+              <div key={key} className={styles.formGroup}>
+                <label className={styles.formLabel}>
                   {key === "current" ? "Current Password" : key === "next" ? "New Password" : "Confirm New Password"}
                 </label>
                 <input
                   type="password"
-                  className={styles.loginInput}
-                  value={pwForm[key as keyof typeof pwForm]}
+                  className={styles.formInput}
+                  value={pwForm[key]}
                   onChange={(e) => { setPwForm(f => ({ ...f, [key]: e.target.value })); setPwMsg(null); }}
                   required
                   minLength={key === "current" ? 1 : 8}
@@ -209,11 +221,13 @@ export default function AdminDashboard() {
               </div>
             ))}
             {pwMsg && (
-              <p style={{ fontSize: "0.85rem", color: pwMsg.ok ? "#16a34a" : "#dc2626", margin: 0 }}>{pwMsg.text}</p>
+              <p style={{ fontSize: "0.82rem", color: pwMsg.ok ? "#16a34a" : "#dc2626", margin: 0 }}>{pwMsg.text}</p>
             )}
-            <button type="submit" className={styles.btnPrimary} disabled={pwBusy} style={{ alignSelf: "flex-start" }}>
-              {pwBusy ? "Updating…" : "Update Password"}
-            </button>
+            <div>
+              <button type="submit" className={styles.btnPrimary} disabled={pwBusy}>
+                {pwBusy ? "Updating…" : "Update Password"}
+              </button>
+            </div>
           </form>
         </div>
       </AdminLayout>
