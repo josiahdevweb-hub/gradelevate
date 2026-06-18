@@ -1,21 +1,21 @@
 import Head from "next/head";
 import Link from "next/link";
 import { GetServerSideProps } from "next";
-import fs from "fs";
-import path from "path";
 import Navbar from "@/components/home/Navbar";
 import Footer from "@/components/home/Footer";
 import CtaBanner from "@/components/home/CtaBanner";
 import PageHero from "@/components/ui/PageHero";
 import styles from "@/styles/services.module.css";
 
+const API = "https://gradeelevate-backend-production.up.railway.app";
+
 interface Service {
   id: string;
   num: string;
   title: string;
-  desc: string;
+  description: string;
   features: string[];
-  image: string;
+  imageUrl: string;
   href: string;
   iconType: string;
 }
@@ -97,7 +97,7 @@ export default function Services({ services }: { services: Service[] }) {
                 return (
                   <Link key={svc.id} href={href} className={styles.card}>
                     <div className={styles.cardImage}>
-                      <img src={svc.image} alt={svc.title} />
+                      <img src={svc.imageUrl} alt={svc.title} />
                       <div className={styles.cardOverlay} />
                       <span className={styles.cardNum}>{svc.num}</span>
                     </div>
@@ -106,7 +106,7 @@ export default function Services({ services }: { services: Service[] }) {
                         {ICONS[svc.iconType] || ICONS.default}
                       </div>
                       <h2 className={styles.cardTitle}>{svc.title}</h2>
-                      <p className={styles.cardDesc}>{svc.desc}</p>
+                      <p className={styles.cardDesc}>{svc.description}</p>
                       <ul className={styles.featurePills}>
                         {(Array.isArray(svc.features) ? svc.features : []).map((f) => (
                           <li key={f} className={styles.pill}>{f}</li>
@@ -135,7 +135,11 @@ export default function Services({ services }: { services: Service[] }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const filePath = path.join(process.cwd(), "data", "services.json");
-  const services: Service[] = JSON.parse(fs.readFileSync(filePath, "utf8"));
-  return { props: { services } };
+  try {
+    const res = await fetch(`${API}/api/services`);
+    const services: Service[] = res.ok ? await res.json() : [];
+    return { props: { services } };
+  } catch {
+    return { props: { services: [] } };
+  }
 };
