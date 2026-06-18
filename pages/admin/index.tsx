@@ -26,6 +26,10 @@ export default function AdminDashboard() {
   const [recent, setRecent] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const [pwForm, setPwForm] = useState({ current: "", next: "", confirm: "" });
+  const [pwMsg, setPwMsg]   = useState<{ text: string; ok: boolean } | null>(null);
+  const [pwBusy, setPwBusy] = useState(false);
+
   const load = async () => {
     setLoading(true);
     try {
@@ -41,6 +45,29 @@ export default function AdminDashboard() {
   };
 
   useEffect(() => { load(); }, []);
+
+  const handlePasswordChange = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (pwForm.next !== pwForm.confirm) {
+      setPwMsg({ text: "New passwords do not match.", ok: false });
+      return;
+    }
+    if (pwForm.next.length < 8) {
+      setPwMsg({ text: "New password must be at least 8 characters.", ok: false });
+      return;
+    }
+    setPwBusy(true);
+    setPwMsg(null);
+    try {
+      await api.post("/api/auth/change-password", { currentPassword: pwForm.current, newPassword: pwForm.next });
+      setPwMsg({ text: "Password updated successfully.", ok: true });
+      setPwForm({ current: "", next: "", confirm: "" });
+    } catch (err: unknown) {
+      setPwMsg({ text: err instanceof Error ? err.message : "Failed to update password.", ok: false });
+    } finally {
+      setPwBusy(false);
+    }
+  };
 
   return (
     <>
@@ -159,6 +186,35 @@ export default function AdminDashboard() {
               </tbody>
             </table>
           )}
+        </div>
+        <div className={styles.tableCard} style={{ marginTop: 24 }}>
+          <div className={styles.tableHeader}>
+            <span className={styles.tableTitle}>Change Password</span>
+          </div>
+          <form onSubmit={handlePasswordChange} style={{ padding: "20px 24px", display: "flex", flexDirection: "column", gap: 14, maxWidth: 400 }}>
+            {["current", "next", "confirm"].map((key) => (
+              <div key={key} className={styles.loginField}>
+                <label className={styles.loginLabel}>
+                  {key === "current" ? "Current Password" : key === "next" ? "New Password" : "Confirm New Password"}
+                </label>
+                <input
+                  type="password"
+                  className={styles.loginInput}
+                  value={pwForm[key as keyof typeof pwForm]}
+                  onChange={(e) => { setPwForm(f => ({ ...f, [key]: e.target.value })); setPwMsg(null); }}
+                  required
+                  minLength={key === "current" ? 1 : 8}
+                  placeholder={key === "current" ? "Enter current password" : key === "next" ? "Min. 8 characters" : "Repeat new password"}
+                />
+              </div>
+            ))}
+            {pwMsg && (
+              <p style={{ fontSize: "0.85rem", color: pwMsg.ok ? "#16a34a" : "#dc2626", margin: 0 }}>{pwMsg.text}</p>
+            )}
+            <button type="submit" className={styles.btnPrimary} disabled={pwBusy} style={{ alignSelf: "flex-start" }}>
+              {pwBusy ? "Updating…" : "Update Password"}
+            </button>
+          </form>
         </div>
       </AdminLayout>
     </>
