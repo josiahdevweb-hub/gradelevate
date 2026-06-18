@@ -1865,6 +1865,41 @@
     flex-wrap: wrap;
     gap: 12px;
   }
+
+  /* Tables scroll horizontally on tablets/phones */
+  .tableCard {
+    overflow-x: auto;
+  }
+
+  /* Table header and filter row wrap */
+  .tableHeader {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .filterRow {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 640px) {
+  .filterRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filterSelect {
+    width: 100%;
+  }
+
+  .pageHeading {
+    font-size: 1.2rem;
+  }
+
+  /* Hide secondary hint text in table header */
+  .tableHeader > span:last-child {
+    display: none;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1890,12 +1925,13 @@
     font-size: 1.6rem;
   }
 
-  .tableCard {
-    border-radius: 8px;
+  /* Hide "Admin" label text, keep only the avatar */
+  .adminBadge span {
+    display: none;
   }
 
-  /* Tables scroll horizontally on very small screens */
-  .tableCard {
-    overflow-x: auto;
+  /* Modal footer buttons wrap if needed */
+  .modalFooter {
+    flex-wrap: wrap;
   }
 }
