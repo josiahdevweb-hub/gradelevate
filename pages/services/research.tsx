@@ -32,11 +32,6 @@ const features = [
     desc: "Guidance on identifying the right journals, understanding submission requirements, and building a sustainable academic publishing strategy.",
     icon: <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><rect x="3" y="2" width="16" height="18" rx="1.5" stroke="#C9A227" strokeWidth="1.4"/><path d="M7 7h8M7 11h8M7 15h5" stroke="#C9A227" strokeWidth="1.3" strokeLinecap="round"/></svg>,
   },
-  {
-    title: "Research Design & Methodology",
-    desc: "Expert coaching on choosing appropriate research methods, designing rigorous studies, and justifying your methodological approach.",
-    icon: <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><circle cx="10" cy="10" r="7" stroke="#C9A227" strokeWidth="1.4"/><path d="M15 15l4 4" stroke="#C9A227" strokeWidth="1.8" strokeLinecap="round"/><path d="M7 10h6M10 7v6" stroke="#C9A227" strokeWidth="1.3" strokeLinecap="round"/></svg>,
-  },
 ];
 
 const audience = [
@@ -44,7 +39,6 @@ const audience = [
   "PhD researchers at any stage of their doctoral journey",
   "Researchers preparing academic journal submissions",
   "Students navigating complex supervisory relationships",
-  "Academics re-entering research after a career break",
   "Professionals transitioning into academic research roles",
 ];
 

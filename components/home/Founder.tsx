@@ -88,7 +88,7 @@ export default function Founder() {
             Learn from Experienced<br />Academic Leadership
           </h2>
           <p className={styles.body}>
-            GradElevate is led by an experienced academic with senior leadership
+            GradElevate is led by experienced academics with senior leadership
             roles in higher education, extensive postgraduate teaching experience,
             and a strong background in research, curriculum development, and
             international collaboration.

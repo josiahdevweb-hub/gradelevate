@@ -63,7 +63,7 @@ export default function About() {
     <>
       <Head>
         <title>About — GradElevate</title>
-        <meta name="description" content="GradElevate is led by an experienced academic with senior leadership roles in higher education, research, and international engagement." />
+        <meta name="description" content="GradElevate is led by experienced academics with senior leadership roles in higher education, research, and international engagement." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 

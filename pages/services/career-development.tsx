@@ -43,7 +43,6 @@ const audience = [
   "Final-year undergraduates preparing to enter the job market",
   "Recent graduates struggling to secure their first graduate role",
   "Postgraduate students transitioning into professional careers",
-  "Professionals looking to change sector or advance their career",
   "International students navigating the UK job market",
   "Anyone seeking structure and confidence in their job search",
 ];
@@ -52,7 +51,6 @@ const process = [
   { title: "Career Audit", desc: "We review your CV, goals, and current job search strategy to identify gaps and opportunities." },
   { title: "Tailored Action Plan", desc: "We build a personalised roadmap covering applications, interviews, and networking." },
   { title: "Coaching Sessions", desc: "1-to-1 sessions covering CV refinement, interview practice, and application strategy." },
-  { title: "Job Offer Ready", desc: "Continued support until you've secured the role — including offer negotiation guidance." },
 ];
 
 export default function CareerDevelopment() {

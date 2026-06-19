@@ -46,7 +46,6 @@ const audience = [
   "Students struggling with academic writing or essay structure",
   "Students aiming for a first-class or distinction grade",
   "International students adapting to UK academic expectations",
-  "Students returning to study after a gap",
 ];
 
 const process = [
