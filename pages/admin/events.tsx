@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
 import ImageUpload from "@/components/admin/ImageUpload";
 import { api } from "@/lib/api";
@@ -39,11 +39,48 @@ export default function AdminEvents() {
   const [form, setForm] = useState<Omit<Event, "id"> & { id?: string }>(EMPTY);
   const [saving, setSaving] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [announceSaving, setAnnounceSaving] = useState(false);
+  const [announceMsg, setAnnounceMsg] = useState<string | null>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const load = () =>
     api.get<Event[]>("/api/events").then((data) => { setEvents(data); setLoading(false); });
 
   useEffect(() => { load(); }, []);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setOpenMenu(null);
+      }
+    };
+    if (openMenu) document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [openMenu]);
+
+  const addAsAnnouncement = async (ev: Event) => {
+    setOpenMenu(null);
+    setAnnounceSaving(true);
+    setAnnounceMsg(null);
+    try {
+      await api.put("/api/announcements", {
+        active: true,
+        title: ev.title,
+        body: `${ev.category} · ${ev.format} · ${ev.date}${ev.price ? ` · ${ev.price}` : ""}`,
+        ctaText: "Register Now",
+        ctaLink: "/events",
+        imageUrl: ev.imageUrl || "",
+      });
+      setAnnounceMsg(`"${ev.title}" added as announcement`);
+      setTimeout(() => setAnnounceMsg(null), 3000);
+    } catch {
+      setAnnounceMsg("Failed to set announcement");
+      setTimeout(() => setAnnounceMsg(null), 3000);
+    } finally {
+      setAnnounceSaving(false);
+    }
+  };
 
   const openAdd = () => { setForm(EMPTY); setModal("add"); };
   const openEdit = (ev: Event) => { setForm(ev); setModal("edit"); };
@@ -145,9 +182,44 @@ export default function AdminEvents() {
                     <td style={{ fontWeight: 600, color: ev.price === "Free" ? "#16a34a" : "#0F2744" }}>{ev.price}</td>
                     <td className={styles.tdMuted}>{ev.spots}</td>
                     <td>
-                      <div className={styles.rowActions}>
-                        <button className={styles.btnEdit} onClick={() => openEdit(ev)}>Edit</button>
-                        <button className={styles.btnDanger} onClick={() => setDeleteId(ev.id)}>Delete</button>
+                      <div className={styles.actionDropdownWrap} ref={openMenu === ev.id ? menuRef : undefined}>
+                        <button
+                          className={styles.btnActionToggle}
+                          onClick={(e) => { e.stopPropagation(); setOpenMenu(openMenu === ev.id ? null : ev.id); }}
+                        >
+                          Actions
+                          <svg width="10" height="10" fill="none" viewBox="0 0 14 14" style={{ marginLeft: 4 }}>
+                            <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </button>
+                        {openMenu === ev.id && (
+                          <div className={styles.actionDropdown}>
+                            <button className={styles.actionDropdownItem} onClick={() => { setOpenMenu(null); openEdit(ev); }}>
+                              <svg width="13" height="13" fill="none" viewBox="0 0 14 14">
+                                <path d="M10.5 1.5l2 2-7 7H3.5v-2l7-7z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round"/>
+                              </svg>
+                              Edit
+                            </button>
+                            <button className={styles.actionDropdownItem} onClick={() => { setOpenMenu(null); setDeleteId(ev.id); }}>
+                              <svg width="13" height="13" fill="none" viewBox="0 0 14 14">
+                                <path d="M2 4h10M5 4V2.5h4V4M3 4v8.5h8V4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
+                              Delete
+                            </button>
+                            <div className={styles.actionDropdownDivider} />
+                            <button
+                              className={styles.actionDropdownItem}
+                              onClick={() => addAsAnnouncement(ev)}
+                              disabled={announceSaving}
+                            >
+                              <svg width="13" height="13" fill="none" viewBox="0 0 14 14">
+                                <path d="M2 3h10v8H2z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round"/>
+                                <path d="M5 7h4M7 5v4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+                              </svg>
+                              {announceSaving ? "Saving…" : "Add as Announcement"}
+                            </button>
+                          </div>
+                        )}
                       </div>
                     </td>
                   </tr>
@@ -156,6 +228,16 @@ export default function AdminEvents() {
             </table>
           )}
         </div>
+
+        {announceMsg && (
+          <div className={styles.toast}>
+            <svg width="14" height="14" fill="none" viewBox="0 0 14 14">
+              <circle cx="7" cy="7" r="6" stroke={announceMsg.startsWith("Failed") ? "#ef4444" : "#10b981"} strokeWidth="1.4"/>
+              <path d="M4 7l2 2 4-4.5" stroke={announceMsg.startsWith("Failed") ? "#ef4444" : "#10b981"} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            {announceMsg}
+          </div>
+        )}
 
         {modal && (
           <div className={styles.modalOverlay} onClick={(e) => e.target === e.currentTarget && closeModal()}>
