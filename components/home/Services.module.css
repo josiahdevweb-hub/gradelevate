@@ -1,39 +1,12 @@
-﻿.services {
-  background: var(--navy-primary);
+.services {
+  background: linear-gradient(135deg, #d4952a 0%, #e8a833 30%, #c98e1f 70%, #d4952a 100%);
   position: relative;
   overflow: hidden;
 }
 
-/* Glowing orbs give the backdrop-filter something to blur through */
-.services::before {
-  content: '';
-  position: absolute;
-  width: 560px;
-  height: 560px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(201, 162, 39, 0.10) 0%, transparent 68%);
-  top: -180px;
-  right: -80px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.services::after {
-  content: '';
-  position: absolute;
-  width: 420px;
-  height: 420px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(30, 80, 160, 0.14) 0%, transparent 68%);
-  bottom: -120px;
-  left: -80px;
-  pointer-events: none;
-  z-index: 0;
-}
-
 .header {
   text-align: center;
-  margin-bottom: 56px;
+  margin-bottom: 48px;
   max-width: 680px;
   margin-left: auto;
   margin-right: auto;
@@ -41,179 +14,121 @@
   z-index: 1;
 }
 
-.title {
-  font-size: clamp(1.75rem, 3vw, 2.5rem);
-  color: #fff;
-  margin-top: 8px;
-  margin-bottom: 16px;
-}
-
-.intro {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.6);
-  line-height: 1.7;
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  gap: 20px;
   position: relative;
   z-index: 1;
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  padding: 32px 24px;
+  background: #fdf8ee;
+  border-radius: 14px;
+  padding: 28px 22px 24px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  transition: background 0.28s ease, border-color 0.28s ease, transform 0.28s ease, box-shadow 0.28s ease;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   cursor: default;
-  border-radius: 2px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
 }
 
 .card:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(201, 162, 39, 0.35);
-  border-top-color: rgba(201, 162, 39, 0.65);
   transform: translateY(-5px);
-  box-shadow:
-    0 20px 48px rgba(0, 0, 0, 0.28),
-    0 0 0 1px rgba(201, 162, 39, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  z-index: 1;
-  position: relative;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
 }
 
 .cardTop {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
 }
 
 .iconWrap {
   width: 48px;
   height: 48px;
-  background: rgba(201, 162, 39, 0.10);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(201, 162, 39, 0.22);
-  border-radius: 50%;
+  background: #C9A227;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
-  box-shadow: 0 2px 12px rgba(201, 162, 39, 0.08);
-}
-
-.tagline {
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.75rem;
-  font-style: italic;
-  color: rgba(201, 162, 39, 0.7);
-  margin-bottom: 2px;
-  line-height: 1.4;
+  flex-shrink: 0;
 }
 
 .cardTitle {
   font-family: 'Poppins', sans-serif;
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 700;
-  color: #fff;
+  color: #1a1a1a;
   line-height: 1.3;
 }
 
-.list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-}
-
-.listItem {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
+.tagline {
   font-family: 'Poppins', sans-serif;
-  font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.82rem;
+  color: #6b6b6b;
   line-height: 1.55;
 }
 
-.dot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--gold);
-  flex-shrink: 0;
-  margin-top: 7px;
+.list {
+  display: none;
 }
 
 .cta {
   font-family: 'Poppins', sans-serif;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--gold);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #C9A227;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  transition: gap 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-  padding-bottom: 3px;
-  border-bottom: 1px solid rgba(201, 162, 39, 0.3);
-  width: fit-content;
+  gap: 5px;
+  transition: gap 0.2s ease;
+  margin-top: auto;
 }
 
 .cta:hover {
-  gap: 10px;
-  color: var(--gold-light);
-  border-bottom-color: var(--gold-light);
+  gap: 9px;
 }
 
 /* ── Testimonial quote ───────────────────────────────── */
 .quote {
-  margin-top: 56px;
-  padding: 36px 48px;
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-top: 1px solid rgba(255, 255, 255, 0.13);
-  border-left: 3px solid var(--gold);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  margin-top: 48px;
+  padding: 32px 40px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-left: 3px solid #fff;
+  border-radius: 12px;
   position: relative;
   z-index: 1;
 }
 
 .quoteIcon {
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   display: block;
 }
 
 .quoteText {
   font-family: 'Poppins', sans-serif;
-  font-size: clamp(1rem, 2vw, 1.125rem);
-  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  color: #fff;
   line-height: 1.7;
   font-style: italic;
   max-width: 780px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .quoteAuthor {
   font-family: 'Poppins', sans-serif;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--gold);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
   letter-spacing: 0.02em;
 }
 
@@ -226,18 +141,18 @@
 @media (max-width: 640px) {
   .grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 14px;
   }
 
   .header {
-    margin-bottom: 32px;
+    margin-bottom: 28px;
   }
 
   .quote {
-    padding: 28px 24px;
+    padding: 24px 20px;
   }
 
   .card {
-    padding: 24px 20px;
+    padding: 22px 18px 20px;
   }
 }
