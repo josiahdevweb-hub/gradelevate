@@ -36,10 +36,25 @@ interface Booking {
   followUps?: FollowUp[];
 }
 
-const EMAIL_TYPES: Record<string, { label: string; color: string; bg: string }> = {
-  booking_confirmation: { label: "Booking Confirmation", color: "#10b981", bg: "rgba(16,185,129,0.1)" },
-  admin_notification: { label: "Admin Notification", color: "#3b82f6", bg: "rgba(59,130,246,0.1)" },
+const EMAIL_TYPES: Record<string, { label: string; color: string; bg: string; icon: "envelope" | "bell" }> = {
+  booking_confirmation: { label: "Booking Confirmation", color: "#10b981", bg: "rgba(16,185,129,0.1)", icon: "envelope" },
+  admin_notification: { label: "Admin Notification", color: "#3b82f6", bg: "rgba(59,130,246,0.1)", icon: "bell" },
 };
+
+function EmailIcon({ icon, size = 16 }: { icon: "envelope" | "bell"; size?: number }) {
+  if (icon === "bell") return (
+    <svg width={size} height={size} fill="none" viewBox="0 0 16 16">
+      <path d="M6 13a2 2 0 004 0" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+      <path d="M3.5 10.5c0 0 .5-1 .5-4.5a4 4 0 018 0c0 3.5.5 4.5.5 4.5H3.5z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round"/>
+    </svg>
+  );
+  return (
+    <svg width={size} height={size} fill="none" viewBox="0 0 16 16">
+      <rect x="1.5" y="3.5" width="13" height="9.5" rx="1.5" stroke="currentColor" strokeWidth="1.3"/>
+      <path d="M1.5 5l6.5 4.5L14.5 5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+    </svg>
+  );
+}
 
 function initials(name: string) {
   return name.split(" ").slice(0, 2).map((w) => w[0]).join("").toUpperCase();
@@ -62,6 +77,7 @@ export default function BookingProfile() {
   const [fuForm, setFuForm] = useState({ scheduledDate: "", notes: "" });
   const [saving, setSaving] = useState(false);
   const [resending, setResending] = useState<string | null>(null);
+  const [commOpen, setCommOpen] = useState(true);
 
   const loadBooking = useCallback(async () => {
     if (!id) return;
@@ -202,146 +218,155 @@ export default function BookingProfile() {
 
             {/* Communications History */}
             <div className={styles.profileCard}>
-              <div className={styles.profileCardHeader}>
-                <div className={styles.profileCardTitle}>
-                  <svg width="15" height="15" fill="none" viewBox="0 0 14 14">
-                    <rect x="1" y="3" width="12" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.4"/>
-                    <path d="M1 4l6 5 6-5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+              <div className={styles.commHeader} onClick={() => setCommOpen((v) => !v)}>
+                <div className={styles.commHeaderLeft}>
+                  <svg width="15" height="15" fill="none" viewBox="0 0 16 16">
+                    <rect x="1.5" y="3.5" width="13" height="9.5" rx="1.5" stroke="currentColor" strokeWidth="1.3"/>
+                    <path d="M1.5 5l6.5 4.5L14.5 5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
                   </svg>
                   Communications History
+                  {(booking.emails || []).length > 0 && (
+                    <span className={styles.emailPill}>{(booking.emails || []).length} emails</span>
+                  )}
                 </div>
-                {(booking.emails || []).length > 0 && (
-                  <span className={styles.emailPill}>{(booking.emails || []).length} emails</span>
-                )}
+                <svg width="14" height="14" fill="none" viewBox="0 0 14 14" style={{ transform: commOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}>
+                  <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
               </div>
 
-              {/* Type summary cards */}
-              {Object.keys(emailGroups).length > 0 && (
-                <div className={styles.commCards}>
-                  {Object.entries(emailGroups).map(([type, emails]) => {
-                    const cfg = EMAIL_TYPES[type] || { label: type, color: "#9aaab8", bg: "#f4f6fa" };
-                    const lastSent = emails[emails.length - 1]?.sentAt;
-                    return (
-                      <div key={type} className={styles.commCard} style={{ borderColor: cfg.color }}>
-                        <div className={styles.commCardIcon} style={{ color: cfg.color, background: cfg.bg }}>
-                          <svg width="17" height="17" fill="none" viewBox="0 0 14 14">
-                            <rect x="1" y="3" width="12" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.4"/>
-                            <path d="M1 4l6 5 6-5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
-                          </svg>
-                        </div>
-                        <div className={styles.commCardLabel}>{cfg.label}</div>
-                        <div className={styles.commCardCount}>{emails.length}x</div>
-                        <div className={styles.commCardDate}>
-                          {lastSent ? new Date(lastSent).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) : "—"}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-
-              {/* Quick Resend */}
-              <div className={styles.quickResend}>
-                <div className={styles.quickResendLabel}>
-                  <svg width="12" height="12" fill="none" viewBox="0 0 14 14">
-                    <path d="M13 1L1 5.5l5 1.5 1.5 5L13 1z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round"/>
-                  </svg>
-                  Quick Resend
-                </div>
-                <div className={styles.quickResendBtns}>
-                  {Object.entries(EMAIL_TYPES).map(([type, cfg]) => (
-                    <button
-                      key={type}
-                      className={styles.resendBtn}
-                      style={{ borderColor: cfg.color, color: cfg.color }}
-                      onClick={() => resendEmail(type)}
-                      disabled={resending !== null}
-                    >
-                      <svg width="11" height="11" fill="none" viewBox="0 0 14 14">
-                        <path d="M12 7A5 5 0 112 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                        <path d="M12 3v4H8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                      {resending === type ? "Sending…" : cfg.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Email table */}
-              {(booking.emails || []).length === 0 ? (
-                <div className={styles.emptyStateMini}>
-                  <svg width="28" height="28" fill="none" viewBox="0 0 28 28">
-                    <rect x="3" y="7" width="22" height="16" rx="2" stroke="#d0d8e4" strokeWidth="1.5"/>
-                    <path d="M3 9l11 9 11-9" stroke="#d0d8e4" strokeWidth="1.5" strokeLinecap="round"/>
-                  </svg>
-                  <p>No emails sent yet for this booking.</p>
-                </div>
-              ) : (
-                <div className={styles.tableWrap}>
-                  <table className={styles.table}>
-                    <thead>
-                      <tr>
-                        <th style={{ width: 32 }}>#</th>
-                        <th>Type</th>
-                        <th>Subject</th>
-                        <th>Recipient</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                        <th style={{ width: 48 }}>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {(booking.emails || []).map((em, i) => {
-                        const cfg = EMAIL_TYPES[em.type] || { label: em.type, color: "#9aaab8", bg: "#f4f6fa" };
+              {commOpen && (
+                <>
+                  {/* Type summary cards */}
+                  {Object.keys(emailGroups).length > 0 && (
+                    <div className={styles.commCards}>
+                      {Object.entries(emailGroups).map(([type, emails]) => {
+                        const cfg = EMAIL_TYPES[type] || { label: type, color: "#9aaab8", bg: "#f4f6fa", icon: "envelope" as const };
+                        const lastSent = emails[emails.length - 1]?.sentAt;
                         return (
-                          <tr key={em.id}>
-                            <td className={styles.tdMuted}>{i + 1}</td>
-                            <td>
-                              <span className={styles.typeBadge} style={{ background: cfg.bg, color: cfg.color }}>
-                                {cfg.label}
-                              </span>
-                            </td>
-                            <td style={{ fontSize: "0.8rem", color: "#2a3a4a", maxWidth: 160 }}>
-                              <span title={em.subject}>{em.subject.length > 38 ? em.subject.slice(0, 38) + "…" : em.subject}</span>
-                            </td>
-                            <td className={styles.tdMuted}>
-                              <div style={{ fontSize: "0.78rem" }}>
-                                {em.type === "admin_notification" ? "hello@gradelevate.com" : booking.email}
-                              </div>
-                              <div style={{ fontSize: "0.7rem", color: "#b0bece" }}>
-                                {em.type === "admin_notification" ? "GradElevate Admin" : booking.name}
-                              </div>
-                            </td>
-                            <td>
-                              <span className={em.status === "sent" ? styles.emailLogStatusSent : styles.emailLogStatusFailed}>
-                                {em.status === "sent" ? "✓ Sent" : "✗ Failed"}
-                              </span>
-                            </td>
-                            <td className={styles.tdMuted}>
-                              <div style={{ fontSize: "0.78rem" }}>{new Date(em.sentAt).toLocaleDateString("en-GB")}</div>
-                              <div style={{ fontSize: "0.7rem", color: "#b0bece" }}>
-                                {new Date(em.sentAt).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}
-                              </div>
-                            </td>
-                            <td>
-                              <button
-                                className={styles.iconBtn}
-                                title="Resend this email"
-                                onClick={() => resendEmail(em.type)}
-                                disabled={resending !== null}
-                              >
-                                <svg width="13" height="13" fill="none" viewBox="0 0 14 14">
-                                  <path d="M12 7A5 5 0 112 7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
-                                  <path d="M12 3v4H8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-                                </svg>
-                              </button>
-                            </td>
-                          </tr>
+                          <div key={type} className={styles.commCard} style={{ borderColor: cfg.color }}>
+                            <div className={styles.commCardIcon} style={{ color: cfg.color, background: cfg.bg }}>
+                              <EmailIcon icon={cfg.icon} size={18} />
+                            </div>
+                            <div className={styles.commCardLabel}>{cfg.label}</div>
+                            <div className={styles.commCardCount}>{emails.length}x</div>
+                            <div className={styles.commCardDate}>
+                              {lastSent ? new Date(lastSent).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) : "—"}
+                            </div>
+                          </div>
                         );
                       })}
-                    </tbody>
-                  </table>
-                </div>
+                    </div>
+                  )}
+
+                  {/* Quick Resend */}
+                  <div className={styles.quickResend}>
+                    <div className={styles.quickResendLabel}>
+                      <svg width="12" height="12" fill="none" viewBox="0 0 14 14">
+                        <path d="M13 1L1 5.5l5 1.5 1.5 5L13 1z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round"/>
+                      </svg>
+                      Quick Resend
+                    </div>
+                    <div className={styles.quickResendBtns}>
+                      {Object.entries(EMAIL_TYPES).map(([type, cfg]) => (
+                        <button
+                          key={type}
+                          className={styles.resendBtn}
+                          style={{ borderColor: cfg.color, color: cfg.color }}
+                          onClick={() => resendEmail(type)}
+                          disabled={resending !== null}
+                        >
+                          <EmailIcon icon={cfg.icon} size={11} />
+                          {resending === type ? "Sending…" : cfg.label}
+                          <svg width="10" height="10" fill="none" viewBox="0 0 14 14" style={{ marginLeft: 2 }}>
+                            <path d="M12 7A5 5 0 112 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                            <path d="M12 3v4H8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Email table */}
+                  {(booking.emails || []).length === 0 ? (
+                    <div className={styles.emptyStateMini}>
+                      <svg width="28" height="28" fill="none" viewBox="0 0 28 28">
+                        <rect x="3" y="7" width="22" height="16" rx="2" stroke="#d0d8e4" strokeWidth="1.5"/>
+                        <path d="M3 9l11 9 11-9" stroke="#d0d8e4" strokeWidth="1.5" strokeLinecap="round"/>
+                      </svg>
+                      <p>No emails sent yet for this booking.</p>
+                    </div>
+                  ) : (
+                    <div className={styles.tableWrap}>
+                      <table className={styles.table}>
+                        <thead>
+                          <tr>
+                            <th style={{ width: 24 }}>#</th>
+                            <th>Type</th>
+                            <th>Subject</th>
+                            <th>Recipient</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th style={{ width: 36 }}></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {(booking.emails || []).map((em, i) => {
+                            const cfg = EMAIL_TYPES[em.type] || { label: em.type, color: "#9aaab8", bg: "#f4f6fa", icon: "envelope" as const };
+                            return (
+                              <tr key={em.id}>
+                                <td className={styles.tdMuted}>{i + 1}</td>
+                                <td>
+                                  <span className={styles.typeBadge} style={{ background: cfg.bg, color: cfg.color }}>
+                                    <EmailIcon icon={cfg.icon} size={10} />
+                                    {cfg.label}
+                                  </span>
+                                </td>
+                                <td className={styles.tdTruncate} title={em.subject}>
+                                  {em.subject}
+                                </td>
+                                <td className={styles.tdMuted}>
+                                  <div style={{ fontSize: "0.72rem" }}>
+                                    {em.type === "admin_notification" ? "hello@gradelevate.com" : booking.email}
+                                  </div>
+                                  <div style={{ fontSize: "0.65rem", color: "#b0bece" }}>
+                                    {em.type === "admin_notification" ? "GradElevate Admin" : booking.name}
+                                  </div>
+                                </td>
+                                <td>
+                                  <span className={em.status === "sent" ? styles.emailLogStatusSent : styles.emailLogStatusFailed}>
+                                    {em.status === "sent" ? "✓ Sent" : "✗ Failed"}
+                                  </span>
+                                </td>
+                                <td className={styles.tdMuted}>
+                                  <div style={{ fontSize: "0.72rem" }}>
+                                    {new Date(em.sentAt).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
+                                  </div>
+                                  <div style={{ fontSize: "0.65rem", color: "#b0bece" }}>
+                                    {new Date(em.sentAt).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}
+                                  </div>
+                                </td>
+                                <td>
+                                  <button
+                                    className={styles.iconBtn}
+                                    title="Resend"
+                                    onClick={() => resendEmail(em.type)}
+                                    disabled={resending !== null}
+                                    style={{ width: 26, height: 26 }}
+                                  >
+                                    <svg width="12" height="12" fill="none" viewBox="0 0 14 14">
+                                      <path d="M12 7A5 5 0 112 7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+                                      <path d="M12 3v4H8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                                    </svg>
+                                  </button>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </>
               )}
             </div>
 
