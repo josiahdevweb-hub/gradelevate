@@ -67,7 +67,7 @@ export default function AdminEvents() {
       await api.put("/api/announcements", {
         active: true,
         title: ev.title,
-        body: `${ev.category} · ${ev.format} · ${ev.date}${ev.price ? ` · ${ev.price}` : ""}`,
+        body: `${ev.category} · ${ev.format} · ${ev.date}${ev.price && ev.price !== "0" ? ` · £${ev.price}` : " · Free"}`,
         ctaText: "Register Now",
         ctaLink: "/events",
         imageUrl: ev.imageUrl || "",
@@ -179,7 +179,9 @@ export default function AdminEvents() {
                     <td className={styles.tdMuted}>{ev.format}</td>
                     <td className={styles.tdMuted}>{ev.date}</td>
                     <td className={styles.tdMuted}>{ev.duration}</td>
-                    <td style={{ fontWeight: 600, color: ev.price === "Free" ? "#16a34a" : "#0F2744" }}>{ev.price}</td>
+                    <td style={{ fontWeight: 600, color: !ev.price || ev.price === "0" ? "#16a34a" : "#0F2744" }}>
+                      {!ev.price || ev.price === "0" ? "Free" : `£${ev.price}`}
+                    </td>
                     <td className={styles.tdMuted}>{ev.spots}</td>
                     <td>
                       <div className={styles.actionDropdownWrap} ref={openMenu === ev.id ? menuRef : undefined}>
@@ -279,8 +281,19 @@ export default function AdminEvents() {
                   </div>
                   <div className={styles.formGroup}>
                     <label className={styles.formLabel}>Price</label>
-                    <input className={styles.formInput} placeholder="£49 / Free" value={form.price}
-                      onChange={(e) => set("price", e.target.value)} />
+                    <div className={styles.inputWithPrefix}>
+                      <span className={styles.inputPrefix}>£</span>
+                      <input
+                        className={styles.formInput}
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        placeholder="0.00"
+                        value={form.price}
+                        onChange={(e) => set("price", e.target.value)}
+                        style={{ paddingLeft: 28 }}
+                      />
+                    </div>
                   </div>
                   <div className={styles.formGroup}>
                     <label className={styles.formLabel}>Spots Available</label>

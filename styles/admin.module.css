@@ -688,6 +688,23 @@
   min-height: 80px;
 }
 
+.inputWithPrefix {
+  position: relative;
+}
+
+.inputPrefix {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #7a8ea0;
+  pointer-events: none;
+  z-index: 1;
+}
+
 .formHint {
   font-size: 0.7rem;
   color: #9aaab8;
