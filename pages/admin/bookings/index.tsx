@@ -72,6 +72,7 @@ export default function AdminBookings() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
+  const [serviceFilter, setServiceFilter] = useState("All");
   const [showFollowUps, setShowFollowUps] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
 
@@ -87,7 +88,8 @@ export default function AdminBookings() {
       b.email.toLowerCase().includes(search.toLowerCase()) ||
       (b.service || "").toLowerCase().includes(search.toLowerCase());
     const matchStatus = statusFilter === "All" || b.status === statusFilter;
-    return matchSearch && matchStatus;
+    const matchService = serviceFilter === "All" || b.service === serviceFilter;
+    return matchSearch && matchStatus && matchService;
   });
 
   const bookingsWithFollowUps = bookings
@@ -164,6 +166,16 @@ export default function AdminBookings() {
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
+          <select className={styles.filterSelect} value={serviceFilter} onChange={(e) => setServiceFilter(e.target.value)}>
+            <option value="All">All Services</option>
+            <option value="Academic Tutoring & Writing Support">Academic Tutoring & Writing</option>
+            <option value="Dissertation / Thesis Support">Dissertation / Thesis</option>
+            <option value="Research Design & Methodology">Research & Methodology</option>
+            <option value="PhD Application Support">PhD Application</option>
+            <option value="Career Development & CV Coaching">Career & CV Coaching</option>
+            <option value="Interview Preparation">Interview Prep</option>
+            <option value="AI & Digital Skills Coaching">AI & Digital Skills</option>
+          </select>
           <select className={styles.filterSelect} value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
             <option>All</option>
             <option>New</option>
