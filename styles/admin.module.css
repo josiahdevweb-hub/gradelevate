@@ -662,15 +662,43 @@
   margin-bottom: 16px;
 }
 
+.filterBar {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 16px;
+  background: #f9fafb;
+  border: 1px solid #e8ecf3;
+  border-radius: 10px;
+  padding: 14px 16px;
+  flex-wrap: wrap;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 140px;
+}
+
+.filterLabel {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #7a8ea0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
 .searchBox {
   display: flex;
   align-items: center;
   gap: 8px;
-  flex: 1;
   background: #fff;
   border: 1.5px solid #d0d8e4;
   border-radius: 8px;
   padding: 8px 12px;
+  width: 100%;
 }
 
 .searchBox input {
@@ -678,9 +706,10 @@
   border: none;
   outline: none;
   font-family: 'Poppins', sans-serif;
-  font-size: 0.83rem;
+  font-size: 0.82rem;
   color: #0F2744;
   background: transparent;
+  min-width: 0;
 }
 
 .searchBox input::placeholder { color: #9aaab8; }
@@ -690,10 +719,11 @@
   border: 1.5px solid #d0d8e4;
   border-radius: 8px;
   font-family: 'Poppins', sans-serif;
-  font-size: 0.83rem;
+  font-size: 0.82rem;
   color: #0F2744;
   background: #fff;
   cursor: pointer;
+  width: 100%;
 }
 
 /* ── Empty state ───────────────────────────────────── */
@@ -2097,12 +2127,25 @@
   .filterRow {
     flex-wrap: wrap;
   }
+
+  .filterBar {
+    flex-wrap: wrap;
+  }
 }
 
 @media (max-width: 640px) {
   .filterRow {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .filterBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filterGroup {
+    min-width: 100%;
   }
 
   .filterSelect {

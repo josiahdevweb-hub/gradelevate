@@ -49,6 +49,9 @@ export default function AdminDashboard() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [serviceFilter, setServiceFilter] = useState("All");
+  const [statusFilter, setStatusFilter] = useState("All");
   const [showFollowUps, setShowFollowUps] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
 
@@ -72,7 +75,16 @@ export default function AdminDashboard() {
 
   useEffect(() => { load(); }, []);
 
-  const recent = bookings.slice(0, 8);
+  const filtered = bookings.filter((b) => {
+    const matchSearch =
+      b.name.toLowerCase().includes(search.toLowerCase()) ||
+      b.email.toLowerCase().includes(search.toLowerCase()) ||
+      (b.service || "").toLowerCase().includes(search.toLowerCase());
+    const matchStatus = statusFilter === "All" || b.status === statusFilter;
+    const matchService = serviceFilter === "All" || b.service === serviceFilter;
+    return matchSearch && matchStatus && matchService;
+  });
+  const recent = filtered.slice(0, 8);
 
   const bookingsWithFollowUps = bookings
     .filter((b) => (b.followUps || []).some((fu) => fu.status === "pending"))
@@ -205,6 +217,45 @@ export default function AdminDashboard() {
                 <path d="M10 6v4l3 2" stroke="#0F2744" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
+          </div>
+        </div>
+
+        <div className={styles.filterBar}>
+          <div className={styles.filterGroup}>
+            <label className={styles.filterLabel}>Search</label>
+            <div className={styles.searchBox}>
+              <svg width="14" height="14" fill="none" viewBox="0 0 14 14">
+                <circle cx="6" cy="6" r="4.5" stroke="#9aaab8" strokeWidth="1.3"/>
+                <path d="M10 10l2.5 2.5" stroke="#9aaab8" strokeWidth="1.3" strokeLinecap="round"/>
+              </svg>
+              <input
+                placeholder="Name, email, phone…"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className={styles.filterGroup}>
+            <label className={styles.filterLabel}>Service</label>
+            <select className={styles.filterSelect} value={serviceFilter} onChange={(e) => setServiceFilter(e.target.value)}>
+              <option value="All">All Services</option>
+              <option value="Academic Tutoring & Writing Support">Academic Tutoring & Writing</option>
+              <option value="Dissertation / Thesis Support">Dissertation / Thesis</option>
+              <option value="Research Design & Methodology">Research & Methodology</option>
+              <option value="PhD Application Support">PhD Application</option>
+              <option value="Career Development & CV Coaching">Career & CV Coaching</option>
+              <option value="Interview Preparation">Interview Prep</option>
+              <option value="AI & Digital Skills Coaching">AI & Digital Skills</option>
+            </select>
+          </div>
+          <div className={styles.filterGroup}>
+            <label className={styles.filterLabel}>Status</label>
+            <select className={styles.filterSelect} value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+              <option value="All">All Status</option>
+              <option>New</option>
+              <option>Contacted</option>
+              <option>Completed</option>
+            </select>
           </div>
         </div>
 

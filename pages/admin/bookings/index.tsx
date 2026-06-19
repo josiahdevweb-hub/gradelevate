@@ -117,13 +117,6 @@ export default function AdminBookings() {
             <p className={styles.pageSubheading}>{bookings.length} total submissions</p>
           </div>
           <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-            <button className={styles.btnOutline} onClick={load}>
-              <svg width="14" height="14" fill="none" viewBox="0 0 14 14">
-                <path d="M12 7A5 5 0 112 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <path d="M12 3v4H8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              Refresh
-            </button>
             <button
               className={styles.btnFollowUp}
               onClick={() => { setShowFollowUps(true); setShowNotifications(false); }}
@@ -154,34 +147,43 @@ export default function AdminBookings() {
           </div>
         </div>
 
-        <div className={styles.filterRow}>
-          <div className={styles.searchBox}>
-            <svg width="14" height="14" fill="none" viewBox="0 0 14 14">
-              <circle cx="6" cy="6" r="4.5" stroke="#9aaab8" strokeWidth="1.3"/>
-              <path d="M10 10l2.5 2.5" stroke="#9aaab8" strokeWidth="1.3" strokeLinecap="round"/>
-            </svg>
-            <input
-              placeholder="Search by name, email or service…"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+        <div className={styles.filterBar}>
+          <div className={styles.filterGroup}>
+            <label className={styles.filterLabel}>Search</label>
+            <div className={styles.searchBox}>
+              <svg width="14" height="14" fill="none" viewBox="0 0 14 14">
+                <circle cx="6" cy="6" r="4.5" stroke="#9aaab8" strokeWidth="1.3"/>
+                <path d="M10 10l2.5 2.5" stroke="#9aaab8" strokeWidth="1.3" strokeLinecap="round"/>
+              </svg>
+              <input
+                placeholder="Name, email, phone…"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
           </div>
-          <select className={styles.filterSelect} value={serviceFilter} onChange={(e) => setServiceFilter(e.target.value)}>
-            <option value="All">All Services</option>
-            <option value="Academic Tutoring & Writing Support">Academic Tutoring & Writing</option>
-            <option value="Dissertation / Thesis Support">Dissertation / Thesis</option>
-            <option value="Research Design & Methodology">Research & Methodology</option>
-            <option value="PhD Application Support">PhD Application</option>
-            <option value="Career Development & CV Coaching">Career & CV Coaching</option>
-            <option value="Interview Preparation">Interview Prep</option>
-            <option value="AI & Digital Skills Coaching">AI & Digital Skills</option>
-          </select>
-          <select className={styles.filterSelect} value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
-            <option>All</option>
-            <option>New</option>
-            <option>Contacted</option>
-            <option>Completed</option>
-          </select>
+          <div className={styles.filterGroup}>
+            <label className={styles.filterLabel}>Service</label>
+            <select className={styles.filterSelect} value={serviceFilter} onChange={(e) => setServiceFilter(e.target.value)}>
+              <option value="All">All Services</option>
+              <option value="Academic Tutoring & Writing Support">Academic Tutoring & Writing</option>
+              <option value="Dissertation / Thesis Support">Dissertation / Thesis</option>
+              <option value="Research Design & Methodology">Research & Methodology</option>
+              <option value="PhD Application Support">PhD Application</option>
+              <option value="Career Development & CV Coaching">Career & CV Coaching</option>
+              <option value="Interview Preparation">Interview Prep</option>
+              <option value="AI & Digital Skills Coaching">AI & Digital Skills</option>
+            </select>
+          </div>
+          <div className={styles.filterGroup}>
+            <label className={styles.filterLabel}>Status</label>
+            <select className={styles.filterSelect} value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+              <option value="All">All Status</option>
+              <option>New</option>
+              <option>Contacted</option>
+              <option>Completed</option>
+            </select>
+          </div>
         </div>
 
         <div className={styles.tableCard}>
