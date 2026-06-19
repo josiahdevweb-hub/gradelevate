@@ -217,7 +217,7 @@
   letter-spacing: 0.02em;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -226,9 +226,18 @@
 @media (max-width: 640px) {
   .grid {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .header {
+    margin-bottom: 32px;
   }
 
   .quote {
     padding: 28px 24px;
+  }
+
+  .card {
+    padding: 24px 20px;
   }
 }

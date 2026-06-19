@@ -66,8 +66,12 @@
 
 @media (max-width: 1024px) {
   .inner { grid-template-columns: 1fr; gap: 48px; }
+  .section { padding: 72px 0; }
 }
 
 @media (max-width: 640px) {
   .statGrid { grid-template-columns: 1fr; }
+  .section { padding: 48px 0; }
+  .stat { padding: 28px 20px; }
+  .statValue { font-size: 2rem; }
 }

@@ -1,8 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
 import { GetServerSideProps } from "next";
-import fs from "fs";
-import path from "path";
 import Navbar from "@/components/home/Navbar";
 import Footer from "@/components/home/Footer";
 import CtaBanner from "@/components/home/CtaBanner";
@@ -17,7 +15,7 @@ interface Post {
   author: string;
   date: string;
   readTime: string;
-  image: string;
+  imageUrl: string;
   featured: boolean;
 }
 
@@ -56,7 +54,7 @@ export default function Blog({ posts }: { posts: Post[] }) {
             {featured && (
               <Link href={`/blog/${featured.id}`} className={styles.featured}>
                 <div className={styles.featuredImage}>
-                  <img src={featured.image} alt={featured.title} />
+                  <img src={featured.imageUrl} alt={featured.title} />
                 </div>
                 <div className={styles.featuredContent}>
                   <span className={styles.featuredTag}>{featured.category}</span>
@@ -78,7 +76,7 @@ export default function Blog({ posts }: { posts: Post[] }) {
               {rest.map((post) => (
                 <Link key={post.id} href={`/blog/${post.id}`} className={styles.card}>
                   <div className={styles.cardImage}>
-                    <img src={post.image} alt={post.title} />
+                    <img src={post.imageUrl} alt={post.title} />
                     <span className={styles.cardTag}>{post.category}</span>
                   </div>
                   <div className={styles.cardBody}>
@@ -93,6 +91,12 @@ export default function Blog({ posts }: { posts: Post[] }) {
                 </Link>
               ))}
             </div>
+
+            {posts.length === 0 && (
+              <div style={{ textAlign: "center", padding: "60px 0", color: "#7a8ea0" }}>
+                No blog posts yet. Check back soon.
+              </div>
+            )}
           </div>
         </section>
 
@@ -105,7 +109,12 @@ export default function Blog({ posts }: { posts: Post[] }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const filePath = path.join(process.cwd(), "data", "blogs.json");
-  const posts: Post[] = JSON.parse(fs.readFileSync(filePath, "utf8"));
-  return { props: { posts } };
+  try {
+    const API = "https://gradeelevate-backend-production.up.railway.app";
+    const res = await fetch(`${API}/api/blogs`);
+    const posts: Post[] = res.ok ? await res.json() : [];
+    return { props: { posts } };
+  } catch {
+    return { props: { posts: [] } };
+  }
 };

@@ -239,9 +239,20 @@
   }
 
   .formRow { grid-template-columns: 1fr; }
+
+  .section { padding: 56px 0 72px; }
 }
 
 @media (max-width: 640px) {
-  .form { padding: 28px 24px; }
-  .success { padding: 40px 24px; }
+  .form { padding: 24px 20px; }
+  .success { padding: 40px 20px; }
+  .infoTitle { font-size: 1.4rem; }
+}
+
+@media (max-width: 480px) {
+  .form { padding: 20px 16px; }
+  .formTitle { font-size: 1.25rem; }
+  .section { padding: 40px 0 56px; }
+  .trustRow { gap: 8px; }
+  .trustItem { font-size: 0.75rem; padding: 6px 10px; }
 }

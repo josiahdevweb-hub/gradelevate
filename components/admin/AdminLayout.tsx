@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "@/styles/admin.module.css";
+
+const API = "https://gradeelevate-backend-production.up.railway.app";
 
 const navItems = [
   {
@@ -73,22 +75,35 @@ const navItems = [
 
 export default function AdminLayout({ children, title }: { children: React.ReactNode; title?: string }) {
   const router = useRouter();
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const auth = localStorage.getItem("admin_auth");
-      if (!auth) router.replace("/admin/login");
+      const token = localStorage.getItem("admin_token");
+      if (!token) router.replace("/admin/login");
     }
   }, [router]);
 
-  const logout = () => {
-    localStorage.removeItem("admin_auth");
+  const logout = async () => {
+    const token = localStorage.getItem("admin_token");
+    if (token) {
+      try {
+        await fetch(`${API}/api/auth/logout`, {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+      } catch {}
+    }
+    localStorage.removeItem("admin_token");
     router.push("/admin/login");
   };
 
   return (
     <div className={styles.adminShell}>
-      <aside className={styles.sidebar}>
+      {mobileNavOpen && (
+        <div className={styles.sidebarOverlay} onClick={() => setMobileNavOpen(false)} />
+      )}
+      <aside className={`${styles.sidebar} ${mobileNavOpen ? styles.sidebarOpen : ""}`}>
         <div className={styles.sidebarLogo}>
           <Link href="/admin" className={styles.sidebarBrand}>
             <span className={styles.sidebarName}>GradElevate</span>
@@ -107,6 +122,7 @@ export default function AdminLayout({ children, title }: { children: React.React
                 key={item.href}
                 href={item.href}
                 className={`${styles.sidebarLink} ${isActive ? styles.sidebarLinkActive : ""}`}
+                onClick={() => setMobileNavOpen(false)}
               >
                 {item.icon}
                 {item.label}
@@ -138,9 +154,21 @@ export default function AdminLayout({ children, title }: { children: React.React
       <div className={styles.mainArea}>
         <header className={styles.topbar}>
           <div className={styles.topbarLeft}>
+            <button
+              className={styles.mobileMenuBtn}
+              onClick={() => setMobileNavOpen(!mobileNavOpen)}
+              aria-label="Toggle navigation"
+            >
+              <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
+                <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+              </svg>
+            </button>
             <span className={styles.topbarTitle}>{title || "Admin Panel"}</span>
           </div>
           <div className={styles.topbarRight}>
+            <a href="/" target="_blank" rel="noopener noreferrer" className={styles.viewSiteLink}>
+              View Site
+            </a>
             <div className={styles.adminBadge}>
               <div className={styles.adminAvatar}>A</div>
               <span>Admin</span>

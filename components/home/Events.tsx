@@ -2,74 +2,17 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import styles from "./Events.module.css";
 
-const events = [
-  {
-    img: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&q=70",
-    title: "MA Dissertation Writing Masterclass",
-    format: "Online Live Workshop",
-    duration: "3 hours",
-    price: "£49",
-    date: "Sat, 15 Jun 2024",
-    time: "10:00 AM – 1:00 PM",
-    cta: "Reserve Your Place",
-    ctaStyle: "outline",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&q=70",
-    title: "PhD Proposal Development Workshop",
-    format: "Hybrid",
-    duration: "Half Day",
-    price: "£99",
-    date: "Sat, 22 Jun 2024",
-    time: "10:00 AM – 2:30 PM",
-    cta: "Book Now",
-    ctaStyle: "primary",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=400&q=70",
-    title: "Using AI Responsibly in Research",
-    format: "In-Person",
-    duration: "3 hours",
-    price: "£38",
-    date: "Thu, 27 Jun 2024",
-    time: "7:00 PM – 9:00 PM",
-    cta: "Register",
-    ctaStyle: "outline",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1455849318743-b2233052fcff?w=400&q=70",
-    title: "Academic Writing Excellence",
-    format: "In-Person",
-    duration: "Full Day",
-    price: "£104",
-    date: "Sat, 8 Jul 2024",
-    time: "9:00 AM – 4:30 PM",
-    cta: "Reserve Your Place",
-    ctaStyle: "outline",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?w=400&q=70",
-    title: "Graduate Employability Bootcamp",
-    format: "Hybrid",
-    duration: "Full Day",
-    price: "£89",
-    date: "Sat, 13 Jul 2024",
-    time: "10:00 AM – 4:00 PM",
-    cta: "Register",
-    ctaStyle: "outline",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&q=70",
-    title: "Literature Review Masterclass",
-    format: "Online Workshop",
-    duration: "3 hours",
-    price: "£45",
-    date: "Thu, 18 Jul 2024",
-    time: "6:00 PM – 9:00 PM",
-    cta: "Book Now",
-    ctaStyle: "primary",
-  },
-];
+interface EventItem {
+  id: string;
+  title: string;
+  category: string;
+  format: string;
+  duration: string;
+  price: string;
+  date: string;
+  imageUrl: string;
+  spots: number;
+}
 
 const formatIcon = (
   <svg width="13" height="13" fill="none" viewBox="0 0 13 13">
@@ -94,7 +37,7 @@ const priceIcon = (
 
 const AUTOPLAY_INTERVAL = 4000;
 
-export default function Events() {
+export default function Events({ events = [] }: { events?: EventItem[] }) {
   const [index, setIndex] = useState(0);
   const [perView, setPerView] = useState(3);
   const [paused, setPaused] = useState(false);
@@ -115,6 +58,7 @@ export default function Events() {
   }, []);
 
   const goTo = useCallback((i: number) => {
+    if (total === 0) return;
     const next = maxIndex === 0 ? 0 : ((i % (maxIndex + 1)) + (maxIndex + 1)) % (maxIndex + 1);
     setIndex(next);
     if (trackRef.current) {
@@ -123,25 +67,44 @@ export default function Events() {
         trackRef.current.style.transform = `translateX(-${card.offsetLeft}px)`;
       }
     }
-  }, [maxIndex]);
+  }, [maxIndex, total]);
 
-  // Auto-play: advance every AUTOPLAY_INTERVAL ms, wraps around
   useEffect(() => {
-    if (paused) return;
+    if (paused || total === 0) return;
     timerRef.current = setTimeout(() => goTo(index + 1), AUTOPLAY_INTERVAL);
     return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-  }, [index, paused, goTo]);
+  }, [index, paused, goTo, total]);
 
-  // Manual navigation: reset timer by briefly pausing then resuming
   const manualGoTo = (i: number) => {
     if (timerRef.current) clearTimeout(timerRef.current);
     goTo(i);
   };
 
-  // Clamp index when perView changes (e.g. on resize)
   useEffect(() => {
     if (index > maxIndex) goTo(maxIndex);
   }, [maxIndex, index, goTo]);
+
+  if (total === 0) {
+    return (
+      <section className={`section ${styles.events}`}>
+        <div className="container">
+          <div className={styles.header}>
+            <div className={styles.headerLeft}>
+              <p className="section-eyebrow">Upcoming Events</p>
+              <h2 className={styles.title}>Learn, Grow, and Connect</h2>
+              <p className={styles.sub}>
+                Join our practical workshops, masterclasses, and webinars
+                designed to help you succeed academically and professionally.
+              </p>
+            </div>
+          </div>
+          <p style={{ color: "#64748b", fontSize: "0.95rem", textAlign: "center", padding: "40px 0" }}>
+            No upcoming events at this time. Check back soon.
+          </p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
@@ -150,7 +113,6 @@ export default function Events() {
       onMouseLeave={() => setPaused(false)}
     >
       <div className="container">
-        {/* Header */}
         <div className={styles.header}>
           <div className={styles.headerLeft}>
             <p className="section-eyebrow">Upcoming Events</p>
@@ -187,7 +149,6 @@ export default function Events() {
           </div>
         </div>
 
-        {/* Carousel */}
         <div className={styles.carouselOuter}>
           <button
             className={`${styles.arrowBtn} ${styles.arrowSideLeft}`}
@@ -200,44 +161,52 @@ export default function Events() {
           </button>
 
           <div className={styles.carouselViewport}>
-          <div className={styles.carouselTrack} ref={trackRef}>
-            {events.map((e, i) => (
-              <div key={i} className={styles.card}>
-                <div className={styles.imgWrap}>
-                  <img src={e.img} alt={e.title} className={styles.img} loading="lazy" />
-                  <span className={styles.formatBadge}>{e.format}</span>
-                </div>
-                <div className={styles.cardBody}>
-                  <h3 className={styles.cardTitle}>{e.title}</h3>
-                  <div className={styles.meta}>
-                    <span className={styles.metaItem}>
-                      {formatIcon} {e.format}
-                    </span>
-                    <span className={styles.metaItem}>
-                      {calIcon} {e.duration}
-                    </span>
-                    <span className={`${styles.metaItem} ${styles.price}`}>
-                      {priceIcon} {e.price}
-                    </span>
+            <div className={styles.carouselTrack} ref={trackRef}>
+              {events.map((e) => (
+                <div key={e.id} className={styles.card}>
+                  <div className={styles.imgWrap}>
+                    <img src={e.imageUrl} alt={e.title} className={styles.img} loading="lazy" />
+                    <span className={styles.formatBadge}>{e.format}</span>
                   </div>
-                  <div className={styles.dateRow}>
-                    <svg width="13" height="13" fill="none" viewBox="0 0 13 13">
-                      <rect x="1.5" y="2.5" width="10" height="9" rx="1" stroke="#C9A227" strokeWidth="1.2"/>
-                      <path d="M1.5 6h10M4.5 1v3M8.5 1v3" stroke="#C9A227" strokeWidth="1.2" strokeLinecap="round"/>
-                    </svg>
-                    <span>{e.date}</span>
-                    <span className={styles.time}>{e.time}</span>
+                  <div className={styles.cardBody}>
+                    <h3 className={styles.cardTitle}>{e.title}</h3>
+                    <div className={styles.meta}>
+                      <span className={styles.metaItem}>
+                        {formatIcon} {e.format}
+                      </span>
+                      {e.duration && (
+                        <span className={styles.metaItem}>
+                          {calIcon} {e.duration}
+                        </span>
+                      )}
+                      {e.price && (
+                        <span className={`${styles.metaItem} ${styles.price}`}>
+                          {priceIcon} {e.price}
+                        </span>
+                      )}
+                    </div>
+                    {e.date && (
+                      <div className={styles.dateRow}>
+                        <svg width="13" height="13" fill="none" viewBox="0 0 13 13">
+                          <rect x="1.5" y="2.5" width="10" height="9" rx="1" stroke="#C9A227" strokeWidth="1.2"/>
+                          <path d="M1.5 6h10M4.5 1v3M8.5 1v3" stroke="#C9A227" strokeWidth="1.2" strokeLinecap="round"/>
+                        </svg>
+                        <span>{e.date}</span>
+                        {e.spots != null && e.spots > 0 && (
+                          <span className={styles.time}>{e.spots} spots left</span>
+                        )}
+                      </div>
+                    )}
+                    <Link
+                      href={{ pathname: "/book", query: { event: e.title } }}
+                      className={styles.cardCta}
+                    >
+                      Book Now
+                    </Link>
                   </div>
-                  <Link
-                    href={{ pathname: "/book", query: { event: e.title } }}
-                    className={e.ctaStyle === "primary" ? "btn-primary" : styles.cardCta}
-                  >
-                    {e.cta}
-                  </Link>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
           </div>
 
           <button
@@ -251,7 +220,6 @@ export default function Events() {
           </button>
         </div>
 
-        {/* Dots */}
         <div className={styles.dots}>
           {Array.from({ length: maxIndex + 1 }).map((_, i) => (
             <button

@@ -89,6 +89,7 @@ export default function Footer() {
       <div className={styles.bottom}>
         <div className="container">
           <p className={styles.copy}>© {new Date().getFullYear()} GradElevate. All rights reserved.</p>
+          <Link href="/admin/login" style={{ fontSize: "11px", color: "inherit", opacity: 0.3, textDecoration: "none" }}>done</Link>
         </div>
       </div>
     </footer>

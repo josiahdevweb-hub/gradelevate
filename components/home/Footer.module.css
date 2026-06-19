@@ -122,12 +122,16 @@ a.contactItem:hover { color: var(--gold); }
 }
 
 @media (max-width: 1024px) {
-  .inner { grid-template-columns: 1fr 1fr; }
+  .inner { grid-template-columns: 1fr 1fr; gap: 32px; }
 }
 
-@media (max-width: 640px) {
-  .inner {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
+@media (max-width: 768px) {
+  .inner { grid-template-columns: 1fr; gap: 28px; padding-top: 48px; padding-bottom: 36px; }
+  .linksGroup { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .inner { gap: 24px; padding-top: 36px; }
+  .linksGroup { grid-template-columns: 1fr; gap: 20px; }
+  .brandDesc { font-size: 0.8125rem; }
 }

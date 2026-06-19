@@ -2,8 +2,6 @@ import Head from "next/head";
 import { useState } from "react";
 import Link from "next/link";
 import { GetServerSideProps } from "next";
-import fs from "fs";
-import path from "path";
 import Navbar from "@/components/home/Navbar";
 import Footer from "@/components/home/Footer";
 import CtaBanner from "@/components/home/CtaBanner";
@@ -18,7 +16,7 @@ interface Event {
   duration: string;
   price: string;
   date: string;
-  image: string;
+  imageUrl: string;
   spots: number;
 }
 
@@ -99,14 +97,14 @@ export default function Events({ allEvents }: { allEvents: Event[] }) {
           <div className="container">
             {filtered.length === 0 ? (
               <div className={styles.empty}>
-                <p>No events match your filters. Try adjusting your search.</p>
+                <p>{allEvents.length === 0 ? "No events scheduled yet. Check back soon." : "No events match your filters. Try adjusting your search."}</p>
               </div>
             ) : (
               <div className={styles.grid}>
                 {filtered.map((event) => (
                   <article key={event.id} className={styles.card}>
                     <div className={styles.cardImage}>
-                      <img src={event.image} alt={event.title} />
+                      <img src={event.imageUrl} alt={event.title} />
                       <span className={styles.categoryTag}>{event.category}</span>
                     </div>
                     <div className={styles.cardBody}>
@@ -160,7 +158,12 @@ export default function Events({ allEvents }: { allEvents: Event[] }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const filePath = path.join(process.cwd(), "data", "events.json");
-  const allEvents: Event[] = JSON.parse(fs.readFileSync(filePath, "utf8"));
-  return { props: { allEvents } };
+  try {
+    const API = "https://gradeelevate-backend-production.up.railway.app";
+    const res = await fetch(`${API}/api/events`);
+    const allEvents: Event[] = res.ok ? await res.json() : [];
+    return { props: { allEvents } };
+  } catch {
+    return { props: { allEvents: [] } };
+  }
 };

@@ -95,4 +95,11 @@
 @media (max-width: 768px) {
   .hero { padding: 56px 0 40px; }
   .title { font-size: 1.8rem; }
+  .sub { max-width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .hero { padding: 48px 0 32px; }
+  .title { font-size: 1.5rem; }
+  .content { gap: 12px; }
 }

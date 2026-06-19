@@ -1,23 +1,44 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
 import Navbar from "@/components/home/Navbar";
 import Footer from "@/components/home/Footer";
 import PageHero from "@/components/ui/PageHero";
 import styles from "@/styles/book.module.css";
 
-const services = [
-  "Academic Tutoring & Writing Support",
-  "Dissertation / Thesis Support",
-  "Research Design & Methodology",
-  "PhD Application Support",
-  "Career Development & CV Coaching",
-  "Interview Preparation",
-  "AI & Digital Skills Coaching",
-  "Other / General Enquiry",
-];
+const API = "https://gradeelevate-backend-production.up.railway.app";
 
-export default function Book() {
+export const getServerSideProps: GetServerSideProps = async () => {
+  try {
+    const res = await fetch(`${API}/api/services`);
+    const data = res.ok ? await res.json() : [];
+    const serviceNames: string[] = Array.isArray(data)
+      ? data.map((s: { title: string }) => s.title)
+      : [];
+    if (!serviceNames.includes("Other / General Enquiry")) {
+      serviceNames.push("Other / General Enquiry");
+    }
+    return { props: { serviceNames } };
+  } catch {
+    return {
+      props: {
+        serviceNames: [
+          "Academic Tutoring & Writing Support",
+          "Dissertation / Thesis Support",
+          "Research Design & Methodology",
+          "PhD Application Support",
+          "Career Development & CV Coaching",
+          "Interview Preparation",
+          "AI & Digital Skills Coaching",
+          "Other / General Enquiry",
+        ],
+      },
+    };
+  }
+};
+
+export default function Book({ serviceNames }: { serviceNames: string[] }) {
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "", email: "", phone: "", service: "", stage: "", message: "",
@@ -33,20 +54,21 @@ export default function Book() {
     if (event && typeof event === "string") {
       setContext({ type: "event", label: event });
     } else if (service && typeof service === "string") {
-      const matched = services.find((s) => s === service) ?? "";
+      const matched = serviceNames.find((s) => s === service) ?? "";
       if (matched) {
         setContext({ type: "service", label: matched });
         setFormData((f) => ({ ...f, service: matched }));
       }
     }
-  }, [router.isReady]);
+  }, [router.isReady, serviceNames]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
     setSubmitError("");
     try {
-      const res = await fetch("/api/bookings", {
+      const API = "https://gradeelevate-backend-production.up.railway.app";
+      const res = await fetch(`${API}/api/bookings`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -195,7 +217,7 @@ export default function Book() {
                     <select required className={styles.input}
                       value={formData.service} onChange={(e) => setFormData({ ...formData, service: e.target.value })}>
                       <option value="">Select a service area</option>
-                      {services.map((s) => <option key={s}>{s}</option>)}
+                      {serviceNames.map((s) => <option key={s}>{s}</option>)}
                     </select>
                   </div>
 

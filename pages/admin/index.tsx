@@ -1,7 +1,16 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import AdminLayout from "@/components/admin/AdminLayout";
+import { api } from "@/lib/api";
 import styles from "@/styles/admin.module.css";
+
+interface Stats {
+  totalBookings: number;
+  newEnquiries: number;
+  blogCount: number;
+  eventCount: number;
+}
 
 interface Booking {
   id: string;
@@ -14,26 +23,53 @@ interface Booking {
 }
 
 export default function AdminDashboard() {
-  const [bookings, setBookings] = useState<Booking[]>([]);
-  const [blogCount, setBlogCount] = useState(0);
-  const [eventCount, setEventCount] = useState(0);
+  const router = useRouter();
+  const [stats, setStats] = useState<Stats | null>(null);
+  const [recent, setRecent] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    Promise.all([
-      fetch("/api/bookings").then((r) => r.json()),
-      fetch("/api/blogs").then((r) => r.json()),
-      fetch("/api/events").then((r) => r.json()),
-    ]).then(([b, bl, ev]) => {
-      setBookings(b);
-      setBlogCount(bl.length);
-      setEventCount(ev.length);
-      setLoading(false);
-    });
-  }, []);
+  const [pwForm, setPwForm] = useState<{ current: string; next: string; confirm: string }>({ current: "", next: "", confirm: "" });
+  const [pwMsg, setPwMsg]   = useState<{ text: string; ok: boolean } | null>(null);
+  const [pwBusy, setPwBusy] = useState(false);
 
-  const newCount = bookings.filter((b) => b.status === "New").length;
-  const recent = bookings.slice(0, 8);
+  const load = async () => {
+    setLoading(true);
+    try {
+      const [s, bookings] = await Promise.all([
+        api.get<Stats>("/api/admin/stats"),
+        api.get<Booking[]>("/api/admin/bookings"),
+      ]);
+      setStats(s);
+      setRecent(bookings.slice(0, 8));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => { load(); }, []);
+
+  const handlePasswordChange = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (pwForm.next !== pwForm.confirm) {
+      setPwMsg({ text: "New passwords do not match.", ok: false });
+      return;
+    }
+    if (pwForm.next.length < 8) {
+      setPwMsg({ text: "New password must be at least 8 characters.", ok: false });
+      return;
+    }
+    setPwBusy(true);
+    setPwMsg(null);
+    try {
+      await api.post("/api/auth/change-password", { currentPassword: pwForm.current, newPassword: pwForm.next });
+      setPwMsg({ text: "Password updated successfully.", ok: true });
+      setPwForm({ current: "", next: "", confirm: "" });
+    } catch (err: unknown) {
+      setPwMsg({ text: err instanceof Error ? err.message : "Failed to update password.", ok: false });
+    } finally {
+      setPwBusy(false);
+    }
+  };
 
   return (
     <>
@@ -44,7 +80,9 @@ export default function AdminDashboard() {
         <div className={styles.pageHeader}>
           <div>
             <h1 className={styles.pageHeading}>Overview</h1>
-            <p className={styles.pageSubheading}>Welcome back — here's what's happening today.</p>
+            <p className={styles.pageSubheading}>
+              {new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
+            </p>
           </div>
         </div>
 
@@ -52,8 +90,8 @@ export default function AdminDashboard() {
           <div className={styles.statCard}>
             <div className={styles.statInfo}>
               <p className={styles.statLabel}>Total Bookings</p>
-              <p className={styles.statValue}>{loading ? "—" : bookings.length}</p>
-              <p className={styles.statSub}><span className={styles.statAccent}>{newCount}</span> new / unread</p>
+              <p className={styles.statValue}>{loading ? "—" : stats?.totalBookings ?? 0}</p>
+              <p className={styles.statSub}><span className={styles.statAccent}>{stats?.newEnquiries ?? 0}</span> new / unread</p>
             </div>
             <div className={styles.statIcon}>
               <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
@@ -67,7 +105,7 @@ export default function AdminDashboard() {
           <div className={styles.statCard}>
             <div className={styles.statInfo}>
               <p className={styles.statLabel}>New Enquiries</p>
-              <p className={styles.statValue}>{loading ? "—" : newCount}</p>
+              <p className={styles.statValue}>{loading ? "—" : stats?.newEnquiries ?? 0}</p>
               <p className={styles.statSub}>Awaiting response</p>
             </div>
             <div className={`${styles.statIcon} ${styles.statIconNavy}`}>
@@ -81,7 +119,7 @@ export default function AdminDashboard() {
           <div className={styles.statCard}>
             <div className={styles.statInfo}>
               <p className={styles.statLabel}>Blog Posts</p>
-              <p className={styles.statValue}>{loading ? "—" : blogCount}</p>
+              <p className={styles.statValue}>{loading ? "—" : stats?.blogCount ?? 0}</p>
               <p className={styles.statSub}>Published articles</p>
             </div>
             <div className={styles.statIcon}>
@@ -95,7 +133,7 @@ export default function AdminDashboard() {
           <div className={styles.statCard}>
             <div className={styles.statInfo}>
               <p className={styles.statLabel}>Upcoming Events</p>
-              <p className={styles.statValue}>{loading ? "—" : eventCount}</p>
+              <p className={styles.statValue}>{loading ? "—" : stats?.eventCount ?? 0}</p>
               <p className={styles.statSub}>Scheduled events</p>
             </div>
             <div className={`${styles.statIcon} ${styles.statIconNavy}`}>
@@ -132,8 +170,15 @@ export default function AdminDashboard() {
               </thead>
               <tbody>
                 {recent.map((b) => (
-                  <tr key={b.id}>
-                    <td className={styles.tdBold}>{b.name}</td>
+                  <tr key={b.id} style={{ cursor: "pointer" }} onClick={() => router.push(`/admin/bookings/${b.id}`)}>
+                    <td>
+                      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        <div className={styles.rowAvatar}>
+                          {b.name.split(" ").slice(0, 2).map((w) => w[0]).join("").toUpperCase()}
+                        </div>
+                        <span className={styles.tdBold}>{b.name}</span>
+                      </div>
+                    </td>
                     <td className={styles.tdMuted}>{b.email}</td>
                     <td>{b.service || "—"}</td>
                     <td className={styles.tdMuted}>{b.stage || "—"}</td>
@@ -152,6 +197,38 @@ export default function AdminDashboard() {
               </tbody>
             </table>
           )}
+        </div>
+        <div className={styles.formCard} style={{ marginTop: 24 }}>
+          <div style={{ marginBottom: 20 }}>
+            <p style={{ fontSize: "0.88rem", fontWeight: 700, color: "#0F2744", margin: "0 0 4px" }}>Change Password</p>
+            <p style={{ fontSize: "0.78rem", color: "#7a8ea0", margin: 0 }}>Update your admin account password.</p>
+          </div>
+          <form onSubmit={handlePasswordChange} style={{ display: "flex", flexDirection: "column", gap: 14, maxWidth: 420 }}>
+            {(["current", "next", "confirm"] as const).map((key) => (
+              <div key={key} className={styles.formGroup}>
+                <label className={styles.formLabel}>
+                  {key === "current" ? "Current Password" : key === "next" ? "New Password" : "Confirm New Password"}
+                </label>
+                <input
+                  type="password"
+                  className={styles.formInput}
+                  value={pwForm[key]}
+                  onChange={(e) => { setPwForm(f => ({ ...f, [key]: e.target.value })); setPwMsg(null); }}
+                  required
+                  minLength={key === "current" ? 1 : 8}
+                  placeholder={key === "current" ? "Enter current password" : key === "next" ? "Min. 8 characters" : "Repeat new password"}
+                />
+              </div>
+            ))}
+            {pwMsg && (
+              <p style={{ fontSize: "0.82rem", color: pwMsg.ok ? "#16a34a" : "#dc2626", margin: 0 }}>{pwMsg.text}</p>
+            )}
+            <div>
+              <button type="submit" className={styles.btnPrimary} disabled={pwBusy}>
+                {pwBusy ? "Updating…" : "Update Password"}
+              </button>
+            </div>
+          </form>
         </div>
       </AdminLayout>
     </>

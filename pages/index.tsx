@@ -1,5 +1,3 @@
-import fs from "fs";
-import path from "path";
 import Head from "next/head";
 import Navbar from "@/components/home/Navbar";
 import Hero from "@/components/home/Hero";
@@ -13,17 +11,42 @@ import CtaBanner from "@/components/home/CtaBanner";
 import Footer from "@/components/home/Footer";
 import AnnouncementPopup from "@/components/home/AnnouncementPopup";
 
+const API = "https://gradeelevate-backend-production.up.railway.app";
+
 export async function getServerSideProps() {
-  try {
-    const file = path.join(process.cwd(), "data", "announcements.json");
-    const announcement = JSON.parse(fs.readFileSync(file, "utf-8"));
-    return { props: { announcement } };
-  } catch {
-    return { props: { announcement: null } };
-  }
+  const fetchJson = async (url: string) => {
+    try {
+      const res = await fetch(url);
+      return res.ok ? await res.json() : null;
+    } catch {
+      return null;
+    }
+  };
+
+  const [announcement, services, events] = await Promise.all([
+    fetchJson(`${API}/api/announcements`),
+    fetchJson(`${API}/api/services`),
+    fetchJson(`${API}/api/events`),
+  ]);
+
+  return {
+    props: {
+      announcement: announcement ?? null,
+      services: Array.isArray(services) ? services : [],
+      events: Array.isArray(events) ? events : [],
+    },
+  };
 }
 
-export default function Home({ announcement }: { announcement: any }) {
+export default function Home({
+  announcement,
+  services,
+  events,
+}: {
+  announcement: unknown;
+  services: unknown[];
+  events: unknown[];
+}) {
   return (
     <>
       <Head>
@@ -36,17 +59,16 @@ export default function Home({ announcement }: { announcement: any }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <AnnouncementPopup announcement={announcement} />
+      <AnnouncementPopup announcement={announcement as never} />
       <Navbar />
       <main>
         <Hero />
         <TrustBar />
-        <Services />
-        <Events />
+        <Services services={services as never} />
+        <Events events={events as never} />
         <Differentiator />
         <HowItWorks />
         <Founder />
-        {/* Testimonials now embedded in Founder section */}
         <CtaBanner />
       </main>
       <Footer />

@@ -4,6 +4,13 @@
   overflow: hidden;
 }
 
+@media (max-width: 640px) {
+  .section { padding: 48px 0; }
+  .title { font-size: clamp(1.25rem, 5vw, 1.6rem); }
+  .sub { max-width: 100%; padding: 0 4px; font-size: 0.85rem; }
+  .content { gap: 10px; }
+}
+
 .bg {
   position: absolute;
   inset: 0;
