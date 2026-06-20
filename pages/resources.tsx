@@ -41,33 +41,18 @@ const CATEGORY_ICONS: Record<string, React.ReactNode> = {
   ),
 };
 
-const DEFAULT_RESOURCES: ResourceItem[] = [
-  { category: "Guides", title: "Ultimate Dissertation Writing Guide", description: "Step-by-step breakdown of planning, structuring, and writing your dissertation.", tag: "PDF · 24 pages", free: true, fileUrl: "/terms-download" },
-  { category: "Guides", title: "PhD Application Success Blueprint", description: "How to craft a compelling research proposal and personal statement.", tag: "PDF · 18 pages", free: false, fileUrl: "/terms-download" },
-  { category: "Guides", title: "Academic Job Market Guide", description: "Navigating academic career paths, fellowships, and applications.", tag: "PDF · 16 pages", free: false, fileUrl: "/terms-download" },
-  { category: "Guides", title: "Postgraduate Funding Guide", description: "Comprehensive list of UK and international funding sources for Masters and PhD.", tag: "PDF · 12 pages", free: true, fileUrl: "/terms-download" },
-  { category: "Templates", title: "Academic CV Template", description: "Professional CV template designed for academic and research roles.", tag: "Word / PDF", free: true, fileUrl: "/terms-download" },
-  { category: "Templates", title: "Research Proposal Template", description: "Structured template for Masters and PhD research proposals.", tag: "Word / PDF", free: false, fileUrl: "/terms-download" },
-  { category: "Templates", title: "Literature Review Matrix", description: "Excel template for organising and synthesising research sources.", tag: "Excel", free: true, fileUrl: "/terms-download" },
-  { category: "Templates", title: "SMART Goal Setting Planner", description: "Plan your academic semester with structured goal-setting and tracking.", tag: "PDF / Excel", free: false, fileUrl: "/terms-download" },
-  { category: "Checklists", title: "Dissertation Submission Checklist", description: "Everything you need to verify before submitting your dissertation.", tag: "PDF · 2 pages", free: true, fileUrl: "/terms-download" },
-  { category: "Checklists", title: "Job Application Checklist", description: "Make sure your applications are complete, compelling, and error-free.", tag: "PDF · 1 page", free: true, fileUrl: "/terms-download" },
-  { category: "Checklists", title: "PhD Viva Preparation Checklist", description: "Step-by-step preparation guide for your doctoral viva examination.", tag: "PDF · 3 pages", free: false, fileUrl: "/terms-download" },
-  { category: "Checklists", title: "Conference Presentation Checklist", description: "Preparation guide for presenting your research at academic conferences.", tag: "PDF · 2 pages", free: false, fileUrl: "/terms-download" },
-];
-
 export default function Resources() {
-  const [resources, setResources] = useState<ResourceItem[]>(DEFAULT_RESOURCES);
+  const [resources, setResources] = useState<ResourceItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({ name: "", email: "", interest: "" });
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     fetch("/api/resources")
       .then((res) => (res.ok ? res.json() : Promise.reject()))
-      .then((data: ResourceItem[]) => {
-        if (data.length > 0) setResources(data);
-      })
-      .catch(() => {});
+      .then((data: ResourceItem[]) => setResources(data))
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, []);
 
   const visible = resources.filter((r) => !r.hidden);
@@ -101,7 +86,15 @@ export default function Resources() {
           subtitle="Download our expert-curated guides, templates and checklists practical resources designed to give you an edge at every stage of your academic and professional journey."
         />
 
-        {grouped.map((group) => (
+        {loading ? (
+          <section style={{ padding: "80px 0", textAlign: "center", color: "#7a8ea0" }}>
+            <div className="container">Loading resources…</div>
+          </section>
+        ) : grouped.length === 0 ? (
+          <section style={{ padding: "80px 0", textAlign: "center", color: "#7a8ea0" }}>
+            <div className="container">Resources are being prepared. Check back soon.</div>
+          </section>
+        ) : grouped.map((group) => (
           <section key={group.category} className={styles.groupSection}>
             <div className="container">
               <div className={styles.groupHeader}>
