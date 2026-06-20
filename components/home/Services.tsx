@@ -72,15 +72,20 @@ export default function Services({ services = [] }: { services?: ServiceItem[] }
           {services.map((s) => {
             const href = s.href || `/services/${s.id}`;
             const icon = ICONS[s.iconType] || ICONS.default;
-            const items = Array.isArray(s.features) ? s.features.slice(0, 4) : [];
+            const hasFeatures = Array.isArray(s.features) && s.features.length > 0;
+            const points = hasFeatures
+              ? s.features.slice(0, 4)
+              : s.description
+                  .split(/,\s*|\s*[–—]\s*/)
+                  .map((p) => p.replace(/^and\s+/i, "").trim())
+                  .filter((p) => p.length > 0);
             return (
               <div key={s.id} className={styles.card}>
                 <div className={styles.cardTop}>
                   <div className={styles.iconWrap}>{icon}</div>
                   <h3 className={styles.cardTitle}>{s.title}</h3>
-                  <p className={styles.tagline}>{s.description}</p>
                   <ul className={styles.list}>
-                    {items.map((item) => (
+                    {points.map((item) => (
                       <li key={item} className={styles.listItem}>
                         <span className={styles.dot} />
                         {item}
