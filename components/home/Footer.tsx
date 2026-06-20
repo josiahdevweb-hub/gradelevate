@@ -93,7 +93,7 @@ export default function Footer() {
             <Link href="/privacy-policy#privacy" className={styles.bottomLink}>Privacy Policy</Link>
             <Link href="/privacy-policy#terms" className={styles.bottomLink}>Terms of Service</Link>
             <Link href="/privacy-policy#refund" className={styles.bottomLink}>Refund Policy</Link>
-          </div>s
+          </div>
           <Link href="/admin/login" style={{ fontSize: "11px", color: "inherit", opacity: 0.3, textDecoration: "none" }}></Link>
         </div>
       </div>
