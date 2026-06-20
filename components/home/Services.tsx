@@ -10,6 +10,13 @@ interface ServiceItem {
   iconType: string;
 }
 
+const CTA_LABELS: Record<string, string> = {
+  "academic-success": "Explore Academic Support",
+  "career-development": "Explore Career Support",
+  "research": "Explore Research Support",
+  "ai-digital-skills": "Explore AI Skills",
+};
+
 const ICONS: Record<string, React.ReactNode> = {
   academic: (
     <svg width="28" height="28" fill="none" viewBox="0 0 32 32">
@@ -80,7 +87,7 @@ export default function Services({ services = [] }: { services?: ServiceItem[] }
                   .map((p) => p.replace(/^and\s+/i, "").trim())
                   .filter((p) => p.length > 0);
             return (
-              <div key={s.id} className={styles.card}>
+              <Link key={s.id} href={href} className={styles.card}>
                 <div className={styles.cardTop}>
                   <div className={styles.iconWrap}>{icon}</div>
                   <h3 className={styles.cardTitle}>{s.title}</h3>
@@ -93,10 +100,10 @@ export default function Services({ services = [] }: { services?: ServiceItem[] }
                     ))}
                   </ul>
                 </div>
-                <Link href={href} className={styles.cta}>
-                  Explore →
-                </Link>
-              </div>
+                <span className={styles.cta}>
+                  {CTA_LABELS[s.id] || `Explore ${s.title}`} →
+                </span>
+              </Link>
             );
           })}
         </div>
