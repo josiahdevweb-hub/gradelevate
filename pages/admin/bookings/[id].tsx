@@ -242,8 +242,11 @@ export default function BookingProfile() {
                   {/* Quick Resend */}
                   <div className={styles.quickResend}>
                     <div className={styles.quickResendLabel}>
-                      <svg width="12" height="12" fill="none" viewBox="0 0 14 14">
-                        <path d="M13 1L1 5.5l5 1.5 1.5 5L13 1z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round"/>
+                      <svg width="12" height="12" fill="none" viewBox="0 0 20 20">
+                        <path d="M14.5 3.5A7 7 0 003 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                        <path d="M15 1.5v3.5h-3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M5.5 16.5A7 7 0 0017 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                        <path d="M5 18.5v-3.5h3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                       Quick Resend
                     </div>
@@ -258,9 +261,11 @@ export default function BookingProfile() {
                         >
                           <EmailIcon icon={cfg.icon} size={11} />
                           {resending === type ? "Sending…" : cfg.label}
-                          <svg width="10" height="10" fill="none" viewBox="0 0 14 14" style={{ marginLeft: 2 }}>
-                            <path d="M12 7A5 5 0 112 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                            <path d="M12 3v4H8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          <svg width="12" height="12" fill="none" viewBox="0 0 20 20" style={{ marginLeft: 2 }}>
+                            <path d="M14.5 3.5A7 7 0 003 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                            <path d="M15 1.5v3.5h-3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M5.5 16.5A7 7 0 0017 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                            <path d="M5 18.5v-3.5h3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
                         </button>
                       ))}
@@ -334,9 +339,11 @@ export default function BookingProfile() {
                                     disabled={resending !== null}
                                     style={{ width: 26, height: 26 }}
                                   >
-                                    <svg width="12" height="12" fill="none" viewBox="0 0 14 14">
-                                      <path d="M12 7A5 5 0 112 7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
-                                      <path d="M12 3v4H8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <svg width="12" height="12" fill="none" viewBox="0 0 20 20">
+                                      <path d="M14.5 3.5A7 7 0 003 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                                      <path d="M15 1.5v3.5h-3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                      <path d="M5.5 16.5A7 7 0 0017 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                                      <path d="M5 18.5v-3.5h3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                     </svg>
                                   </button>
                                 </td>
