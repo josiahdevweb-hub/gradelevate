@@ -115,10 +115,34 @@ a.contactItem:hover { color: var(--gold); }
   padding: 20px 0;
 }
 
+.bottomInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
 .copy {
   font-family: 'Poppins', sans-serif;
   font-size: 0.8125rem;
   color: rgba(255,255,255,0.3);
+}
+
+.bottomLinks {
+  display: flex;
+  gap: 24px;
+}
+
+.bottomLink {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8125rem;
+  color: rgba(255,255,255,0.35);
+  transition: color 0.2s;
+}
+
+.bottomLink:hover {
+  color: rgba(255,255,255,0.7);
 }
 
 @media (max-width: 1024px) {

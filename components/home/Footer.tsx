@@ -87,8 +87,13 @@ export default function Footer() {
       </div>
 
       <div className={styles.bottom}>
-        <div className="container">
+        <div className={`container ${styles.bottomInner}`}>
           <p className={styles.copy}>© {new Date().getFullYear()} GradElevate. All rights reserved.</p>
+          <div className={styles.bottomLinks}>
+            <Link href="/privacy-policy#privacy" className={styles.bottomLink}>Privacy Policy</Link>
+            <Link href="/privacy-policy#terms" className={styles.bottomLink}>Terms of Service</Link>
+            <Link href="/privacy-policy#refund" className={styles.bottomLink}>Refund Policy</Link>
+          </div>
           <Link href="/admin/login" style={{ fontSize: "11px", color: "inherit", opacity: 0.3, textDecoration: "none" }}></Link>
         </div>
       </div>
