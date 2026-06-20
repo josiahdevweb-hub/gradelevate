@@ -51,8 +51,8 @@ export default function Founder() {
           <div className={styles.imgCol}>
             <div className={styles.imgWrap}>
               <img
-                src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=800&q=80"
-                alt="Academic workspace"
+                src="/founders-books.jpg"
+                alt="Graduation cap on stacked academic books"
                 className={styles.img}
               />
               <div className={styles.imgOverlay} />
