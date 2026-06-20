@@ -28,6 +28,21 @@ const EMPTY: Omit<Resource, "id"> = {
   fileUrl: "",
 };
 
+const DEFAULT_RESOURCES: Omit<Resource, "id">[] = [
+  { category: "Guides", title: "Ultimate Dissertation Writing Guide", description: "Step-by-step breakdown of planning, structuring, and writing your dissertation.", tag: "PDF · 24 pages", free: true, hidden: false, fileUrl: "/privacy-policy" },
+  { category: "Guides", title: "PhD Application Success Blueprint", description: "How to craft a compelling research proposal and personal statement.", tag: "PDF · 18 pages", free: false, hidden: false, fileUrl: "/privacy-policy" },
+  { category: "Guides", title: "Academic Job Market Guide", description: "Navigating academic career paths, fellowships, and applications.", tag: "PDF · 16 pages", free: false, hidden: false, fileUrl: "/privacy-policy" },
+  { category: "Guides", title: "Postgraduate Funding Guide", description: "Comprehensive list of UK and international funding sources for Masters and PhD.", tag: "PDF · 12 pages", free: true, hidden: false, fileUrl: "/privacy-policy" },
+  { category: "Templates", title: "Academic CV Template", description: "Professional CV template designed for academic and research roles.", tag: "Word / PDF", free: true, hidden: false, fileUrl: "/privacy-policy" },
+  { category: "Templates", title: "Research Proposal Template", description: "Structured template for Masters and PhD research proposals.", tag: "Word / PDF", free: false, hidden: false, fileUrl: "/privacy-policy" },
+  { category: "Templates", title: "Literature Review Matrix", description: "Excel template for organising and synthesising research sources.", tag: "Excel", free: true, hidden: false, fileUrl: "/privacy-policy" },
+  { category: "Templates", title: "SMART Goal Setting Planner", description: "Plan your academic semester with structured goal-setting and tracking.", tag: "PDF / Excel", free: false, hidden: false, fileUrl: "/privacy-policy" },
+  { category: "Checklists", title: "Dissertation Submission Checklist", description: "Everything you need to verify before submitting your dissertation.", tag: "PDF · 2 pages", free: true, hidden: false, fileUrl: "/privacy-policy" },
+  { category: "Checklists", title: "Job Application Checklist", description: "Make sure your applications are complete, compelling, and error-free.", tag: "PDF · 1 page", free: true, hidden: false, fileUrl: "/privacy-policy" },
+  { category: "Checklists", title: "PhD Viva Preparation Checklist", description: "Step-by-step preparation guide for your doctoral viva examination.", tag: "PDF · 3 pages", free: false, hidden: false, fileUrl: "/privacy-policy" },
+  { category: "Checklists", title: "Conference Presentation Checklist", description: "Preparation guide for presenting your research at academic conferences.", tag: "PDF · 2 pages", free: false, hidden: false, fileUrl: "/privacy-policy" },
+];
+
 export default function AdminResources() {
   const [resources, setResources] = useState<Resource[]>([]);
   const [loading, setLoading] = useState(true);
@@ -37,6 +52,7 @@ export default function AdminResources() {
   const [form, setForm] = useState<Omit<Resource, "id"> & { id?: string }>(EMPTY);
   const [saving, setSaving] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [seeding, setSeeding] = useState(false);
 
   const load = () =>
     api
@@ -45,6 +61,17 @@ export default function AdminResources() {
       .catch(() => setLoading(false));
 
   useEffect(() => { load(); }, []);
+
+  const seedDefaults = async () => {
+    setSeeding(true);
+    try {
+      for (const r of DEFAULT_RESOURCES) {
+        await api.post("/api/resources", r);
+      }
+      await load();
+    } catch {}
+    setSeeding(false);
+  };
 
   const openAdd = () => { setForm(EMPTY); setModal("add"); };
   const openEdit = (r: Resource) => { setForm(r); setModal("edit"); };
@@ -124,12 +151,19 @@ export default function AdminResources() {
             <h1 className={styles.pageHeading}>Resources</h1>
             <p className={styles.pageSubheading}>{resources.length} downloadable resources</p>
           </div>
-          <button className={styles.btnPrimary} onClick={openAdd}>
-            <svg width="14" height="14" fill="none" viewBox="0 0 14 14">
-              <path d="M7 2v10M2 7h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
-            Add Resource
-          </button>
+          <div style={{ display: "flex", gap: 8 }}>
+            {resources.length === 0 && !loading && (
+              <button className={styles.btnOutline} onClick={seedDefaults} disabled={seeding}>
+                {seeding ? "Seeding…" : "Load Default Resources"}
+              </button>
+            )}
+            <button className={styles.btnPrimary} onClick={openAdd}>
+              <svg width="14" height="14" fill="none" viewBox="0 0 14 14">
+                <path d="M7 2v10M2 7h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+              Add Resource
+            </button>
+          </div>
         </div>
 
         <div className={styles.filterRow}>
@@ -162,7 +196,10 @@ export default function AdminResources() {
             <div className={styles.emptyState}>Loading…</div>
           ) : filtered.length === 0 ? (
             <div className={styles.emptyState}>
-              No resources yet. Click &quot;Add Resource&quot; to upload your first guide, template, or checklist.
+              <p>No resources yet.</p>
+              <p style={{ marginTop: 8 }}>
+                Click <strong>&quot;Load Default Resources&quot;</strong> to add all 12 guides, templates, and checklists, or <strong>&quot;Add Resource&quot;</strong> to create one manually.
+              </p>
             </div>
           ) : (
             <table className={styles.table}>
