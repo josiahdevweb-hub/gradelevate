@@ -5,6 +5,11 @@ import AdminLayout from "@/components/admin/AdminLayout";
 import { api } from "@/lib/api";
 import styles from "@/styles/admin.module.css";
 
+interface EventItem {
+  id: string;
+  title: string;
+}
+
 interface FollowUp {
   id: string;
   scheduledDate: string;
@@ -73,6 +78,8 @@ export default function AdminBookings() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [serviceFilter, setServiceFilter] = useState("All");
+  const [eventFilter, setEventFilter] = useState("All");
+  const [events, setEvents] = useState<EventItem[]>([]);
   const [showFollowUps, setShowFollowUps] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
 
@@ -80,7 +87,13 @@ export default function AdminBookings() {
     api.get<Booking[]>("/api/admin/bookings")
       .then((data) => { setBookings(data); setLoading(false); });
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => {
+    load();
+    fetch("https://gradeelevate-backend-production.up.railway.app/api/events")
+      .then((r) => r.ok ? r.json() : [])
+      .then((data: EventItem[]) => setEvents(Array.isArray(data) ? data : []))
+      .catch(() => {});
+  }, []);
 
   const filtered = bookings.filter((b) => {
     const matchSearch =
@@ -89,7 +102,8 @@ export default function AdminBookings() {
       (b.service || "").toLowerCase().includes(search.toLowerCase());
     const matchStatus = statusFilter === "All" || b.status === statusFilter;
     const matchService = serviceFilter === "All" || b.service === serviceFilter;
-    return matchSearch && matchStatus && matchService;
+    const matchEvent = eventFilter === "All" || (b.service || "").toLowerCase() === eventFilter.toLowerCase();
+    return matchSearch && matchStatus && matchService && matchEvent;
   });
 
   const bookingsWithFollowUps = bookings
@@ -173,6 +187,15 @@ export default function AdminBookings() {
               <option value="Career Development & CV Coaching">Career & CV Coaching</option>
               <option value="Interview Preparation">Interview Prep</option>
               <option value="AI & Digital Skills Coaching">AI & Digital Skills</option>
+            </select>
+          </div>
+          <div className={styles.filterGroup}>
+            <label className={styles.filterLabel}>Event</label>
+            <select className={styles.filterSelect} value={eventFilter} onChange={(e) => setEventFilter(e.target.value)}>
+              <option value="All">All Events</option>
+              {events.map((ev) => (
+                <option key={ev.id} value={ev.title}>{ev.title}</option>
+              ))}
             </select>
           </div>
           <div className={styles.filterGroup}>

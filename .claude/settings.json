@@ -3,7 +3,8 @@
     "allow": [
       "Bash(git commit -m ' *)",
       "Bash(curl -s \"https://gradeelevate-backend-production.up.railway.app/api/services\")",
-      "Bash(python -m json.tool)"
+      "Bash(python -m json.tool)",
+      "Bash(curl -s \"https://gradeelevate-backend-production.up.railway.app/api/events\")"
     ]
   }
 }
