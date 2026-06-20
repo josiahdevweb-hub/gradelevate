@@ -94,6 +94,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
   box-shadow: 0 3px 10px rgba(201, 162, 39, 0.25);
 }
 
