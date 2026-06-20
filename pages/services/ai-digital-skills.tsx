@@ -9,12 +9,12 @@ import s from "@/styles/service-detail.module.css";
 const features = [
   {
     title: "AI Research Tools",
-    desc: "Hands-on training in AI-powered research tools — from literature discovery to data synthesis — used effectively and responsibly.",
+    desc: "Hands-on training in AI-powered research tools — from literature discovery to data synthesis used effectively and responsibly.",
     icon: <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" rx="2" stroke="#C9A227" strokeWidth="1.4"/><circle cx="11" cy="11" r="3.5" stroke="#C9A227" strokeWidth="1.3"/><path d="M11 3v2.5M11 16.5V19M3 11h2.5M16.5 11H19" stroke="#C9A227" strokeWidth="1.3" strokeLinecap="round"/></svg>,
   },
   {
     title: "Ethical AI Use in Academia",
-    desc: "Understand how to use AI tools within academic integrity policies — including when AI use is appropriate and how to disclose it correctly.",
+    desc: "Understand how to use AI tools within academic integrity policies including when AI use is appropriate and how to disclose it correctly.",
     icon: <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><path d="M11 2L3 7v5c0 4.4 3.4 8.5 8 9.5 4.6-1 8-5.1 8-9.5V7l-8-5z" stroke="#C9A227" strokeWidth="1.4" strokeLinejoin="round"/><path d="M8 11l2 2 4-4" stroke="#C9A227" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>,
   },
   {
@@ -24,7 +24,7 @@ const features = [
   },
   {
     title: "Digital Skills for Career Readiness",
-    desc: "Build the digital competencies modern employers expect — including AI tools, data interpretation, and professional digital communication.",
+    desc: "Build the digital competencies modern employers expect including AI tools, data interpretation, and professional digital communication.",
     icon: <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><rect x="2" y="4" width="18" height="12" rx="2" stroke="#C9A227" strokeWidth="1.4"/><path d="M7 20h8M11 16v4" stroke="#C9A227" strokeWidth="1.4" strokeLinecap="round"/></svg>,
   },
 ];
@@ -50,7 +50,7 @@ export default function AiDigitalSkills() {
     <>
       <Head>
         <title>AI & Digital Skills — GradElevate Services</title>
-        <meta name="description" content="Develop the AI literacy and digital skills essential for modern academic study and professional success — used responsibly and strategically." />
+        <meta name="description" content="Develop the AI literacy and digital skills essential for modern academic study and professional success used responsibly and strategically." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Navbar />
@@ -59,7 +59,7 @@ export default function AiDigitalSkills() {
           variant="dark"
           eyebrow="Service 04"
           title="AI & Digital Skills"
-          subtitle="Develop the AI literacy and digital skills essential for modern academic study and professional success — used responsibly and strategically."
+          subtitle="Develop the AI literacy and digital skills essential for modern academic study and professional success used responsibly and strategically."
         />
 
         <section className={s.overviewSection}>
@@ -73,10 +73,10 @@ export default function AiDigitalSkills() {
               <p className={s.bodyText}>
                 Artificial intelligence is fundamentally changing how we learn, research, and work.
                 Students and professionals who understand how to use AI tools effectively and ethically
-                will have a significant advantage — those who don't risk being left behind.
+                will have a significant advantage those who don't risk being left behind.
               </p>
               <p className={s.bodyText}>
-                GradElevate's AI & Digital Skills service helps you develop genuine digital literacy —
+                GradElevate's AI & Digital Skills service helps you develop genuine digital literacy
                 not just knowing which tools exist, but understanding how to use them strategically,
                 responsibly, and in ways that enhance rather than undermine your academic and professional work.
               </p>

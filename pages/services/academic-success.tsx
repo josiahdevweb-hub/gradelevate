@@ -14,7 +14,7 @@ const features = [
   },
   {
     title: "Dissertation & Thesis Support",
-    desc: "From proposal to final submission — expert guidance on structure, argumentation, research methodology, and academic writing conventions.",
+    desc: "From proposal to final submission expert guidance on structure, argumentation, research methodology, and academic writing conventions.",
     icon: <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><rect x="3" y="2" width="16" height="18" rx="1.5" stroke="#C9A227" strokeWidth="1.4"/><path d="M7 7h8M7 11h8M7 15h5" stroke="#C9A227" strokeWidth="1.3" strokeLinecap="round"/></svg>,
   },
   {
@@ -24,7 +24,7 @@ const features = [
   },
   {
     title: "Academic Writing Skills",
-    desc: "Develop the clarity, precision, and critical voice that examiners expect — including sentence structure, paragraph coherence, and academic style.",
+    desc: "Develop the clarity, precision, and critical voice that examiners expect including sentence structure, paragraph coherence, and academic style.",
     icon: <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><path d="M3 5h16M3 9h12M3 13h14M3 17h9" stroke="#C9A227" strokeWidth="1.4" strokeLinecap="round"/></svg>,
   },
   {
@@ -34,7 +34,7 @@ const features = [
   },
   {
     title: "Referencing & Academic Integrity",
-    desc: "Master APA, Harvard, Chicago, and other referencing styles — and understand how to use sources ethically and accurately in your work.",
+    desc: "Master APA, Harvard, Chicago, and other referencing styles and understand how to use sources ethically and accurately in your work.",
     icon: <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><path d="M9 11l2 2 4-4" stroke="#C9A227" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><circle cx="11" cy="11" r="8" stroke="#C9A227" strokeWidth="1.4"/></svg>,
   },
 ];
@@ -69,7 +69,7 @@ export default function AcademicSuccess() {
           variant="dark"
           eyebrow="Service 01"
           title="Academic Success"
-          subtitle="Expert tutoring, dissertation support, and academic writing coaching — personalised to help you perform at your very best."
+          subtitle="Expert tutoring, dissertation support, and academic writing coaching personalised to help you perform at your very best."
         />
 
         {/* Overview */}
@@ -84,7 +84,7 @@ export default function AcademicSuccess() {
               <p className={s.bodyText}>
                 At GradElevate, we believe every student has the potential to achieve more. Our Academic
                 Success service pairs you with an experienced academic who understands exactly what
-                examiners and markers are looking for — and how to help you deliver it.
+                examiners and markers are looking for and how to help you deliver it.
               </p>
               <p className={s.bodyText}>
                 Whether you're looking to improve your essay writing, navigate a challenging dissertation,

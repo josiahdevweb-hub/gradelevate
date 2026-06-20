@@ -19,12 +19,12 @@ const features = [
   },
   {
     title: "PhD Viva Preparation",
-    desc: "Structured preparation for your viva examination — from anticipating examiner questions and defending your methodology to presenting your contribution confidently.",
+    desc: "Structured preparation for your viva examination from anticipating examiner questions and defending your methodology to presenting your contribution confidently.",
     icon: <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><circle cx="11" cy="7" r="4" stroke="#C9A227" strokeWidth="1.4"/><path d="M4 19c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="#C9A227" strokeWidth="1.4" strokeLinecap="round"/></svg>,
   },
   {
     title: "Writing and Publishing Your First Academic Article",
-    desc: "Support for writing journal articles and book chapters — including structure, abstract writing, navigating peer review, and responding to reviewer feedback.",
+    desc: "Support for writing journal articles and book chapters including structure, abstract writing, navigating peer review, and responding to reviewer feedback.",
     icon: <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><path d="M3 5h16M3 9h12M3 13h14M3 17h9" stroke="#C9A227" strokeWidth="1.4" strokeLinecap="round"/></svg>,
   },
   {
@@ -63,7 +63,7 @@ export default function Research() {
           variant="dark"
           eyebrow="Service 03"
           title="Research & Postgraduate Support"
-          subtitle="Specialist coaching for Masters and PhD researchers — from proposal development to thesis writing and journal article or book chapter publication."
+          subtitle="Specialist coaching for Masters and PhD researchers from proposal development to thesis writing and journal article or book chapter publication."
         />
 
         <section className={s.overviewSection}>
@@ -78,12 +78,12 @@ export default function Research() {
                 Postgraduate research is intellectually demanding, often isolating, and filled with
                 challenges that go well beyond the subject matter itself. Whether you're grappling with
                 your research design, struggling with your literature review, or finding the thesis
-                writing process overwhelming — we're here to help.
+                writing process overwhelming we're here to help.
               </p>
               <p className={s.bodyText}>
                 GradElevate's Research & Postgraduate Support service is led by academics with extensive
                 experience of supervising Masters and PhD students across multiple disciplines. We understand
-                what examiners expect — and how to help you deliver it.
+                what examiners expect and how to help you deliver it.
               </p>
               <div className={s.overviewActions}>
                 <Link href={{ pathname: "/book", query: { service: "Research Design & Methodology" } }} className="btn-primary">Book a Free Consultation</Link>
@@ -117,7 +117,7 @@ export default function Research() {
             <div className={s.audienceContent}>
               <p className="section-eyebrow">Who It's For</p>
               <h2 className={s.audienceTitleWhite}>For Researchers Who Want Expert Guidance</h2>
-              <p className={s.audienceDesc}>Our postgraduate support is designed for researchers who want more than their institutional supervision can provide — or who need specialist support at a critical point in their studies.</p>
+              <p className={s.audienceDesc}>Our postgraduate support is designed for researchers who want more than their institutional supervision can provide or who need specialist support at a critical point in their studies.</p>
               <ul className={s.audienceList}>
                 {audience.map((a, i) => <li key={i} className={s.audienceItem}>{a}</li>)}
               </ul>

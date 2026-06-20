@@ -81,7 +81,7 @@ export default function Resources() {
           variant="dark"
           eyebrow="Free & Premium Resources"
           title="Tools & Guides to Accelerate Your Success"
-          subtitle="Download our expert-curated guides, templates and checklists — practical resources designed to give you an edge at every stage of your academic and professional journey."
+          subtitle="Download our expert-curated guides, templates and checklists practical resources designed to give you an edge at every stage of your academic and professional journey."
         />
 
         {/* Resources */}
@@ -129,7 +129,7 @@ export default function Resources() {
               <h2 className={styles.captureTitle}>Get New Resources Delivered to Your Inbox</h2>
               <p className={styles.captureDesc}>
                 Join over 500 students and researchers who receive our latest guides, templates, and
-                exclusive event invitations. No spam — just high-value academic content.
+                exclusive event invitations. No spam just high-value academic content.
               </p>
               <ul className={styles.capturePerks}>
                 {["Early access to new resources", "Exclusive event invitations", "Academic tips and strategies", "Monthly career development digest"].map((p) => (

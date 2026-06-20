@@ -19,12 +19,12 @@ const features = [
   },
   {
     title: "LinkedIn Profile Optimisation",
-    desc: "Transform your LinkedIn profile into a powerful professional brand — including headline, summary, and recruiter-ready keywords.",
+    desc: "Transform your LinkedIn profile into a powerful professional brand including headline, summary, and recruiter-ready keywords.",
     icon: <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><rect x="2" y="2" width="18" height="18" rx="3" stroke="#C9A227" strokeWidth="1.4"/><path d="M6 9v7M6 6.5v.5" stroke="#C9A227" strokeWidth="1.6" strokeLinecap="round"/><path d="M10 16v-4a2 2 0 014 0v4M10 10v6" stroke="#C9A227" strokeWidth="1.4" strokeLinecap="round"/></svg>,
   },
   {
     title: "Graduate Scheme Applications",
-    desc: "End-to-end support for graduate scheme and competitive programme applications — from written submissions to assessment centres.",
+    desc: "End-to-end support for graduate scheme and competitive programme applications from written submissions to assessment centres.",
     icon: <svg width="22" height="22" fill="none" viewBox="0 0 22 22"><path d="M11 2L3 7v5c0 4.4 3.4 8.5 8 9.5 4.6-1 8-5.1 8-9.5V7l-8-5z" stroke="#C9A227" strokeWidth="1.4" strokeLinejoin="round"/><path d="M8 11l2 2 4-4" stroke="#C9A227" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>,
   },
   {
@@ -80,12 +80,12 @@ export default function CareerDevelopment() {
               <h2 className={s.sectionTitle}>Stand Out in a Competitive Graduate Job Market</h2>
               <p className={s.bodyText}>
                 A great degree is only the beginning. In today's competitive job market, graduates
-                need more than qualifications — they need a compelling story, the right materials,
+                need more than qualifications they need a compelling story, the right materials,
                 and the confidence to perform under pressure.
               </p>
               <p className={s.bodyText}>
                 GradElevate's Career Development service provides the expert, personalised support
-                you need to secure roles at leading organisations — from crafting a standout CV to
+                you need to secure roles at leading organisations from crafting a standout CV to
                 performing confidently in interviews and assessment centres.
               </p>
               <div className={s.overviewActions}>
@@ -120,7 +120,7 @@ export default function CareerDevelopment() {
             <div className={s.audienceContent}>
               <p className="section-eyebrow">Who It's For</p>
               <h2 className={s.audienceTitleWhite}>From Graduate to Professional</h2>
-              <p className={s.audienceDesc}>Our Career Development service supports students and graduates at every transition point — from first job applications to career pivots.</p>
+              <p className={s.audienceDesc}>Our Career Development service supports students and graduates at every transition point from first job applications to career pivots.</p>
               <ul className={s.audienceList}>
                 {audience.map((a, i) => <li key={i} className={s.audienceItem}>{a}</li>)}
               </ul>

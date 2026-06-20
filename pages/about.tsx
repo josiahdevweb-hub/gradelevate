@@ -92,7 +92,7 @@ export default function About() {
               </p>
               <p className={styles.bodyText}>
                 Our mission is to provide university-level academic expertise, research-informed guidance,
-                and career development support that empowers every client to achieve their full potential —
+                and career development support that empowers every client to achieve their full potential
                 whether they are studying for their first degree, completing a PhD, or launching their career.
               </p>
               <div className={styles.missionStats}>
