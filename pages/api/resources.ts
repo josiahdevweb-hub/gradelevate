@@ -26,7 +26,11 @@ function toBackend(body: Record<string, unknown>) {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     if (req.method === "GET") {
-      const upstream = await fetch(`${BACKEND}/api/resources`);
+      const token = req.headers.authorization?.replace("Bearer ", "") ?? "";
+      const backendPath = token ? "/api/admin/resources" : "/api/resources";
+      const upstream = await fetch(`${BACKEND}${backendPath}`, token
+        ? { headers: { Authorization: `Bearer ${token}` } }
+        : {});
       if (!upstream.ok) return res.status(upstream.status).json({ error: "Backend error" });
       const data = (await upstream.json()) as Record<string, unknown>[];
       return res.json(data.map(toFrontend));
