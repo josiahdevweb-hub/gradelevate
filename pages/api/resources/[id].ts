@@ -1,28 +1,51 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import fs from "fs";
-import path from "path";
 
-const dataPath = path.join(process.cwd(), "data", "resources.json");
+const BACKEND = "https://gradeelevate-backend-production.up.railway.app";
 
-function read() { return JSON.parse(fs.readFileSync(dataPath, "utf8")); }
-function write(d: unknown) { fs.writeFileSync(dataPath, JSON.stringify(d, null, 2)); }
+function toBackend(body: Record<string, unknown>) {
+  return {
+    title: body.title,
+    description: body.description,
+    category: body.category,
+    fileType: body.tag ?? body.fileType ?? "",
+    fileUrl: body.fileUrl ?? "",
+    free: body.free ?? true,
+    displayOrder: Number(body.displayOrder ?? 0),
+    active: body.hidden ? false : true,
+  };
+}
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
+  const token = req.headers.authorization?.replace("Bearer ", "") ?? "";
+
   try {
     if (req.method === "PUT") {
-      const resources = read();
-      const idx = resources.findIndex((r: { id: string }) => r.id === id);
-      if (idx === -1) return res.status(404).json({ error: "Not found" });
-      resources[idx] = { ...resources[idx], ...req.body, id };
-      write(resources);
-      return res.json(resources[idx]);
+      const upstream = await fetch(`${BACKEND}/api/admin/resources/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(toBackend(req.body as Record<string, unknown>)),
+      });
+      if (!upstream.ok) {
+        const err = await upstream.json().catch(() => ({})) as Record<string, string>;
+        return res.status(upstream.status).json(err);
+      }
+      const data = await upstream.json() as Record<string, unknown>;
+      return res.json({ ...data, tag: data.fileType ?? "", hidden: data.active === false });
     }
+
     if (req.method === "DELETE") {
-      const resources = read();
-      write(resources.filter((r: { id: string }) => r.id !== id));
+      const upstream = await fetch(`${BACKEND}/api/admin/resources/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!upstream.ok) return res.status(upstream.status).json({ error: "Delete failed" });
       return res.json({ success: true });
     }
+
     res.status(405).end();
   } catch (e) {
     res.status(500).json({ error: String(e) });

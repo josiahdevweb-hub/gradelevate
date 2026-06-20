@@ -1,32 +1,55 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import fs from "fs";
-import path from "path";
 
-const dataPath = path.join(process.cwd(), "data", "resources.json");
+const BACKEND = "https://gradeelevate-backend-production.up.railway.app";
 
-function read() { return JSON.parse(fs.readFileSync(dataPath, "utf8")); }
-function write(d: unknown) { fs.writeFileSync(dataPath, JSON.stringify(d, null, 2)); }
-
-function slugify(s: string) {
-  return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+function toFrontend(r: Record<string, unknown>) {
+  return {
+    ...r,
+    tag: r.fileType ?? "",
+    hidden: r.active === false,
+  };
 }
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+function toBackend(body: Record<string, unknown>) {
+  return {
+    title: body.title,
+    description: body.description,
+    category: body.category,
+    fileType: body.tag ?? body.fileType ?? "",
+    fileUrl: body.fileUrl ?? "",
+    free: body.free ?? true,
+    displayOrder: Number(body.displayOrder ?? 0),
+    active: body.hidden ? false : true,
+  };
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     if (req.method === "GET") {
-      return res.json(read());
+      const upstream = await fetch(`${BACKEND}/api/resources`);
+      if (!upstream.ok) return res.status(upstream.status).json({ error: "Backend error" });
+      const data = (await upstream.json()) as Record<string, unknown>[];
+      return res.json(data.map(toFrontend));
     }
+
     if (req.method === "POST") {
-      const resources = read();
-      const body = req.body;
-      const newResource = {
-        ...body,
-        id: body.id || slugify(body.title || String(Date.now())),
-      };
-      resources.push(newResource);
-      write(resources);
-      return res.status(201).json(newResource);
+      const token = req.headers.authorization?.replace("Bearer ", "") ?? "";
+      const upstream = await fetch(`${BACKEND}/api/admin/resources`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(toBackend(req.body as Record<string, unknown>)),
+      });
+      if (!upstream.ok) {
+        const err = await upstream.json().catch(() => ({})) as Record<string, string>;
+        return res.status(upstream.status).json(err);
+      }
+      const data = await upstream.json() as Record<string, unknown>;
+      return res.status(201).json(toFrontend(data));
     }
+
     res.status(405).end();
   } catch (e) {
     res.status(500).json({ error: String(e) });

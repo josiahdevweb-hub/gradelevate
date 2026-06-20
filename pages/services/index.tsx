@@ -93,7 +93,7 @@ export default function Services({ services }: { services: Service[] }) {
           <div className="container">
             <div className={styles.grid}>
               {services.map((svc) => {
-                const href = svc.href || `/book?service=${encodeURIComponent(svc.title)}`;
+                const href = `/services/${svc.id}`;
                 return (
                   <Link key={svc.id} href={href} className={styles.card}>
                     <div className={styles.cardImage}>

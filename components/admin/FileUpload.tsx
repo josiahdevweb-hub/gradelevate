@@ -25,7 +25,7 @@ export default function FileUpload({ value, onChange, folder = "resources" }: Pr
       formData.append("file", file);
       formData.append("folder", folder);
       const token = typeof window !== "undefined" ? localStorage.getItem("admin_token") : null;
-      const res = await fetch(`${API}/api/admin/upload`, {
+      const res = await fetch(`${API}/api/admin/upload/document`, {
         method: "POST",
         headers: token ? { Authorization: `Bearer ${token}` } : {},
         body: formData,
