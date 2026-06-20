@@ -13,7 +13,7 @@ export default function Differentiator() {
             education and beyond.
           </p>
           <p className={styles.highlight}>
-            We don't just support assignments — we help you build long-term academic
+            We don't just support assignments, we help you build long-term academic
             confidence, research capability, and career readiness.
           </p>
         </div>
