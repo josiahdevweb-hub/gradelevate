@@ -61,6 +61,17 @@ const navItems = [
     ),
   },
   {
+    href: "/admin/resources",
+    label: "Resources",
+    icon: (
+      <svg width="16" height="16" fill="none" viewBox="0 0 16 16">
+        <rect x="2" y="1.5" width="12" height="13" rx="1.5" stroke="currentColor" strokeWidth="1.4"/>
+        <path d="M5 5h6M5 7.5h6M5 10h4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+        <path d="M8 11.5v2.5M6 12.5l2 2 2-2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+  },
+  {
     href: "/admin/announcements",
     label: "Announcements",
     icon: (
