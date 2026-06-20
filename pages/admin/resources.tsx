@@ -2,7 +2,6 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
 import FileUpload from "@/components/admin/FileUpload";
-import { api } from "@/lib/api";
 import styles from "@/styles/admin.module.css";
 
 interface Resource {
@@ -55,9 +54,9 @@ export default function AdminResources() {
   const [seeding, setSeeding] = useState(false);
 
   const load = () =>
-    api
-      .get<Resource[]>("/api/resources")
-      .then((data) => { setResources(data); setLoading(false); })
+    fetch("/api/resources")
+      .then((r) => r.json())
+      .then((data: Resource[]) => { setResources(data); setLoading(false); })
       .catch(() => setLoading(false));
 
   useEffect(() => { load(); }, []);
@@ -66,7 +65,11 @@ export default function AdminResources() {
     setSeeding(true);
     try {
       for (const r of DEFAULT_RESOURCES) {
-        await api.post("/api/resources", r);
+        await fetch("/api/resources", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(r),
+        });
       }
       await load();
     } catch {}
@@ -78,14 +81,21 @@ export default function AdminResources() {
   const closeModal = () => { setModal(null); setSaving(false); };
 
   const save = async () => {
-    if (!form.title.trim() || !form.fileUrl.trim()) return;
+    if (!form.title.trim()) return;
     setSaving(true);
     try {
       if (modal === "edit" && form.id) {
-        const { id, ...body } = form;
-        await api.put(`/api/resources/${id}`, body);
+        await fetch(`/api/resources/${form.id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        });
       } else {
-        await api.post("/api/resources", form);
+        await fetch("/api/resources", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        });
       }
       await load();
       closeModal();
@@ -95,14 +105,17 @@ export default function AdminResources() {
   };
 
   const toggleHidden = async (r: Resource) => {
-    const { id, ...body } = r;
-    await api.put(`/api/resources/${id}`, { ...body, hidden: !r.hidden });
+    await fetch(`/api/resources/${r.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...r, hidden: !r.hidden }),
+    });
     await load();
   };
 
   const confirmDelete = async () => {
     if (!deleteId) return;
-    await api.delete(`/api/resources/${deleteId}`);
+    await fetch(`/api/resources/${deleteId}`, { method: "DELETE" });
     await load();
     setDeleteId(null);
   };

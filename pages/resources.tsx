@@ -6,8 +6,6 @@ import CtaBanner from "@/components/home/CtaBanner";
 import PageHero from "@/components/ui/PageHero";
 import styles from "@/styles/resources.module.css";
 
-const API = "https://gradeelevate-backend-production.up.railway.app";
-
 interface ResourceItem {
   id?: string;
   category: string;
@@ -64,7 +62,7 @@ export default function Resources() {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    fetch(`${API}/api/resources`)
+    fetch("/api/resources")
       .then((res) => (res.ok ? res.json() : Promise.reject()))
       .then((data: ResourceItem[]) => {
         if (data.length > 0) setResources(data);
