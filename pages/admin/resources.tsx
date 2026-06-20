@@ -52,6 +52,8 @@ export default function AdminResources() {
   const [saving, setSaving] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [seeding, setSeeding] = useState(false);
+  const [actionError, setActionError] = useState("");
+  const [toggleError, setToggleError] = useState<string | null>(null);
 
   const authHeaders = () => {
     const token = typeof window !== "undefined" ? localStorage.getItem("admin_token") : null;
@@ -64,7 +66,7 @@ export default function AdminResources() {
   const load = () =>
     fetch("/api/resources")
       .then((r) => r.json())
-      .then((data: Resource[]) => { setResources(data); setLoading(false); })
+      .then((data: unknown) => { setResources(Array.isArray(data) ? (data as Resource[]) : []); setLoading(false); })
       .catch(() => setLoading(false));
 
   useEffect(() => { load(); }, []);
@@ -84,51 +86,64 @@ export default function AdminResources() {
     setSeeding(false);
   };
 
-  const openAdd = () => { setForm(EMPTY); setModal("add"); };
-  const openEdit = (r: Resource) => { setForm(r); setModal("edit"); };
-  const closeModal = () => { setModal(null); setSaving(false); };
+  const openAdd = () => { setForm(EMPTY); setModal("add"); setActionError(""); };
+  const openEdit = (r: Resource) => { setForm(r); setModal("edit"); setActionError(""); };
+  const openDelete = (id: string) => { setDeleteId(id); setActionError(""); };
+  const closeModal = () => { setModal(null); setSaving(false); setActionError(""); };
 
   const save = async () => {
     if (!form.title.trim()) return;
     setSaving(true);
+    setActionError("");
     try {
-      if (modal === "edit" && form.id) {
-        await fetch(`/api/resources/${form.id}`, {
-          method: "PUT",
-          headers: authHeaders(),
-          body: JSON.stringify(form),
-        });
-      } else {
-        await fetch("/api/resources", {
-          method: "POST",
-          headers: authHeaders(),
-          body: JSON.stringify(form),
-        });
+      const res = modal === "edit" && form.id
+        ? await fetch(`/api/resources/${form.id}`, { method: "PUT", headers: authHeaders(), body: JSON.stringify(form) })
+        : await fetch("/api/resources", { method: "POST", headers: authHeaders(), body: JSON.stringify(form) });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({})) as Record<string, string>;
+        throw new Error(err.error || err.message || `Request failed (${res.status})`);
       }
       await load();
       closeModal();
-    } catch {
+    } catch (err: unknown) {
+      setActionError(err instanceof Error ? err.message : "Failed to save. Please try again.");
       setSaving(false);
     }
   };
 
   const toggleHidden = async (r: Resource) => {
-    await fetch(`/api/resources/${r.id}`, {
-      method: "PUT",
-      headers: authHeaders(),
-      body: JSON.stringify({ ...r, hidden: !r.hidden }),
-    });
-    await load();
+    setToggleError(null);
+    try {
+      const res = await fetch(`/api/resources/${r.id}`, {
+        method: "PUT",
+        headers: authHeaders(),
+        body: JSON.stringify({ ...r, hidden: !r.hidden }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({})) as Record<string, string>;
+        throw new Error(err.error || err.message || `Request failed (${res.status})`);
+      }
+      await load();
+    } catch (err: unknown) {
+      setToggleError(err instanceof Error ? err.message : "Failed to update. Please try again.");
+      setTimeout(() => setToggleError(null), 4000);
+    }
   };
 
   const confirmDelete = async () => {
     if (!deleteId) return;
-    await fetch(`/api/resources/${deleteId}`, {
-      method: "DELETE",
-      headers: authHeaders(),
-    });
-    await load();
-    setDeleteId(null);
+    setActionError("");
+    try {
+      const res = await fetch(`/api/resources/${deleteId}`, { method: "DELETE", headers: authHeaders() });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({})) as Record<string, string>;
+        throw new Error(err.error || err.message || `Request failed (${res.status})`);
+      }
+      await load();
+      setDeleteId(null);
+    } catch (err: unknown) {
+      setActionError(err instanceof Error ? err.message : "Failed to delete. Please try again.");
+    }
   };
 
   const filtered = resources.filter((r) => {
@@ -193,6 +208,12 @@ export default function AdminResources() {
             </button>
           </div>
         </div>
+
+        {toggleError && (
+          <p style={{ fontSize: "0.82rem", color: "#dc2626", background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 6, padding: "8px 12px", marginBottom: 12 }}>
+            {toggleError}
+          </p>
+        )}
 
         <div className={styles.filterRow}>
           <div className={styles.searchBox}>
@@ -327,7 +348,7 @@ export default function AdminResources() {
                         <td>
                           <div className={styles.rowActions}>
                             <button className={styles.btnEdit} onClick={() => openEdit(r)}>Edit</button>
-                            <button className={styles.btnDanger} onClick={() => setDeleteId(r.id)}>Delete</button>
+                            <button className={styles.btnDanger} onClick={() => openDelete(r.id)}>Delete</button>
                           </div>
                         </td>
                       </tr>
@@ -399,6 +420,7 @@ export default function AdminResources() {
                 </div>
               </div>
               <div className={styles.modalFooter}>
+                {actionError && <p style={{ fontSize: "0.82rem", color: "#dc2626", flex: "1 1 100%", marginBottom: 4 }}>{actionError}</p>}
                 <button className={styles.btnOutline} onClick={closeModal}>Cancel</button>
                 <button className={styles.btnPrimary} onClick={save} disabled={saving}>
                   {saving ? "Saving…" : modal === "add" ? "Add Resource" : "Save Changes"}
@@ -420,9 +442,10 @@ export default function AdminResources() {
                 <p style={{ fontSize: "0.88rem", color: "#3a4a5a" }}>
                   This will permanently remove the resource. This action cannot be undone.
                 </p>
+                {actionError && <p style={{ fontSize: "0.82rem", color: "#dc2626", marginTop: 8 }}>{actionError}</p>}
               </div>
               <div className={styles.modalFooter}>
-                <button className={styles.btnOutline} onClick={() => setDeleteId(null)}>Cancel</button>
+                <button className={styles.btnOutline} onClick={() => { setDeleteId(null); setActionError(""); }}>Cancel</button>
                 <button className={styles.btnDanger} onClick={confirmDelete} style={{ padding: "9px 16px" }}>
                   Yes, Delete
                 </button>
@@ -434,4 +457,3 @@ export default function AdminResources() {
     </>
   );
 }
-

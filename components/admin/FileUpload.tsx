@@ -100,11 +100,11 @@ export default function FileUpload({ value, onChange, folder = "resources" }: Pr
         className={styles.formInput}
         type="url"
         placeholder="https://example.com/file.pdf"
-        value={value.startsWith("http") ? value : ""}
+        value={value?.startsWith("http") ? value : ""}
         onChange={(e) => onChange(e.target.value)}
       />
 
-      {value && (
+      {value?.length > 0 && (
         <div className={styles.uploadPreviewWrap} style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
           <svg width="24" height="24" fill="none" viewBox="0 0 28 28">
             <rect x="4" y="2" width="20" height="24" rx="2" stroke="#C9A227" strokeWidth="1.4"/>
