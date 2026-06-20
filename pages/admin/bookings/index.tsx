@@ -100,9 +100,9 @@ export default function AdminBookings() {
       b.name.toLowerCase().includes(search.toLowerCase()) ||
       b.email.toLowerCase().includes(search.toLowerCase()) ||
       (b.service || "").toLowerCase().includes(search.toLowerCase());
-    const matchStatus = statusFilter === "All" || b.status === statusFilter;
-    const matchService = serviceFilter === "All" || b.service === serviceFilter;
-    const matchEvent = eventFilter === "All" || (b.service || "").toLowerCase() === eventFilter.toLowerCase();
+    const matchStatus = statusFilter === "None" || statusFilter === "All" || b.status === statusFilter;
+    const matchService = serviceFilter === "None" || serviceFilter === "All" || b.service === serviceFilter;
+    const matchEvent = eventFilter === "None" || eventFilter === "All" || (b.service || "").toLowerCase() === eventFilter.toLowerCase();
     return matchSearch && matchStatus && matchService && matchEvent;
   });
 
@@ -178,8 +178,9 @@ export default function AdminBookings() {
           </div>
           <div className={styles.filterGroup}>
             <label className={styles.filterLabel}>Service</label>
-            <select className={styles.filterSelect} value={serviceFilter} onChange={(e) => setServiceFilter(e.target.value)}>
+            <select className={styles.filterSelect} value={serviceFilter} onChange={(e) => { setServiceFilter(e.target.value); if (e.target.value !== "None" && e.target.value !== "All") setEventFilter("None"); }}>
               <option value="All">All Services</option>
+              <option value="None">None</option>
               <option value="Academic Tutoring & Writing Support">Academic Tutoring & Writing</option>
               <option value="Dissertation / Thesis Support">Dissertation / Thesis</option>
               <option value="Research Design & Methodology">Research & Methodology</option>
@@ -191,8 +192,9 @@ export default function AdminBookings() {
           </div>
           <div className={styles.filterGroup}>
             <label className={styles.filterLabel}>Event</label>
-            <select className={styles.filterSelect} value={eventFilter} onChange={(e) => setEventFilter(e.target.value)}>
+            <select className={styles.filterSelect} value={eventFilter} onChange={(e) => { setEventFilter(e.target.value); if (e.target.value !== "None" && e.target.value !== "All") setServiceFilter("None"); }}>
               <option value="All">All Events</option>
+              <option value="None">None</option>
               {events.map((ev) => (
                 <option key={ev.id} value={ev.title}>{ev.title}</option>
               ))}
@@ -202,6 +204,7 @@ export default function AdminBookings() {
             <label className={styles.filterLabel}>Status</label>
             <select className={styles.filterSelect} value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
               <option value="All">All Status</option>
+              <option value="None">None</option>
               <option>New</option>
               <option>Contacted</option>
               <option>Completed</option>
