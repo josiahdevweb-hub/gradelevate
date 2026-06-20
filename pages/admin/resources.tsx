@@ -12,6 +12,7 @@ interface Resource {
   description: string;
   tag: string;
   free: boolean;
+  hidden: boolean;
   fileUrl: string;
 }
 
@@ -23,6 +24,7 @@ const EMPTY: Omit<Resource, "id"> = {
   description: "",
   tag: "PDF",
   free: true,
+  hidden: false,
   fileUrl: "",
 };
 
@@ -63,6 +65,12 @@ export default function AdminResources() {
     } catch {
       setSaving(false);
     }
+  };
+
+  const toggleHidden = async (r: Resource) => {
+    const { id, ...body } = r;
+    await api.put(`/api/resources/${id}`, { ...body, hidden: !r.hidden });
+    await load();
   };
 
   const confirmDelete = async () => {
@@ -164,6 +172,7 @@ export default function AdminResources() {
                   <th>Category</th>
                   <th>Format</th>
                   <th>Access</th>
+                  <th>Visibility</th>
                   <th>File</th>
                   <th>Actions</th>
                 </tr>
@@ -186,6 +195,15 @@ export default function AdminResources() {
                       <span className={`${styles.badge} ${r.free ? styles.badgeCompleted : styles.badgeContacted}`}>
                         {r.free ? "Free" : "Premium"}
                       </span>
+                    </td>
+                    <td>
+                      <button
+                        className={styles.btnEdit}
+                        style={{ fontSize: "0.72rem", opacity: r.hidden ? 0.5 : 1 }}
+                        onClick={() => toggleHidden(r)}
+                      >
+                        {r.hidden ? "Hidden" : "Visible"}
+                      </button>
                     </td>
                     <td>
                       {r.fileUrl ? (
@@ -248,6 +266,19 @@ export default function AdminResources() {
                         <span className={styles.toggleSlider} />
                       </label>
                       <span className={styles.toggleLabel}>Free resource (available for download without premium access)</span>
+                    </div>
+                  </div>
+                  <div className={`${styles.formGroup} ${styles.formGroupFull}`}>
+                    <div className={styles.toggleRow}>
+                      <label className={styles.toggle}>
+                        <input
+                          type="checkbox"
+                          checked={!!form.hidden}
+                          onChange={(e) => setForm((f) => ({ ...f, hidden: e.target.checked }))}
+                        />
+                        <span className={styles.toggleSlider} />
+                      </label>
+                      <span className={styles.toggleLabel}>Hidden (hide this resource from the public resources page)</span>
                     </div>
                   </div>
                   <div className={`${styles.formGroup} ${styles.formGroupFull}`}>
