@@ -28,18 +28,18 @@ const EMPTY: Omit<Resource, "id"> = {
 };
 
 const DEFAULT_RESOURCES: Omit<Resource, "id">[] = [
-  { category: "Guides", title: "Ultimate Dissertation Writing Guide", description: "Step-by-step breakdown of planning, structuring, and writing your dissertation.", tag: "PDF · 24 pages", free: true, hidden: false, fileUrl: "/privacy-policy" },
-  { category: "Guides", title: "PhD Application Success Blueprint", description: "How to craft a compelling research proposal and personal statement.", tag: "PDF · 18 pages", free: false, hidden: false, fileUrl: "/privacy-policy" },
-  { category: "Guides", title: "Academic Job Market Guide", description: "Navigating academic career paths, fellowships, and applications.", tag: "PDF · 16 pages", free: false, hidden: false, fileUrl: "/privacy-policy" },
-  { category: "Guides", title: "Postgraduate Funding Guide", description: "Comprehensive list of UK and international funding sources for Masters and PhD.", tag: "PDF · 12 pages", free: true, hidden: false, fileUrl: "/privacy-policy" },
-  { category: "Templates", title: "Academic CV Template", description: "Professional CV template designed for academic and research roles.", tag: "Word / PDF", free: true, hidden: false, fileUrl: "/privacy-policy" },
-  { category: "Templates", title: "Research Proposal Template", description: "Structured template for Masters and PhD research proposals.", tag: "Word / PDF", free: false, hidden: false, fileUrl: "/privacy-policy" },
-  { category: "Templates", title: "Literature Review Matrix", description: "Excel template for organising and synthesising research sources.", tag: "Excel", free: true, hidden: false, fileUrl: "/privacy-policy" },
-  { category: "Templates", title: "SMART Goal Setting Planner", description: "Plan your academic semester with structured goal-setting and tracking.", tag: "PDF / Excel", free: false, hidden: false, fileUrl: "/privacy-policy" },
-  { category: "Checklists", title: "Dissertation Submission Checklist", description: "Everything you need to verify before submitting your dissertation.", tag: "PDF · 2 pages", free: true, hidden: false, fileUrl: "/privacy-policy" },
-  { category: "Checklists", title: "Job Application Checklist", description: "Make sure your applications are complete, compelling, and error-free.", tag: "PDF · 1 page", free: true, hidden: false, fileUrl: "/privacy-policy" },
-  { category: "Checklists", title: "PhD Viva Preparation Checklist", description: "Step-by-step preparation guide for your doctoral viva examination.", tag: "PDF · 3 pages", free: false, hidden: false, fileUrl: "/privacy-policy" },
-  { category: "Checklists", title: "Conference Presentation Checklist", description: "Preparation guide for presenting your research at academic conferences.", tag: "PDF · 2 pages", free: false, hidden: false, fileUrl: "/privacy-policy" },
+  { category: "Guides", title: "Ultimate Dissertation Writing Guide", description: "Step-by-step breakdown of planning, structuring, and writing your dissertation.", tag: "PDF · 24 pages", free: true, hidden: false, fileUrl: "/terms-download" },
+  { category: "Guides", title: "PhD Application Success Blueprint", description: "How to craft a compelling research proposal and personal statement.", tag: "PDF · 18 pages", free: false, hidden: false, fileUrl: "/terms-download" },
+  { category: "Guides", title: "Academic Job Market Guide", description: "Navigating academic career paths, fellowships, and applications.", tag: "PDF · 16 pages", free: false, hidden: false, fileUrl: "/terms-download" },
+  { category: "Guides", title: "Postgraduate Funding Guide", description: "Comprehensive list of UK and international funding sources for Masters and PhD.", tag: "PDF · 12 pages", free: true, hidden: false, fileUrl: "/terms-download" },
+  { category: "Templates", title: "Academic CV Template", description: "Professional CV template designed for academic and research roles.", tag: "Word / PDF", free: true, hidden: false, fileUrl: "/terms-download" },
+  { category: "Templates", title: "Research Proposal Template", description: "Structured template for Masters and PhD research proposals.", tag: "Word / PDF", free: false, hidden: false, fileUrl: "/terms-download" },
+  { category: "Templates", title: "Literature Review Matrix", description: "Excel template for organising and synthesising research sources.", tag: "Excel", free: true, hidden: false, fileUrl: "/terms-download" },
+  { category: "Templates", title: "SMART Goal Setting Planner", description: "Plan your academic semester with structured goal-setting and tracking.", tag: "PDF / Excel", free: false, hidden: false, fileUrl: "/terms-download" },
+  { category: "Checklists", title: "Dissertation Submission Checklist", description: "Everything you need to verify before submitting your dissertation.", tag: "PDF · 2 pages", free: true, hidden: false, fileUrl: "/terms-download" },
+  { category: "Checklists", title: "Job Application Checklist", description: "Make sure your applications are complete, compelling, and error-free.", tag: "PDF · 1 page", free: true, hidden: false, fileUrl: "/terms-download" },
+  { category: "Checklists", title: "PhD Viva Preparation Checklist", description: "Step-by-step preparation guide for your doctoral viva examination.", tag: "PDF · 3 pages", free: false, hidden: false, fileUrl: "/terms-download" },
+  { category: "Checklists", title: "Conference Presentation Checklist", description: "Preparation guide for presenting your research at academic conferences.", tag: "PDF · 2 pages", free: false, hidden: false, fileUrl: "/terms-download" },
 ];
 
 export default function AdminResources() {
@@ -127,6 +127,10 @@ export default function AdminResources() {
     const matchCat = catFilter === "All" || r.category === catFilter;
     return matchSearch && matchCat;
   });
+
+  const groupedCategories = CATEGORIES
+    .map((cat) => ({ category: cat, items: filtered.filter((r) => r.category === cat) }))
+    .filter((g) => g.items.length > 0);
 
   const field = (
     key: keyof typeof form,
@@ -219,7 +223,6 @@ export default function AdminResources() {
               <thead>
                 <tr>
                   <th>Title</th>
-                  <th>Category</th>
                   <th>Format</th>
                   <th>Access</th>
                   <th>Visibility</th>
@@ -228,54 +231,97 @@ export default function AdminResources() {
                 </tr>
               </thead>
               <tbody>
-                {filtered.map((r) => (
-                  <tr key={r.id}>
-                    <td>
-                      <div>
-                        <span className={styles.tdBold}>{r.title}</span>
-                        <br />
-                        <span className={styles.tdMuted} style={{ fontSize: "0.75rem" }}>
-                          {r.description.length > 60 ? r.description.slice(0, 60) + "…" : r.description}
-                        </span>
-                      </div>
-                    </td>
-                    <td className={styles.tdMuted}>{r.category}</td>
-                    <td className={styles.tdMuted}>{r.tag}</td>
-                    <td>
-                      <span className={`${styles.badge} ${r.free ? styles.badgeCompleted : styles.badgeContacted}`}>
-                        {r.free ? "Free" : "Premium"}
-                      </span>
-                    </td>
-                    <td>
-                      <button
-                        className={styles.btnEdit}
-                        style={{ fontSize: "0.72rem", opacity: r.hidden ? 0.5 : 1 }}
-                        onClick={() => toggleHidden(r)}
+                {groupedCategories.map((group) => (
+                  <>
+                    <tr key={`cat-${group.category}`}>
+                      <td
+                        colSpan={6}
+                        style={{
+                          background: "#f0f4f8",
+                          padding: "10px 16px",
+                          fontWeight: 700,
+                          fontSize: "0.82rem",
+                          color: "#0F2744",
+                          letterSpacing: "0.03em",
+                          borderBottom: "2px solid #C9A227",
+                        }}
                       >
-                        {r.hidden ? "Hidden" : "Visible"}
-                      </button>
-                    </td>
-                    <td>
-                      {r.fileUrl ? (
-                        <a
-                          href={r.fileUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{ fontSize: "0.78rem", color: "#C9A227" }}
-                        >
-                          View ↗
-                        </a>
-                      ) : (
-                        <span className={styles.tdMuted}>—</span>
-                      )}
-                    </td>
-                    <td>
-                      <div className={styles.rowActions}>
-                        <button className={styles.btnEdit} onClick={() => openEdit(r)}>Edit</button>
-                        <button className={styles.btnDanger} onClick={() => setDeleteId(r.id)}>Delete</button>
-                      </div>
-                    </td>
-                  </tr>
+                        {group.category === "Guides" && (
+                          <svg width="16" height="16" fill="none" viewBox="0 0 28 28" style={{ verticalAlign: "middle", marginRight: 8 }}>
+                            <rect x="4" y="3" width="20" height="22" rx="2" stroke="#C9A227" strokeWidth="1.4"/>
+                            <path d="M9 9h10M9 13h10M9 17h6" stroke="#C9A227" strokeWidth="1.4" strokeLinecap="round"/>
+                          </svg>
+                        )}
+                        {group.category === "Templates" && (
+                          <svg width="16" height="16" fill="none" viewBox="0 0 28 28" style={{ verticalAlign: "middle", marginRight: 8 }}>
+                            <rect x="3" y="3" width="10" height="10" rx="1" stroke="#C9A227" strokeWidth="1.4"/>
+                            <rect x="15" y="3" width="10" height="10" rx="1" stroke="#C9A227" strokeWidth="1.4"/>
+                            <rect x="3" y="15" width="10" height="10" rx="1" stroke="#C9A227" strokeWidth="1.4"/>
+                            <rect x="15" y="15" width="10" height="10" rx="1" stroke="#C9A227" strokeWidth="1.4"/>
+                          </svg>
+                        )}
+                        {group.category === "Checklists" && (
+                          <svg width="16" height="16" fill="none" viewBox="0 0 28 28" style={{ verticalAlign: "middle", marginRight: 8 }}>
+                            <path d="M6 8h16M6 14h16M6 20h10" stroke="#C9A227" strokeWidth="1.4" strokeLinecap="round"/>
+                            <path d="M3 8l1.5 1.5L7 6" stroke="#C9A227" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M3 14l1.5 1.5L7 12" stroke="#C9A227" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        )}
+                        {group.category}
+                        <span style={{ fontWeight: 400, color: "#9aaab8", marginLeft: 8, fontSize: "0.75rem" }}>
+                          ({group.items.length})
+                        </span>
+                      </td>
+                    </tr>
+                    {group.items.map((r) => (
+                      <tr key={r.id}>
+                        <td>
+                          <div>
+                            <span className={styles.tdBold}>{r.title}</span>
+                            <br />
+                            <span className={styles.tdMuted} style={{ fontSize: "0.75rem" }}>
+                              {r.description.length > 60 ? r.description.slice(0, 60) + "…" : r.description}
+                            </span>
+                          </div>
+                        </td>
+                        <td className={styles.tdMuted}>{r.tag}</td>
+                        <td>
+                          <span className={`${styles.badge} ${r.free ? styles.badgeCompleted : styles.badgeContacted}`}>
+                            {r.free ? "Free" : "Premium"}
+                          </span>
+                        </td>
+                        <td>
+                          <button
+                            className={styles.btnEdit}
+                            style={{ fontSize: "0.72rem", opacity: r.hidden ? 0.5 : 1 }}
+                            onClick={() => toggleHidden(r)}
+                          >
+                            {r.hidden ? "Hidden" : "Visible"}
+                          </button>
+                        </td>
+                        <td>
+                          {r.fileUrl ? (
+                            <a
+                              href={r.fileUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={{ fontSize: "0.78rem", color: "#C9A227" }}
+                            >
+                              View ↗
+                            </a>
+                          ) : (
+                            <span className={styles.tdMuted}>—</span>
+                          )}
+                        </td>
+                        <td>
+                          <div className={styles.rowActions}>
+                            <button className={styles.btnEdit} onClick={() => openEdit(r)}>Edit</button>
+                            <button className={styles.btnDanger} onClick={() => setDeleteId(r.id)}>Delete</button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </>
                 ))}
               </tbody>
             </table>
