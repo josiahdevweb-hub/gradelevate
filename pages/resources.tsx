@@ -46,6 +46,10 @@ export default function Resources() {
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({ name: "", email: "", interest: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState("");
+
+  const API = "https://gradeelevate-backend-production.up.railway.app";
 
   useEffect(() => {
     fetch("/api/resources")
@@ -63,9 +67,28 @@ export default function Resources() {
     items: visible.filter((r) => r.category === cat),
   }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    setFormError("");
+    try {
+      const res = await fetch(`${API}/api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: "Resource Access Request",
+          message: `Stage: ${formData.interest || "Not specified"}. This person signed up to receive free resources and updates from GradElevate.`,
+        }),
+      });
+      if (!res.ok) throw new Error("Failed to submit");
+      setSubmitted(true);
+    } catch {
+      setFormError("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -214,8 +237,11 @@ export default function Resources() {
                       <option>Early-Career Professional</option>
                     </select>
                   </div>
-                  <button type="submit" className={styles.submitBtn}>
-                    Get Free Resources
+                  {formError && (
+                    <p style={{ fontSize: "0.82rem", color: "#dc2626", marginBottom: 8 }}>{formError}</p>
+                  )}
+                  <button type="submit" className={styles.submitBtn} disabled={submitting}>
+                    {submitting ? "Sending…" : "Get Free Resources"}
                   </button>
                   <p className={styles.formNote}>No spam. Unsubscribe at any time.</p>
                 </form>

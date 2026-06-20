@@ -53,6 +53,14 @@ export default function AdminResources() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [seeding, setSeeding] = useState(false);
 
+  const authHeaders = () => {
+    const token = typeof window !== "undefined" ? localStorage.getItem("admin_token") : null;
+    return {
+      "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    };
+  };
+
   const load = () =>
     fetch("/api/resources")
       .then((r) => r.json())
@@ -67,7 +75,7 @@ export default function AdminResources() {
       for (const r of DEFAULT_RESOURCES) {
         await fetch("/api/resources", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: authHeaders(),
           body: JSON.stringify(r),
         });
       }
@@ -87,13 +95,13 @@ export default function AdminResources() {
       if (modal === "edit" && form.id) {
         await fetch(`/api/resources/${form.id}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: authHeaders(),
           body: JSON.stringify(form),
         });
       } else {
         await fetch("/api/resources", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: authHeaders(),
           body: JSON.stringify(form),
         });
       }
@@ -107,7 +115,7 @@ export default function AdminResources() {
   const toggleHidden = async (r: Resource) => {
     await fetch(`/api/resources/${r.id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: authHeaders(),
       body: JSON.stringify({ ...r, hidden: !r.hidden }),
     });
     await load();
@@ -115,7 +123,10 @@ export default function AdminResources() {
 
   const confirmDelete = async () => {
     if (!deleteId) return;
-    await fetch(`/api/resources/${deleteId}`, { method: "DELETE" });
+    await fetch(`/api/resources/${deleteId}`, {
+      method: "DELETE",
+      headers: authHeaders(),
+    });
     await load();
     setDeleteId(null);
   };
@@ -423,3 +434,4 @@ export default function AdminResources() {
     </>
   );
 }
+
