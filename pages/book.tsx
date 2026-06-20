@@ -53,12 +53,15 @@ export default function Book({ serviceNames }: { serviceNames: string[] }) {
     const { service, event } = router.query;
     if (event && typeof event === "string") {
       setContext({ type: "event", label: event });
+      setFormData((f) => ({ ...f, service: event }));
     } else if (service && typeof service === "string") {
-      const matched = serviceNames.find((s) => s === service) ?? "";
-      if (matched) {
-        setContext({ type: "service", label: matched });
-        setFormData((f) => ({ ...f, service: matched }));
-      }
+      const exact = serviceNames.find((s) => s === service);
+      const partial = !exact
+        ? serviceNames.find((s) => service.toLowerCase().includes(s.toLowerCase()) || s.toLowerCase().includes(service.toLowerCase()))
+        : undefined;
+      const matched = exact || partial || service;
+      setContext({ type: "service", label: matched });
+      setFormData((f) => ({ ...f, service: matched }));
     }
   }, [router.isReady, serviceNames]);
 
@@ -212,14 +215,16 @@ export default function Book({ serviceNames }: { serviceNames: string[] }) {
                     </div>
                   </div>
 
-                  <div className={styles.field}>
-                    <label className={styles.label}>Area of Support Required *</label>
-                    <select required className={styles.input}
-                      value={formData.service} onChange={(e) => setFormData({ ...formData, service: e.target.value })}>
-                      <option value="">Select a service area</option>
-                      {serviceNames.map((s) => <option key={s}>{s}</option>)}
-                    </select>
-                  </div>
+                  {!context && (
+                    <div className={styles.field}>
+                      <label className={styles.label}>Area of Support Required *</label>
+                      <select required className={styles.input}
+                        value={formData.service} onChange={(e) => setFormData({ ...formData, service: e.target.value })}>
+                        <option value="">Select a service area</option>
+                        {serviceNames.map((s) => <option key={s}>{s}</option>)}
+                      </select>
+                    </div>
+                  )}
 
                   <div className={styles.field}>
                     <label className={styles.label}>Tell Us About Your Goals</label>
