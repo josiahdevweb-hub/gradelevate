@@ -23,6 +23,7 @@ export default function Differentiator() {
               { value: "500+", label: "Students Supported" },
               { value: "98%", label: "Satisfaction Rate" },
               { value: "15+", label: "Years Academic Experience" },
+              { value: "10+", label: "Years Career Development Experience" },
               
             ].map((s, i) => (
               <div key={i} className={styles.stat}>

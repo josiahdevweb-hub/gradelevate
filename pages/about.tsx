@@ -110,8 +110,8 @@ export default function About() {
             </div>
             <div className={styles.missionImage}>
               <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=700&q=80"
-                alt="Academic professional"
+                src="/about-mission.jpg"
+                alt="Graduation cap on books with globe"
               />
               <div className={styles.imageBadge}>
                 <span className={styles.badgeIcon}></span>
