@@ -200,6 +200,36 @@
 
 .submitBtn:hover { background: #e0b83a; }
 
+.policyNotice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  background: rgba(201, 162, 39, 0.06);
+  border: 1px solid rgba(201, 162, 39, 0.18);
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+.policyNotice p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.78rem;
+  color: #4a5568;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.policyNotice a {
+  color: #C9A227;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.policyNotice a:hover {
+  color: #a8871c;
+}
+
 .formNote {
   font-family: 'Poppins', sans-serif;
   font-size: 0.75rem;

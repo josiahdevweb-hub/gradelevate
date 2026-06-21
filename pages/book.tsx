@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
+import Link from "next/link";
 import Navbar from "@/components/home/Navbar";
 import Footer from "@/components/home/Footer";
 import PageHero from "@/components/ui/PageHero";
@@ -230,6 +231,18 @@ export default function Book({ serviceNames }: { serviceNames: string[] }) {
                     <label className={styles.label}>Tell Us About Your Goals</label>
                     <textarea placeholder="Briefly describe your current situation, goals, and any specific challenges you'd like help with..." className={styles.textarea} rows={5}
                       value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} />
+                  </div>
+
+                  <div className={styles.policyNotice}>
+                    <svg width="14" height="14" fill="none" viewBox="0 0 16 16" style={{ flexShrink: 0, marginTop: 2 }}>
+                      <path d="M8 2L2 5v4c0 4 2.7 7.5 6 8.5 3.3-1 6-4.5 6-8.5V5L8 2z" stroke="#C9A227" strokeWidth="1.3" strokeLinejoin="round"/>
+                      <path d="M6 8l1.5 1.5L10 7" stroke="#C9A227" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <p>
+                      By submitting this form, you agree to our{" "}
+                      <Link href="/privacy-policy" target="_blank">Privacy Policy</Link> and{" "}
+                      <Link href="/privacy-policy#terms" target="_blank">Terms of Service</Link>.
+                    </p>
                   </div>
 
                   {submitError && (
