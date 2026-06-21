@@ -67,9 +67,13 @@
 }
 
 .social:hover {
-  border-color: var(--gold);
-  color: var(--gold);
+  border-color: currentColor;
 }
+
+.socialLinkedIn:hover { color: #0A66C2; }
+.socialX:hover { color: #fff; }
+.socialInstagram:hover { color: #E4405F; }
+.socialWeChat:hover { color: #07C160; }
 
 .colTitle {
   font-family: 'Poppins', sans-serif;
