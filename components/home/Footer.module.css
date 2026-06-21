@@ -160,6 +160,6 @@ a.contactItem:hover { color: var(--gold); }
 
 @media (max-width: 480px) {
   .inner { gap: 24px; padding-top: 36px; }
-  .linksGroup { grid-template-columns: 1fr; gap: 20px; }
+  .linksGroup { grid-template-columns: 1fr 1fr; gap: 20px; }
   .brandDesc { font-size: 0.8125rem; }
 }
