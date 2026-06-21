@@ -47,6 +47,7 @@ export default function Book({ serviceNames }: { serviceNames: string[] }) {
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [agreed, setAgreed] = useState(false);
   const [context, setContext] = useState<{ type: "service" | "event"; label: string } | null>(null);
 
   useEffect(() => {
@@ -233,24 +234,27 @@ export default function Book({ serviceNames }: { serviceNames: string[] }) {
                       value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} />
                   </div>
 
-                  <div className={styles.policyNotice}>
-                    <svg width="14" height="14" fill="none" viewBox="0 0 16 16" style={{ flexShrink: 0, marginTop: 2 }}>
-                      <path d="M8 2L2 5v4c0 4 2.7 7.5 6 8.5 3.3-1 6-4.5 6-8.5V5L8 2z" stroke="#C9A227" strokeWidth="1.3" strokeLinejoin="round"/>
-                      <path d="M6 8l1.5 1.5L10 7" stroke="#C9A227" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                    <p>
-                      By submitting this form, you agree to our{" "}
+                  <label className={styles.policyCheckbox}>
+                    <input
+                      type="checkbox"
+                      checked={agreed}
+                      onChange={(e) => setAgreed(e.target.checked)}
+                      required
+                    />
+                    <span className={styles.checkmark} />
+                    <span>
+                      I agree to the{" "}
                       <Link href="/privacy-policy" target="_blank">Privacy Policy</Link> and{" "}
-                      <Link href="/privacy-policy#terms" target="_blank">Terms of Service</Link>.
-                    </p>
-                  </div>
+                      <Link href="/privacy-policy#terms" target="_blank">Terms of Service</Link>
+                    </span>
+                  </label>
 
                   {submitError && (
                     <p style={{ color: "#dc2626", fontSize: "0.85rem", marginBottom: 12 }}>
                       {submitError}
                     </p>
                   )}
-                  <button type="submit" className={styles.submitBtn} disabled={submitting}>
+                  <button type="submit" className={styles.submitBtn} disabled={submitting || !agreed}>
                     {submitting ? "Submitting…" : "Submit Consultation Request"}
                   </button>
                   <p className={styles.formNote}>

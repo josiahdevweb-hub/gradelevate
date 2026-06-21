@@ -200,33 +200,63 @@
 
 .submitBtn:hover { background: #e0b83a; }
 
-.policyNotice {
+.policyCheckbox {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  padding: 12px 14px;
-  background: rgba(201, 162, 39, 0.06);
-  border: 1px solid rgba(201, 162, 39, 0.18);
-  border-radius: 4px;
+  cursor: pointer;
   margin-bottom: 16px;
-}
-
-.policyNotice p {
   font-family: 'Poppins', sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   color: #4a5568;
-  line-height: 1.55;
-  margin: 0;
+  line-height: 1.5;
+  position: relative;
 }
 
-.policyNotice a {
+.policyCheckbox input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkmark {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #cbd5e0;
+  border-radius: 3px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.policyCheckbox input:checked ~ .checkmark {
+  background: #C9A227;
+  border-color: #C9A227;
+}
+
+.policyCheckbox input:checked ~ .checkmark::after {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 9px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  margin-top: -1px;
+}
+
+.policyCheckbox a {
   color: #C9A227;
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
-.policyNotice a:hover {
+.policyCheckbox a:hover {
   color: #a8871c;
 }
 
