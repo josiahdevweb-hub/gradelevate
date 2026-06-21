@@ -58,22 +58,22 @@
 .social {
   width: 36px;
   height: 36px;
-  border: 1px solid rgba(201,162,39,0.2);
-  color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.15);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: border-color 0.2s, color 0.2s;
+  transition: transform 0.2s, border-color 0.2s;
 }
 
 .social:hover {
+  transform: translateY(-2px);
   border-color: currentColor;
 }
 
-.socialLinkedIn:hover { color: #0A66C2; }
-.socialX:hover { color: #fff; }
-.socialInstagram:hover { color: #E4405F; }
-.socialWeChat:hover { color: #07C160; }
+.socialLinkedIn { color: #0A66C2; }
+.socialX { color: #fff; }
+.socialInstagram { color: #E4405F; }
+.socialWeChat { color: #07C160; }
 
 .colTitle {
   font-family: 'Poppins', sans-serif;
