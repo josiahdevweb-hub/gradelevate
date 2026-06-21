@@ -8,7 +8,10 @@
       "Bash(ls \"c:/Users/pc/Downloads/\" | grep -i grad 2>/dev/null; ls \"c:/Users/pc/Downloads/\" | grep -i book 2>/dev/null; ls \"c:/Users/pc/Downloads/\" | grep -i cap 2>/dev/null)",
       "Read(//c/Users/pc/Downloads/**)",
       "Bash(cp \"c:/Users/pc/Downloads/learn from experienced academics.jpg\" \"c:/Users/pc/Desktop/projects/gradelevate/gradelevate/public/founders-books.jpg\")",
-      "Bash(git show *)"
+      "Bash(git show *)",
+      "Bash(grep -iE \"\\\\.\\(jpg|jpeg|png|webp\\)$\")",
+      "Bash(find \"c:/Users/pc\" -maxdepth 3 -name \"*.jpg\" -newer \"c:/Users/pc/Downloads/scholars.jpg\" 2>/dev/null | head -10)",
+      "Read(//c/Users/pc/**)"
     ],
     "additionalDirectories": [
       "c:\\Users\\pc\\Downloads"
