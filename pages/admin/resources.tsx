@@ -63,11 +63,13 @@ export default function AdminResources() {
     };
   };
 
-  const load = () =>
-    fetch("/api/resources")
+  const load = () => {
+    const token = typeof window !== "undefined" ? localStorage.getItem("admin_token") : null;
+    return fetch("/api/resources", token ? { headers: { Authorization: `Bearer ${token}` } } : {})
       .then((r) => r.json())
       .then((data: unknown) => { setResources(Array.isArray(data) ? (data as Resource[]) : []); setLoading(false); })
       .catch(() => setLoading(false));
+  };
 
   useEffect(() => { load(); }, []);
 
