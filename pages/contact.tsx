@@ -74,8 +74,18 @@ export default function Contact() {
                       </svg>
                     ),
                     label: "Email",
-                    value: "hello@gradelevate.com",
-                    href: "mailto:hello@gradelevate.com",
+                    value: "info@gradelevate.co.uk",
+                    href: "mailto:info@gradelevate.co.uk",
+                  },
+                  {
+                    icon: (
+                      <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
+                        <path d="M5 3h3l2 4-2.5 1.5A11 11 0 0011.5 12.5L13 10l4 2v3a2 2 0 01-2 2A14 14 0 013 5a2 2 0 012-2z" stroke="#C9A227" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    ),
+                    label: "Phone",
+                    value: "+44 7957 982810",
+                    href: "tel:+447957982810",
                   },
                   {
                     icon: (
@@ -120,11 +130,13 @@ export default function Contact() {
                 <p className={styles.socialsTitle}>Follow Us</p>
                 <div className={styles.socialsRow}>
                   {[
-                    { label: "LinkedIn", href: "#" },
-                    { label: "Twitter / X", href: "#" },
-                    { label: "Instagram", href: "#" },
+                    { label: "LinkedIn", href: "https://www.linkedin.com/company/grad-elevate/" },
+                    { label: "X (Twitter)", href: "https://x.com/GradElevate" },
+                    { label: "Instagram", href: "https://www.instagram.com/gradelevate?utm_source=qr&igsh=MXVkMzlnYm4yZXB0aw==" },
+                    { label: "WeChat", href: "#" },
+                    { label: "WhatsApp", href: "https://wa.me/447732761855" },
                   ].map((s) => (
-                    <a key={s.label} href={s.href} className={styles.socialLink}>{s.label}</a>
+                    <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className={styles.socialLink}>{s.label}</a>
                   ))}
                 </div>
               </div>

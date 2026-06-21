@@ -73,7 +73,7 @@ export default function CareerDevelopment() {
         <section className={s.overviewSection}>
           <div className={`container ${s.overviewGrid}`}>
             <div className={s.overviewImage}>
-              <img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=800&q=80" alt="Career Development" />
+              <img src="/career-development.jpg" alt="Career Development wheel diagram" />
             </div>
             <div className={s.overviewContent}>
               <p className="section-eyebrow">What We Do</p>

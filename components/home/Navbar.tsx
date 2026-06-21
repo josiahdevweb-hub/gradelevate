@@ -93,11 +93,6 @@ export default function Navbar() {
               Book a Consultation
             </Link>
           </li>
-          <li>
-            <Link href="/contact" className={styles.navLink}>
-              Contact
-            </Link>
-          </li>
         </ul>
 
         {/* Mobile hamburger */}

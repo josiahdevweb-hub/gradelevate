@@ -129,8 +129,8 @@ export default function About() {
           <div className={`container ${styles.founderGrid}`}>
             <div className={styles.founderImage}>
               <img
-                src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=700&q=80"
-                alt="Founder"
+                src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=700&q=80"
+                alt="Academic leader presenting to students in a classroom"
               />
             </div>
             <div className={styles.founderContent}>
