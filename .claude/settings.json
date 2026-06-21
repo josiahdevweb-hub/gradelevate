@@ -7,7 +7,8 @@
       "Bash(curl -s \"https://gradeelevate-backend-production.up.railway.app/api/events\")",
       "Bash(ls \"c:/Users/pc/Downloads/\" | grep -i grad 2>/dev/null; ls \"c:/Users/pc/Downloads/\" | grep -i book 2>/dev/null; ls \"c:/Users/pc/Downloads/\" | grep -i cap 2>/dev/null)",
       "Read(//c/Users/pc/Downloads/**)",
-      "Bash(cp \"c:/Users/pc/Downloads/learn from experienced academics.jpg\" \"c:/Users/pc/Desktop/projects/gradelevate/gradelevate/public/founders-books.jpg\")"
+      "Bash(cp \"c:/Users/pc/Downloads/learn from experienced academics.jpg\" \"c:/Users/pc/Desktop/projects/gradelevate/gradelevate/public/founders-books.jpg\")",
+      "Bash(git show *)"
     ],
     "additionalDirectories": [
       "c:\\Users\\pc\\Downloads"
